@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/settings.css" th:href="@{/css/settings.css}"/>
+    <script type="text/javascript" th:src = "@{/js/settings.js}"></script>
+    <title>Bivago Cadastro</title>
+</head>
+
+<body>
+
+    <div class="Settings">
+        <div class ="container">
+            <div class="main-div">
+                <div class = "header">
+                    <h1>Configurações do Usuário:</h1>                    
+                </div>
+
+                <div>
+                    <h2>Informações do Usuário:</h2>   
+                    <div>
+                        <form method="get" action="settings/changingusername">
+                            Nome: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'?')}"></span> 
+                            <button class="btn-change-name">Alterar Nome</button>
+                        </form>
+                    </div>
+
+                    <div>
+                        CPF: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userCpf,'?')}"></span>
+                    </div>
+
+                    <div>
+                        Email: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userEmail,'?')}"></span>
+                    </div>                                    
+
+                    <div>
+                        <form method="get" action="settings/changinguserpassword">
+                            Senha: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userPassword,'?')}"></span>
+                            <button class="btn-change-password">Alterar Senha</button>
+                        </form>
+                    </div>
+
+                    <!-- <div>
+                        Data de Nascimento: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userBirthday,'?')}"></span>
+                    </div>
+
+                    <div>
+                        Data de Criação da Conta: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userCreatedDate,'?')}"></span>
+                    </div> -->
+                </div>
+                <!-- <form method="post" action="cadastrarUser" th:object="${user}">                     -->
+
+            </div> 
+        </div>
+    </div>
+        
+</body>
+
+</html>
