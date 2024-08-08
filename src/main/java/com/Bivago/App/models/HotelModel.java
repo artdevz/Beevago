@@ -39,7 +39,7 @@ public class HotelModel implements Serializable {
 
     // Construtores:
     public HotelModel() {
-        // System.out.println("Hotel criado...");
+        // System.out.println("Hotel criado...");        
     }
 
     // GetterSetters:
