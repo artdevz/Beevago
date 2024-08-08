@@ -2,11 +2,13 @@ package com.Bivago.App.models;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashSet;
+//import java.util.HashSet;
 //import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+//import java.util.Set;
 import java.util.UUID;
+
+import com.Bivago.App.enums.ERole;
 
 //import com.Bivago.App.dto.UserDTO;
 
@@ -17,13 +19,13 @@ import java.util.UUID;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+//import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+//import jakarta.persistence.JoinColumn;
+//import jakarta.persistence.JoinTable;
+//import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -82,17 +84,16 @@ public class UserModel implements Serializable {
     @Column(name = "USERRESERVATIONS")
     private List<ReservaModel>reservas;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @NotNull
+    @Column(name = "USERROLE")
+    private ERole userRole;    
 
     // Construtores:
     public UserModel() {
         Date currentDate = new Date(System.currentTimeMillis());
         this.userCreatedDate = currentDate;
-        this.userUpdatedDate = currentDate;               
+        this.userUpdatedDate = currentDate;
+        this.userRole = ERole.ROLE_USER;               
     }
 
     // public UserModel(UserDTO data) {

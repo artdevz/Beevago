@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Bivago.App.models.HotelModel;
-import com.Bivago.App.service.HotelService;
+import com.Bivago.App.services.HotelService;
 
 import jakarta.servlet.http.HttpSession;
 

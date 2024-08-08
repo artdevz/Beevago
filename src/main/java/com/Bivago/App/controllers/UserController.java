@@ -20,8 +20,8 @@ import com.Bivago.App.exceptions.ChangingUserNameLengthException;
 import com.Bivago.App.exceptions.PasswordLengthException;
 import com.Bivago.App.exceptions.ServicException;
 import com.Bivago.App.models.UserModel;
-import com.Bivago.App.service.UserService;
-import com.Bivago.App.util.UtilPassword;
+import com.Bivago.App.services.UserService;
+import com.Bivago.App.utils.UtilPassword;
 
 //import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.ServletException;

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.Bivago.App.models.HotelModel;
 import com.Bivago.App.models.ReservaModel;
 import com.Bivago.App.models.UserModel;
-import com.Bivago.App.service.HotelService;
+import com.Bivago.App.services.HotelService;
 
 @Controller
 public class ReservaController {
