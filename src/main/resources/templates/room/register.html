@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/roomregister.css" th:href="@{/css/roomregister.css}"/>
+    <script type="text/javascript" th:src = "@{/js/roomregister.js}"></script>
+    <title>Bivago Cadastrando Quarto</title>
+</head>
+
+<body>
+
+    <div class="Login-form">
+        <div class ="container">
+            <div class="main-div">
+                <div class = "header">
+                    <h2>B I V A G O</h2>
+                    <p>Cadastre um quarto no seu hotel.</p>
+                </div>
+            
+                <form method="post" action="/cadastrarquarto" th:object="${room}">
+                
+                    <div class="form-group">
+                        <label>Número do Quarto:</label> 
+                        <input type="text" class="form-control" th:field="*{roomNumber}" placeholder="Número do Quarto">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Categoria do Quarto:</label> 
+                        <input type="text" class="form-control" th:field="*{roomType}" placeholder="Categoria">
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Capacidade do Quarto:</label> 
+                        <input type="text" class="form-control" th:field="*{roomCapacity}" placeholder="Capacidade">
+                    </div>
+            
+                    <button type="submit" class="btn_cadastrarquarto">Cadastrar Quarto</button>
+                
+                    <div class="registerroom">
+                        <a th:href="@{/adminhotel/roomsettings}">Voltar</a>
+                    </div>
+                                
+                </form>
+
+            </div> 
+        </div>
+    </div>
+        
+</body>
+
+</html>

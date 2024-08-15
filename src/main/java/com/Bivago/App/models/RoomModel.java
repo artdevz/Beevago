@@ -32,14 +32,56 @@ public class RoomModel implements Serializable {
     private int roomNumber;
 
     @NotEmpty
-    @Column(name = "ROOMCAPACITY")
-    private int roomCapacity;
-
-    @NotEmpty
     @Column(name = "ROOMTYPE")
     private ERoomType roomType;
+
+    @NotEmpty
+    @Column(name = "ROOMCAPACITY")
+    private int roomCapacity;   
 
     // Fazer método de calcular preço;
     // Fazer método de verificar disponibilidade;
 
+    // Getters and Setters:
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getHotelUuid() {
+        return hotelUuid;
+    }
+
+    public void setHotelUuid(UUID hotelUuid) {
+        this.hotelUuid = hotelUuid;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public ERoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(ERoomType roomType) {
+        this.roomType = roomType;
+    }
+
+    public int getRoomCapacity() {
+        return roomCapacity;
+    }
+
+    public void setRoomCapacity(int roomCapacity) {
+        this.roomCapacity = roomCapacity;
+    }
+    
 }
