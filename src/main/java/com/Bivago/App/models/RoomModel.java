@@ -23,7 +23,7 @@ public class RoomModel implements Serializable {
     @Column(name = "ID")
     private UUID id;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "HOTELUUID")
     private UUID hotelUuid;
 

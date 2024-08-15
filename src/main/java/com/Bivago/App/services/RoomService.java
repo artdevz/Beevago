@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Bivago.App.exceptions.AttributeExistsException;
 import com.Bivago.App.models.RoomModel;
 import com.Bivago.App.repositories.RoomRepository;
 
@@ -16,7 +17,17 @@ public class RoomService {
     RoomRepository rr;
 
     public void saveRoom(RoomModel room) throws Exception {
-        // Fazer as Regras de Negócio
+        
+        try {
+        
+            if (rr.findByRoomNumber(room.getHotelUuid(), room.getRoomNumber()) != null) {
+                throw new AttributeExistsException("Já existe um Quarto com esse número.");
+            }
+
+        } catch (Exception e) {
+            
+        }
+
         rr.save(room);
     }
 

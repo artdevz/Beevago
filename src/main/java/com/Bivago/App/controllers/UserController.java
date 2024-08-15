@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.Bivago.App.exceptions.ChangingUserNameLengthException;
-import com.Bivago.App.exceptions.PasswordLengthException;
+import com.Bivago.App.exceptions.LengthException;
 import com.Bivago.App.exceptions.ServicException;
 import com.Bivago.App.models.UserModel;
 import com.Bivago.App.services.UserService;
@@ -142,7 +141,7 @@ public class UserController {
     }
 
     @PostMapping("postchangingusername")
-    public ModelAndView userChangingName(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, ChangingUserNameLengthException {
+    public ModelAndView userChangingName(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, LengthException {
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", new UserModel());
 
@@ -178,7 +177,7 @@ public class UserController {
     }
 
     @PostMapping("postchanginguserpassword")
-    public ModelAndView userChangingPassword(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, PasswordLengthException {
+    public ModelAndView userChangingPassword(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, LengthException {
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", new UserModel());
 

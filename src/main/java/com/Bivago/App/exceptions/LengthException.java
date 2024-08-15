@@ -1,8 +1,8 @@
 package com.Bivago.App.exceptions;
 
-public class HotelCityNameLengthException extends Exception {
+public class LengthException extends Exception {
     
-    public HotelCityNameLengthException(String message) {
+    public LengthException(String message) {
         super(message);
     }
 

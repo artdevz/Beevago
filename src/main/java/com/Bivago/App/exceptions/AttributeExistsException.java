@@ -1,8 +1,8 @@
 package com.Bivago.App.exceptions;
 
-public class ChangingUserNameLengthException extends Exception {
+public class AttributeExistsException extends Exception {
     
-    public ChangingUserNameLengthException(String message) {
+    public AttributeExistsException(String message) {
         super(message);
     }
 

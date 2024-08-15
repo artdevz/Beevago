@@ -5,10 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Bivago.App.exceptions.HotelAddressLengthException;
-import com.Bivago.App.exceptions.HotelCityNameLengthException;
-import com.Bivago.App.exceptions.HotelExistsException;
-import com.Bivago.App.exceptions.HotelNameLengthException;
+import com.Bivago.App.exceptions.LengthException;
+import com.Bivago.App.exceptions.AttributeExistsException;
 import com.Bivago.App.models.HotelModel;
 import com.Bivago.App.repositories.HotelRepository;
 
@@ -28,19 +26,19 @@ public class HotelService {
         try {
             
             if (hr.findByHotelName(hotel.getHotelName()) != null) {
-                throw new HotelExistsException("Já existe um Hotel com esse nome.");
+                throw new AttributeExistsException("Já existe um Hotel com esse nome.");
             }
 
             if (hotel.getHotelName().length() < HOTELNAMEMINIMUMLENGTH || hotel.getHotelName().length() > HOTELNAMEMAXIMUMLENGTH ) {
-                throw new HotelNameLengthException("Nome do Hotel deve conter entre 2 a 48 caracteres.");
+                throw new LengthException("Nome do Hotel deve conter entre 2 a 48 caracteres.");
             }
 
             if (hotel.getHotelAddress().length() < HOTELADDRESSMAXIMUMLENGTH) {
-                throw new HotelAddressLengthException("Endereço do Hotel deve conter no máximo 512 caracteres.");
+                throw new LengthException("Endereço do Hotel deve conter no máximo 512 caracteres.");
             }
 
             if (hotel.getHotelCity().length() < HOTELCITYNAMEMAXIMUMLENGTH) {
-                throw new HotelCityNameLengthException("Nome da Cidade do Hotel deve conter no máximo 128 caracteres.");
+                throw new LengthException("Nome da Cidade do Hotel deve conter no máximo 128 caracteres.");
             }
 
         } catch (Exception e) {
