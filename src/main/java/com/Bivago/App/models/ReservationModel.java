@@ -17,7 +17,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 @Table(name="reservation")
-public class ReservaModel implements Serializable {
+public class ReservationModel implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id

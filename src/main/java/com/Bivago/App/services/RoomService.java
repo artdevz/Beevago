@@ -20,7 +20,7 @@ public class RoomService {
         
         try {
         
-            if (rr.findByRoomNumber(room.getHotelUuid(), room.getRoomNumber()) != null) {
+            if (rr.findRoomInHotel(room.getHotelRoom(), room.getRoomNumber()) != null) {
                 throw new AttributeExistsException("Já existe um Quarto com esse número.");
             }
 

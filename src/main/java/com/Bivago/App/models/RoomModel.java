@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -23,9 +25,11 @@ public class RoomModel implements Serializable {
     @Column(name = "ID")
     private UUID id;
 
-    @NotEmpty
-    @Column(name = "HOTELUUID")
-    private UUID hotelUuid;
+    //@NotEmpty
+    @ManyToOne
+    @JoinColumn(name = "hotelRoom")
+    // @Column(name = "HOTELUUID")
+    private HotelModel hotelRoom;
 
     @NotEmpty
     @Column(name = "ROOMNUMBER")
@@ -52,12 +56,12 @@ public class RoomModel implements Serializable {
         this.id = id;
     }
 
-    public UUID getHotelUuid() {
-        return hotelUuid;
+    public HotelModel getHotelRoom() {
+        return hotelRoom;
     }
 
-    public void setHotelUuid(UUID hotelUuid) {
-        this.hotelUuid = hotelUuid;
+    public void setHotel(HotelModel hotelRoom) {
+        this.hotelRoom = hotelRoom;
     }
 
     public int getRoomNumber() {

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Bivago.App.models.HotelModel;
-import com.Bivago.App.models.ReservaModel;
+import com.Bivago.App.models.ReservationModel;
 import com.Bivago.App.models.UserModel;
 import com.Bivago.App.services.HotelService;
 
 @Controller
-public class ReservaController {
+public class ReservationController {
 
     @Autowired
     HotelService hs;
@@ -34,7 +34,7 @@ public class ReservaController {
         // Login, Reservar, CheckIn, CheckOut
         mv.addObject("user", new UserModel());
         mv.addObject("hotel", new HotelModel());
-        mv.addObject("reserva", new ReservaModel());
+        mv.addObject("reserva", new ReservationModel());
         mv.setViewName("reserva/reservar");
         return mv;
     }

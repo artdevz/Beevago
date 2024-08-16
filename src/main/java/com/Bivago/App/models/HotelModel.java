@@ -1,13 +1,18 @@
 package com.Bivago.App.models;
 
 import java.io.Serializable;
+//import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+//import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -36,6 +41,13 @@ public class HotelModel implements Serializable {
     @Size(max = 128, message = "Nome da Cidade deve conter até no máximo 128 caracteres.")
     @Column(name = "HOTELCITY")
     private String hotelCity;
+
+    // @OneToMany(mappedBy = "hotelRoom", cascade = CascadeType.REMOVE)
+    // @Column(name = "HOTELROOMS")
+    // private List<RoomModel>quartos;
+
+    @OneToMany(mappedBy = "hotelRoom", fetch = FetchType.LAZY)
+    private Set<RoomModel> hotelRooms;
 
     // Construtores:
     public HotelModel() {
@@ -75,5 +87,13 @@ public class HotelModel implements Serializable {
     public void setHotelCity(String hotelCity) {
         this.hotelCity = hotelCity;
     }
+
+    public Set<RoomModel> getRooms() {
+        return hotelRooms;
+    }
+
+    public void setRooms(Set<RoomModel> hotelRooms) {
+        this.hotelRooms = hotelRooms;
+    }    
 
 }

@@ -82,7 +82,7 @@ public class UserModel implements Serializable {
 
     @OneToMany(mappedBy = "userReservation", cascade = CascadeType.REMOVE)
     @Column(name = "USERRESERVATIONS")
-    private List<ReservaModel>reservas;
+    private List<ReservationModel>reservas;
 
     @NotNull
     @Column(name = "USERROLE")
@@ -182,11 +182,11 @@ public class UserModel implements Serializable {
     //     this.userRole = userRole;
     // }
 
-    public List<ReservaModel> getReservas() {
+    public List<ReservationModel> getReservas() {
         return reservas;
     }
 
-    public void setReservas(List<ReservaModel> reservas) {
+    public void setReservas(List<ReservationModel> reservas) {
         this.reservas = reservas;
     } 
  

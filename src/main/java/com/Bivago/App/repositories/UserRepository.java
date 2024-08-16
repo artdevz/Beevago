@@ -4,9 +4,6 @@ package com.Bivago.App.repositories;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-//import java.util.List;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
