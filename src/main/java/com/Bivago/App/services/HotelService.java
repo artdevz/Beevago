@@ -1,6 +1,7 @@
 package com.Bivago.App.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,10 @@ public class HotelService {
 
     public List<HotelModel> findAllHotels() {
         return hr.findAll();
+    }
+
+    public String findHotelNameById(UUID id) {
+        return hr.findHotelNameById(id);
     }
 
 }

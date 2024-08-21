@@ -54,6 +54,10 @@ public class HotelModel implements Serializable {
         // System.out.println("Hotel criado...");        
     }
 
+    public HotelModel(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
     // GetterSetters:
 
     public UUID getId() {

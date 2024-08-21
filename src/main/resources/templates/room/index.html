@@ -17,7 +17,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         <h1>B I V A G O</h1>
 
         <div class="welcome">
-            <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, veja os quartos do Hotel{nome do Hotel}:</strong>            
+            <tbody>
+                <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, Quartos registrados no Hotel                        
+                        <tr th:each="hotel : ${HotelName}">
+                            <td><span th:text="${hotel.hotelName}"></span></td>
+                        </tr>
+                </strong>
+            </tbody>            
         </div>        
                 
         <div>
@@ -46,7 +52,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <tr th:if="${RoomsList.empty}">
                             <td colspan="3">Não existem quartos disponíveis.</td>
                         </tr>
-                        <tr th:each="hotel : ${HotelsList}">
+                        <tr th:each="room : ${RoomsList}">
                             <td><span th:text="${room.roomNumber}"></span></td>
                             <td><span th:text="${room.roomType}"></span></td>
                             <td><span th:text="${room.roomCapacity}"></span></td>
