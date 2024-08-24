@@ -18,12 +18,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
         <div class="welcome">
             <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, sua Lista de Hotéis:</strong>            
-        </div>        
-                
-        <div>
-            <form method="get" action="/cadastrohotel">
-                <button class="btn-registerhotel">Adicionar Hotel</button>
-            </form>
         </div>
 
         <div class="container">
@@ -32,6 +26,29 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <a th:href="@"></a>
                 </div>
             </div> -->
+
+            <div>
+                <form method="post" action="/cadastrohotel/cadastrando" th:object="${hotel}">
+                
+                    <div class="form-group">
+                        <label>Nome do Hotel:</label> 
+                        <input type="text" class="form-control" th:field="*{hotelName}" placeholder="Nome do Hotel (2 a 48 caracteres)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Endereço do Hotel:</label> 
+                        <input type="text" class="form-control" th:field="*{hotelAddress}" placeholder="Endereço (Máximo 512 caracteres)">
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Cidade do Hotel:</label> 
+                        <input type="text" class="form-control" th:field="*{hotelCity}" placeholder="Cidade (Máximo 128)">
+                    </div>
+            
+                    <button type="submit" class="btn_cadastrarhotel">Cadastrar Hotel</button>
+                                
+                </form>
+            </div>
 
             <div class="row">
                 <table class="table table-striped">
@@ -58,30 +75,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 </table>
             </div>
         </div>
-
-        <!--
-        <div>
-            <form method="get" action="/login">
-                <button class="btn-login">Login</button>
-            </form>
-        </div>
-
-        <div>
-            <form method="get" action="/settings">
-                <button class="btn-settings">Configs</button>
-            </form>
-        </div>
-
-        <div>
-            <form method="post" action="logout">
-                <button type="submit" class="btn-logout">Logout</button>
-            </form>
-        </div>
-
-        <div class="main">
-            <input type="text" name="pesquisar" placeholder="Para onde desejas ir?">
-            <a href="endereco"><img src="imagem.png"></a>
-        </div> -->
                 
     </div>    
 </body>

@@ -24,11 +24,28 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         </tr>
                 </strong>
             </tbody>            
-        </div>        
-                
+        </div>
+        
         <div>
-            <form method="get" action="/adminhotel/roomsettings/cadastroquatro">
-                <button class="btn-registerroom">Adicionar Quarto</button>
+            <form method="post" action="#" th:action="@{|/cadastrarquarto/${id}|}" th:object="${room}">
+                
+                <div class="form-group">
+                    <label>Número do Quarto:</label> 
+                    <input type="text" class="form-control" th:field="*{roomNumber}" placeholder="Número do Quarto">
+                </div>
+                
+                <div class="form-group">
+                    <label>Categoria do Quarto:</label> 
+                    <input type="text" class="form-control" th:field="*{roomType}" placeholder="Categoria">
+                </div>
+            
+                <div class="form-group">
+                    <label>Capacidade do Quarto:</label> 
+                    <input type="number" class="form-control" th:field="*{roomCapacity}" placeholder="Capacidade">
+                </div>
+        
+                <button type="submit" class="btn_cadastrarquarto">Adicionar Quarto</button>
+    
             </form>
         </div>
 

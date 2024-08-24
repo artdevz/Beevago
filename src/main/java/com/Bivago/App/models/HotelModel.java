@@ -1,7 +1,7 @@
 package com.Bivago.App.models;
 
 import java.io.Serializable;
-//import java.util.List;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -41,18 +41,12 @@ public class HotelModel implements Serializable {
     @Size(max = 128, message = "Nome da Cidade deve conter até no máximo 128 caracteres.")
     @Column(name = "HOTELCITY")
     private String hotelCity;
-
-    // @OneToMany(mappedBy = "hotelRoom", cascade = CascadeType.REMOVE)
-    // @Column(name = "HOTELROOMS")
-    // private List<RoomModel>quartos;
-
+    
     @OneToMany(mappedBy = "hotelRoom", fetch = FetchType.LAZY)
-    private Set<RoomModel> hotelRooms;
+    private List<RoomModel> hotelRooms;
 
     // Construtores:
-    public HotelModel() {
-        // System.out.println("Hotel criado...");        
-    }
+    public HotelModel() {}
 
     public HotelModel(String hotelName) {
         this.hotelName = hotelName;
@@ -92,11 +86,11 @@ public class HotelModel implements Serializable {
         this.hotelCity = hotelCity;
     }
 
-    public Set<RoomModel> getRooms() {
+    public List<RoomModel> getRooms() {
         return hotelRooms;
     }
 
-    public void setRooms(Set<RoomModel> hotelRooms) {
+    public void setRooms(List<RoomModel> hotelRooms) {
         this.hotelRooms = hotelRooms;
     }    
 

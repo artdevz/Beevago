@@ -31,33 +31,25 @@ public class RoomController {
     @GetMapping("adminhotel/roomsettings/{id}")
     public ModelAndView getRoomSettingsPage(@PathVariable UUID id) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("room/index");             
+        mv.setViewName("room/index");                  
+        mv.addObject("room", new RoomModel());
         mv.addObject("HotelName", new HotelDTO(hs.findHotelNameById(id)));
-        // List<RoomModel> rooms = rs.findRoomsOfHotel(hotel.getId());
-        // List<RoomModel> rooms = rs.findRoomsOfHotel();
         List<RoomModel> rooms = rs.findAllRooms();
         mv.addObject("RoomsList", rooms);        
         return mv;
     }
 
-    @GetMapping("adminhotel/roomsettings/cadastroquatro")
-    public ModelAndView getRegisterRoomPage() {
+    @PostMapping("cadastrarquarto/{id}")
+    public ModelAndView cadastrarQuarto(RoomModel room, @PathVariable UUID id, BindingResult result, HttpSession session, RedirectAttributes attributes) throws Exception {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("room", new RoomModel());
-        mv.setViewName("room/register");
-        return mv;
-    }
-
-    @PostMapping("/cadastrarquarto")
-    public ModelAndView cadastrarQuarto(RoomModel room, BindingResult result, HttpSession session, RedirectAttributes attributes) throws Exception {
-        ModelAndView mv = new ModelAndView();
-
-        if (result.hasErrors()) {
-            attributes.addFlashAttribute("msg_erro", "ERRO! Verifique se há campos em branco.");
-            mv.setViewName("redirect:/adminhotel/roomsettings");            
-            return mv;
-        }
-
+        
+        // if (result.hasErrors()) {
+        //     attributes.addFlashAttribute("msg_erro", "ERRO! Verifique se há campos em branco.");
+        //     mv.setViewName("redirect:/adminhotel/roomsettings");            
+        //     return mv;
+        // }
+        
+        room.setHotel(hs.findById(id));
         rs.saveRoom(room);
         session.setAttribute("quartoCadastrado", room);
         attributes.addFlashAttribute("msg", "Quarto cadastrado com Sucesso!");        

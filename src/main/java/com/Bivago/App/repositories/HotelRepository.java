@@ -12,7 +12,7 @@ import com.Bivago.App.models.HotelModel;
 @Repository
 public interface HotelRepository extends JpaRepository<HotelModel, Long> {
 
-    //public HotelModel findById(UUID id);
+    public HotelModel findById(UUID id);
     public HotelModel findByHotelName(String hotelName);
 
     @Query(nativeQuery = true, value = "SELECT HOTELNAME FROM hotel WHERE ID = :hotelUuid")

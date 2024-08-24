@@ -12,7 +12,7 @@ import com.Bivago.App.models.RoomModel;
 
 @Repository
 public interface RoomRepository extends JpaRepository<RoomModel, Long> {
-    // BUG no UUID do Hotel
+    
     @Query(nativeQuery = true, value = "SELECT * FROM room WHERE HOTEL = :hotel AND ROOMNUMBER = :roomNumber")
     public RoomModel findRoomInHotel(HotelModel hotel, int roomNumber);
 

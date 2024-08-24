@@ -25,16 +25,9 @@ public class HotelController {
     public ModelAndView getAdminHotelMainPage() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("hotel/index");
+        mv.addObject("hotel", new HotelModel());
         List<HotelModel> hotels = hs.findAllHotels();
         mv.addObject("HotelsList", hotels);
-        return mv;
-    }
-
-    @GetMapping("/cadastrohotel")
-    public ModelAndView cadastrarHotel() {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("hotel", new HotelModel());
-        mv.setViewName("hotel/register");
         return mv;
     }
 

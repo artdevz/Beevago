@@ -27,19 +27,20 @@ public class RoomModel implements Serializable {
 
     //@NotEmpty
     @ManyToOne
-    @JoinColumn(name = "hotelRoom")
+    @JoinColumn(name = "HOTELROOM")
     // @Column(name = "HOTELUUID")
     private HotelModel hotelRoom;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "ROOMNUMBER")
     private int roomNumber;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "ROOMTYPE")
-    private ERoomType roomType;
+    //private ERoomType roomType;
+    private String roomType;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "ROOMCAPACITY")
     private int roomCapacity;   
 
@@ -72,11 +73,11 @@ public class RoomModel implements Serializable {
         this.roomNumber = roomNumber;
     }
 
-    public ERoomType getRoomType() {
+    public String getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(ERoomType roomType) {
+    public void setRoomType(String roomType) {
         this.roomType = roomType;
     }
 

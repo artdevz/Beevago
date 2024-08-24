@@ -58,4 +58,8 @@ public class HotelService {
         return hr.findHotelNameById(id);
     }
 
+    public HotelModel findById(UUID id) {
+        return hr.findById(id);
+    }
+
 }
