@@ -2,10 +2,8 @@ package com.Bivago.App.models;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
-//import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -40,9 +38,9 @@ public class HotelModel implements Serializable {
     @NotEmpty
     @Size(max = 128, message = "Nome da Cidade deve conter até no máximo 128 caracteres.")
     @Column(name = "HOTELCITY")
-    private String hotelCity;
+    private String hotelCity;    
     
-    @OneToMany(mappedBy = "hotelRoom", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hotelRoom", fetch = FetchType.LAZY)    
     private List<RoomModel> hotelRooms;
 
     // Construtores:

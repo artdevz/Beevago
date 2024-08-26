@@ -1,18 +1,18 @@
 package com.Bivago.App.enums;
 
 public enum ERoomType {
-    ROOMTYPE_LUX("lux"),
-    ROOMTYPE_FAMILY("family"),
-    ROOMTYPE_STANDARD("standard");
+    ROOMTYPE_LUX("Luxo"),
+    ROOMTYPE_FAMILY("Família"),
+    ROOMTYPE_STANDARD("Padrão");
 
-    private String type;
+    private final String roomType;
     
-    ERoomType(String type) {
-        this.type = type;
+    ERoomType(String roomType) {
+        this.roomType = roomType;
     }
  
-    public String getType() {
-        return type;
+    public String getRoomType() {
+        return roomType;
     }
 
 }

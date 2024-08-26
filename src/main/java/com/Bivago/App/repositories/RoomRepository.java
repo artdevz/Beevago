@@ -1,7 +1,7 @@
 package com.Bivago.App.repositories;
 
-//import java.util.List;
-//import java.util.UUID;
+import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +14,10 @@ import com.Bivago.App.models.RoomModel;
 public interface RoomRepository extends JpaRepository<RoomModel, Long> {
     
     @Query(nativeQuery = true, value = "SELECT * FROM room WHERE HOTEL = :hotel AND ROOMNUMBER = :roomNumber")
-    public RoomModel findRoomInHotel(HotelModel hotel, int roomNumber);
+    public List<HotelModel> findRoomInHotel(HotelModel hotel, int roomNumber);
+
+    @Query(nativeQuery = true, value = "SELECT HOTELROOMS FROM hotel WHERE ID = :id")
+    public List<RoomModel> findAllRoomsInTheHotel(UUID id);
 
     // @Query(nativeQuery = true, value = "")
     // public List<RoomModel> findById();

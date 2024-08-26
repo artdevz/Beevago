@@ -31,13 +31,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 
                 <div class="form-group">
                     <label>Número do Quarto:</label> 
-                    <input type="text" class="form-control" th:field="*{roomNumber}" placeholder="Número do Quarto">
+                    <input type="number" class="form-control" th:field="*{roomNumber}" placeholder="Número do Quarto">
                 </div>
-                
+
                 <div class="form-group">
-                    <label>Categoria do Quarto:</label> 
-                    <input type="text" class="form-control" th:field="*{roomType}" placeholder="Categoria">
-                </div>
+                    <label>Categoria do Quarto:</label>
+                      <select th:field="*{roomType}">
+                        <option 
+                            th:each="room : ${roomtypes}"
+                            th:text="${room.roomType}"
+                            th:value="${room}">
+                        </option>                        
+                    </select>
+                </div>                              
             
                 <div class="form-group">
                     <label>Capacidade do Quarto:</label> 
@@ -71,7 +77,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         </tr>
                         <tr th:each="room : ${RoomsList}">
                             <td><span th:text="${room.roomNumber}"></span></td>
-                            <td><span th:text="${room.roomType}"></span></td>
+                            <td><span th:text="${room.roomType.roomType}"></span></td>
                             <td><span th:text="${room.roomCapacity}"></span></td>
                         </tr>
                     </tbody>

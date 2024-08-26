@@ -52,7 +52,7 @@ public class HotelService {
 
     public List<HotelModel> findAllHotels() {
         return hr.findAll();
-    }
+    }    
 
     public String findHotelNameById(UUID id) {
         return hr.findHotelNameById(id);

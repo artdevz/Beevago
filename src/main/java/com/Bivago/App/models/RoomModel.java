@@ -7,13 +7,14 @@ import com.Bivago.App.enums.ERoomType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="room")
@@ -24,28 +25,25 @@ public class RoomModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private UUID id;
-
-    //@NotEmpty
+    
     @ManyToOne
-    @JoinColumn(name = "HOTELROOM")
-    // @Column(name = "HOTELUUID")
+    @JoinColumn(name = "HOTELROOM")    
     private HotelModel hotelRoom;
 
-    //@NotEmpty
+    @NotNull
     @Column(name = "ROOMNUMBER")
     private int roomNumber;
 
-    //@NotEmpty
+    @Enumerated                     
     @Column(name = "ROOMTYPE")
-    //private ERoomType roomType;
-    private String roomType;
+    private ERoomType roomType;    
 
-    //@NotEmpty
+    @NotNull
     @Column(name = "ROOMCAPACITY")
     private int roomCapacity;   
 
     // Fazer método de calcular preço;
-    // Fazer método de verificar disponibilidade;
+    // Fazer método de verificar disponibilidade;    
 
     // Getters and Setters:
 
@@ -73,11 +71,11 @@ public class RoomModel implements Serializable {
         this.roomNumber = roomNumber;
     }
 
-    public String getRoomType() {
+    public ERoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(String roomType) {
+    public void setRoomType(ERoomType roomType) {
         this.roomType = roomType;
     }
 

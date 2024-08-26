@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Bivago.App.dto.HotelDTO;
+import com.Bivago.App.enums.ERoomType;
 import com.Bivago.App.models.RoomModel;
 import com.Bivago.App.services.HotelService;
 import com.Bivago.App.services.RoomService;
@@ -34,8 +35,9 @@ public class RoomController {
         mv.setViewName("room/index");                  
         mv.addObject("room", new RoomModel());
         mv.addObject("HotelName", new HotelDTO(hs.findHotelNameById(id)));
-        List<RoomModel> rooms = rs.findAllRooms();
-        mv.addObject("RoomsList", rooms);        
+        List<RoomModel> rooms = rs.findAllRoomsInTheHotel(id);
+        mv.addObject("RoomsList", rooms);
+        mv.addObject("roomtypes", ERoomType.values());             
         return mv;
     }
 
@@ -48,12 +50,12 @@ public class RoomController {
         //     mv.setViewName("redirect:/adminhotel/roomsettings");            
         //     return mv;
         // }
-        
+
         room.setHotel(hs.findById(id));
         rs.saveRoom(room);
         session.setAttribute("quartoCadastrado", room);
         attributes.addFlashAttribute("msg", "Quarto cadastrado com Sucesso!");        
-        mv.setViewName("redirect:/adminhotel/roomsettings");
+        mv.setViewName("redirect:/adminhotel/roomsettings/{id}");
 
         return mv;
     }
