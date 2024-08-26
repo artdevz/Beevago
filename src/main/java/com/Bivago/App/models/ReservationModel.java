@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
 
+import com.Bivago.App.enums.ERoomType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.ManyToOne;
 //import jakarta.validation.constraints.NotEmpty;
 //import jakarta.validation.constraints.NotNull;
@@ -41,13 +45,19 @@ public class ReservationModel implements Serializable {
     @Column(name = "checkOut")
     private Date checkOutDate;
 
+    @Size(min = 1)
     @Column(name = "pessoas")
     private int quantidadeDePessoas;
     // falta Getters e Setters
     
     //@NotEmpty
+    @Size(min = 0)
     @Column(name = "price")
     private double totalPrice;
+
+    @Enumerated
+    @Column(name = "reservationRoomtype")
+    private ERoomType roomType;
 
     // @NotEmpty
     @ManyToOne
@@ -110,6 +120,14 @@ public class ReservationModel implements Serializable {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public ERoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(ERoomType roomType) {
+        this.roomType = roomType;
     }
 
     // public User getUserReservation() {

@@ -1,16 +1,16 @@
 package com.Bivago.App.models;
 
 import java.io.Serializable;
-import java.util.List;
+// import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+// import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+// import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -40,8 +40,8 @@ public class HotelModel implements Serializable {
     @Column(name = "HOTELCITY")
     private String hotelCity;    
     
-    @OneToMany(mappedBy = "hotelRoom", fetch = FetchType.LAZY)    
-    private List<RoomModel> hotelRooms;
+    // @OneToMany(mappedBy = "hotelRoom", fetch = FetchType.LAZY)    
+    // private List<RoomModel> hotelRooms;
 
     // Construtores:
     public HotelModel() {}
@@ -84,12 +84,12 @@ public class HotelModel implements Serializable {
         this.hotelCity = hotelCity;
     }
 
-    public List<RoomModel> getRooms() {
-        return hotelRooms;
-    }
+    // public List<RoomModel> getRooms() {
+    //     return hotelRooms;
+    // }
 
-    public void setRooms(List<RoomModel> hotelRooms) {
-        this.hotelRooms = hotelRooms;
-    }    
+    // public void setRooms(List<RoomModel> hotelRooms) {
+    //     this.hotelRooms = hotelRooms;
+    // }    
 
 }

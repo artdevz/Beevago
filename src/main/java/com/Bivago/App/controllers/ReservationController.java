@@ -12,12 +12,16 @@ import com.Bivago.App.models.HotelModel;
 import com.Bivago.App.models.ReservationModel;
 import com.Bivago.App.models.UserModel;
 import com.Bivago.App.services.HotelService;
+import com.Bivago.App.services.ReservationService;
 
 @Controller
 public class ReservationController {
 
     @Autowired
     HotelService hs;
+
+    @Autowired
+    ReservationService rs;
 
     @GetMapping("/buscar")
     public ModelAndView buscarHoteis() {
@@ -40,9 +44,13 @@ public class ReservationController {
     }
 
     @PostMapping("reservar/reservando")
-    public ModelAndView reservandoHotel() {
+    public ModelAndView reservandoHotel(ReservationModel reserva) {
         ModelAndView mv = new ModelAndView();
         
+        reserva.setTotalPrice(rs.reservationPriceCalculator(reserva.getQuantidadeDePessoas(), reserva.getRoomType()));
+
+        rs.saveReservation(reserva);
+
         return mv;
     }
 
