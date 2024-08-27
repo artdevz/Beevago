@@ -2,10 +2,6 @@ package com.Bivago.App.models;
 
 import java.io.Serializable;
 import java.sql.Date;
-//import java.util.HashSet;
-//import java.util.Collection;
-// import java.util.List;
-//import java.util.Set;
 import java.util.UUID;
 
 import com.Bivago.App.enums.ERole;
@@ -16,24 +12,16 @@ import com.Bivago.App.enums.ERole;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 
-// import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-//import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-//import jakarta.persistence.JoinColumn;
-//import jakarta.persistence.JoinTable;
-//import jakarta.persistence.ManyToMany;
-// import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
-//import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-//import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -78,11 +66,7 @@ public class UserModel implements Serializable {
     private Date userCreatedDate;
     
     @Column(name = "USERUPDATEDDATE")
-    private Date userUpdatedDate;    
-
-    // @OneToMany(mappedBy = "userReservation", cascade = CascadeType.REMOVE)
-    // @Column(name = "USERRESERVATIONS")
-    // private List<ReservationModel>reservas;
+    private Date userUpdatedDate;
 
     @NotNull
     @Column(name = "USERROLE")
@@ -181,14 +165,6 @@ public class UserModel implements Serializable {
     // public void setUserRole(UserRole userRole) {
     //     this.userRole = userRole;
     // }
-
-    // public List<ReservationModel> getReservas() {
-    //     return reservas;
-    // }
-
-    // public void setReservas(List<ReservationModel> reservas) {
-    //     this.reservas = reservas;
-    // } 
  
     // @Override
     // public Collection<? extends GrantedAuthority> getAuthorities() {        

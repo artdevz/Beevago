@@ -38,17 +38,19 @@ public class HotelModel implements Serializable {
     @NotEmpty
     @Size(max = 128, message = "Nome da Cidade deve conter até no máximo 128 caracteres.")
     @Column(name = "HOTELCITY")
-    private String hotelCity;    
-    
-    // @OneToMany(mappedBy = "hotelRoom", fetch = FetchType.LAZY)    
-    // private List<RoomModel> hotelRooms;
+    private String hotelCity;
 
-    // Construtores:
-    public HotelModel() {}
+    // @Size(min = 1)
+    @Column(name = "VALBYSTANDARD")
+    private double valByStandardType;
 
-    public HotelModel(String hotelName) {
-        this.hotelName = hotelName;
-    }
+    // @Size(min = 1)
+    @Column(name = "VALBYFAMILY")
+    private double valByFamilyType;
+
+    // @Size(min = 1)
+    @Column(name = "VALBYLUX")
+    private double valByLuxType;
 
     // GetterSetters:
 
@@ -84,12 +86,28 @@ public class HotelModel implements Serializable {
         this.hotelCity = hotelCity;
     }
 
-    // public List<RoomModel> getRooms() {
-    //     return hotelRooms;
-    // }
+    public double getValByStandardType() {
+        return valByStandardType;
+    }
 
-    // public void setRooms(List<RoomModel> hotelRooms) {
-    //     this.hotelRooms = hotelRooms;
-    // }    
+    public void setValByStandardType(double valByStandardType) {
+        this.valByStandardType = valByStandardType;
+    }
+
+    public double getValByFamilyType() {
+        return valByFamilyType;
+    }
+
+    public void setValByFamilyType(double valByFamilyType) {
+        this.valByFamilyType = valByFamilyType;
+    }
+
+    public double getValByLuxType() {
+        return valByLuxType;
+    }
+
+    public void setValByLuxType(double valByLuxType) {
+        this.valByLuxType = valByLuxType;
+    }   
 
 }

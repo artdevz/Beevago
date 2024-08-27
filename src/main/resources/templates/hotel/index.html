@@ -17,7 +17,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         <h1>B I V A G O</h1>
 
         <div class="welcome">
-            <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, sua Lista de Hotéis:</strong>            
+            <h2>
+                <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, sua Lista de Hotéis:</strong>            
+            </h2>
         </div>
 
         <div class="container">
@@ -29,7 +31,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
             <div>
                 <form method="post" action="/cadastrohotel/cadastrando" th:object="${hotel}">
-                
+                    
+                    <h3>Informações do novo Hotel:</h3>
+
                     <div class="form-group">
                         <label>Nome do Hotel:</label> 
                         <input type="text" class="form-control" th:field="*{hotelName}" placeholder="Nome do Hotel (2 a 48 caracteres)">
@@ -43,6 +47,23 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <div class="form-group">
                         <label>Cidade do Hotel:</label> 
                         <input type="text" class="form-control" th:field="*{hotelCity}" placeholder="Cidade (Máximo 128)">
+                    </div>
+
+                    <h3>Preços/Pessoas pela Categoria:</h3>
+
+                    <div class="form-group">
+                        <label>Standard:</label>
+                        <input type="number" class="form-control" th:field="*{valByStandardType}" placeholder="Valor do Quarto Padrão">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Family:</label>
+                        <input type="number" class="form-control" th:field="*{valByFamilyType}" placeholder="Valor do Quarto de Família">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Lux:</label>
+                        <input type="number" class="form-control" th:field="*{valByLuxType}" placeholder="Valor do Quarto de Luxo">
                     </div>
             
                     <button type="submit" class="btn_cadastrarhotel">Cadastrar Hotel</button>

@@ -58,8 +58,16 @@ public class HotelService {
         return hr.findHotelNameById(id);
     }
 
+    public UUID findHotelIdByCity(String hotelCity) {
+        return hr.findHotelIdByCity(hotelCity);
+    }
+
+    public List<HotelModel> findAllHotelsByCity(String hotelCity) {
+        return hr.findAllHotelsByCity(hotelCity);
+    }
+
     public HotelModel findById(UUID id) {
         return hr.findById(id);
-    }
+    }    
 
 }

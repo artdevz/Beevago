@@ -34,7 +34,7 @@ public class RoomController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("room/index");                  
         mv.addObject("room", new RoomModel());
-        mv.addObject("HotelName", new HotelDTO(hs.findHotelNameById(id)));
+        mv.addObject("HotelName", new HotelDTO(hs.findHotelNameById(id), id));
         List<RoomModel> rooms = rs.findAllRoomsInTheHotel(id);
         mv.addObject("RoomsList", rooms);
         mv.addObject("roomtypes", ERoomType.values());             

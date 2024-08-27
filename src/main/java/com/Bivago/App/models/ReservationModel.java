@@ -12,10 +12,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+// import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
-import jakarta.persistence.ManyToOne;
+// import jakarta.validation.constraints.Size;
+// import jakarta.persistence.ManyToOne;
 //import jakarta.validation.constraints.NotEmpty;
 //import jakarta.validation.constraints.NotNull;
 
@@ -31,11 +31,11 @@ public class ReservationModel implements Serializable {
 
     //@NotEmpty
     @Column(name = "hotelID")
-    private int hotelID;
+    private UUID hotelID;
 
     //@NotEmpty
     @Column(name = "userID")
-    private int userID;
+    private UUID userID;
 
     //@NotNull
     @Column(name = "checkIn")
@@ -45,13 +45,13 @@ public class ReservationModel implements Serializable {
     @Column(name = "checkOut")
     private Date checkOutDate;
 
-    @Size(min = 1)
+    // @Size(min = 1)
     @Column(name = "pessoas")
     private int quantidadeDePessoas;
     // falta Getters e Setters
     
     //@NotEmpty
-    @Size(min = 0)
+    // @Size(min = 0)
     @Column(name = "price")
     private double totalPrice;
 
@@ -59,10 +59,10 @@ public class ReservationModel implements Serializable {
     @Column(name = "reservationRoomtype")
     private ERoomType roomType;
 
-    // @NotEmpty
-    @ManyToOne
-    @JoinColumn(name = "userReservation")   
-    private UserModel userReservation;
+    // // @NotEmpty
+    // @ManyToOne
+    // @JoinColumn(name = "userReservation")   
+    // private UserModel userReservation;
 
     // GetterSetters:
 
@@ -74,19 +74,19 @@ public class ReservationModel implements Serializable {
         this.id = id;
     }
 
-    public int getHotelID() {
+    public UUID getHotelID() {
         return hotelID;
     }
 
-    public void setHotelID(int hotelID) {
+    public void setHotelID(UUID hotelID) {
         this.hotelID = hotelID;
     }
 
-    public int getUserID() {
+    public UUID getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(UUID userID) {
         this.userID = userID;
     }
 

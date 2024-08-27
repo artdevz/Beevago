@@ -46,4 +46,8 @@ public class RoomService {
         return rr.findAllRoomsInTheHotel(id);
     }
 
+    // public ArrayList<Object> findAllRoomsByCity(String hotelCity) {
+
+    // }
+
 }

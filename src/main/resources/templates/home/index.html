@@ -17,7 +17,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         <h1>B I V A G O</h1>
 
         <div class="welcome">
-            <strong>Bem Vindo <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span></strong>            
+            <strong>Bem Vindo <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span></strong>
         </div>        
                 
         <div>
@@ -44,15 +44,99 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </form>
         </div>
 
-        <!-- <div>
-            <form method="get" action="/buscar">
-                <button class="btn-find">Pesquisar</button>
+        <div class="search">
+            <form method="post" th:action="@{/buscar}">
+                <div>
+                    <input type="search" class="form-control" name="buscarcidade" placeholder="Para onde desejas ir?">
+                    <input class="btn-find" type="submit" value="Buscar">                    
+                </div>                
             </form>
-        </div> -->
+        </div>
 
-        <div class="main">
-            <input type="text" name="buscar" placeholder="Para onde desejas ir?">
-            <a th:href="@{buscar}"><img src="imagem.png"></a>
+        <div class="row">
+            <h2> Hotéis disponíveis
+                <tr th:each="hotel : ${HotelsList}">
+                    <td> em <span th:text="${hotel.hotelCity}"></span></td>
+                </tr>
+                :  
+            </h2>
+            <table class="table table-striped">                                              
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Endereço</th>
+                        <th>Cidade</th>
+                        <th>Categoria</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${HotelsList.empty}">
+                        <td colspan="3">Não há hoteis registrados.</td>
+                    </tr>
+
+                    <tr th:each="hotel : ${HotelsList}">
+                        <td><span th:text="${hotel.hotelName}"></span></td>
+                        <td><span th:text="${hotel.hotelAddress}"></span></td>
+                        <td><span th:text="${hotel.hotelCity}"></span></td>
+                        <td><span th:text="${categories[2]}"></span></td>
+                        <td><span th:text="${hotel.valByStandardType}"></span></td>
+                        
+                        <td>
+                            <div>
+                                <form method="get" action="#" th:action="@{/reservar}">
+                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                                    <input type="hidden" name="hotelid" th:value="${hotel.id}">
+                                    <input type="hidden" name="roomtype" th:value="${categories[2]}">
+                                    <td><button class="btn-reservar">Reservar</button></td>
+                                </form>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr th:each="hotel : ${HotelsList}">
+                        <td><span th:text="${hotel.hotelName}"></span></td>
+                        <td><span th:text="${hotel.hotelAddress}"></span></td>
+                        <td><span th:text="${hotel.hotelCity}"></span></td>
+                        <td><span th:text="${categories[1]}"></span></td>
+                        <td><span th:text="${hotel.valByFamilyType}"></span></td>
+                    
+                        <td>
+                            <div>
+                                <form method="get" action="#" th:action="@{/reservar}">
+                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                                    <input type="hidden" name="hotelid" th:value="${hotel.id}">
+                                    <input type="hidden" name="roomtype" th:value="${categories[1]}">
+                                    <td><button class="btn-reservar">Reservar</button></td>
+                                </form>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr th:each="hotel : ${HotelsList}">
+                        <td><span th:text="${hotel.hotelName}"></span></td>
+                        <td><span th:text="${hotel.hotelAddress}"></span></td>
+                        <td><span th:text="${hotel.hotelCity}"></span></td>
+                        <td><span th:text="${categories[0]}"></span></td>
+                        <td><span th:text="${hotel.valByLuxType}"></span></td>
+                    
+                        <td>
+                            <div>
+                                <form method="get" action="#" th:action="@{/reservar}">
+                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                                    <input type="hidden" name="hotelid" th:value="${hotel.id}">
+                                    <input type="hidden" name="roomtype" th:value="${categories[0]}">
+                                    <td><button class="btn-reservar">Reservar</button></td>
+                                </form>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
         
     </div>    
