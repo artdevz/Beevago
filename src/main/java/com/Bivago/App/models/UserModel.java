@@ -77,7 +77,7 @@ public class UserModel implements Serializable {
         Date currentDate = new Date(System.currentTimeMillis());
         this.userCreatedDate = currentDate;
         this.userUpdatedDate = currentDate;
-        this.userRole = ERole.ROLE_USER;               
+        if (this.userRole == null) this.userRole = ERole.ROLE_USER; // (Temporário)               
     }
 
     // public UserModel(UserDTO data) {
@@ -157,6 +157,14 @@ public class UserModel implements Serializable {
     public void setUserUpdatedDate(Date userUpdatedDate) {
         this.userUpdatedDate = userUpdatedDate;
     }
+
+    public ERole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(ERole userRole) {
+        this.userRole = userRole;
+    }    
 
     // public UserRole getUserRole() {
     //     return userRole;

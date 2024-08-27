@@ -26,4 +26,7 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM user WHERE USEREMAIL = :userEmail AND USERPASSWORD = :userPassword")
     public UserModel findLogin(String userEmail, String userPassword);    
 
+    @Query(nativeQuery = true, value = "DELETE FROM user WHERE ID = :id")
+    public void deleteByUserId(UUID id);
+
 }

@@ -1,5 +1,8 @@
 package com.Bivago.App.services;
 
+import java.util.List;
+import java.util.UUID;
+
 import java.security.NoSuchAlgorithmException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +91,14 @@ public class UserService {
         ur.save(user);
 
         return user;
+    }
+
+    public List<UserModel> findAllUsers() {
+        return ur.findAll();
+    }
+
+    public void deleteUserById(UUID id) {
+        ur.deleteByUserId(id);
     }
 
 }

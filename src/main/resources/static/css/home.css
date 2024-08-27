@@ -1,0 +1,55 @@
+body {
+    background-color: rgb(26, 26, 26);
+}
+
+.header {
+    background-color: rgb(0, 0, 0);        
+}
+
+.btn-register {
+    background-color: rgb(196, 0, 0);
+    border: 10px;
+    border-radius: 5px;
+    color:rgb(0, 0, 0);
+    text-shadow: 2px;
+}
+
+.btn-login {
+    background-color: rgb(255, 166, 0);
+    border: 10px;
+    border-radius: 5px;
+    color:rgb(0, 0, 0);
+    text-shadow: 2px;
+}
+
+.btn-settings {
+    background-color: rgb(255, 255, 255);
+    border: 10px;
+    border-radius: 5px;
+    color:rgb(129, 129, 129);
+    text-shadow: 2px;
+}
+
+.btn-logout {
+    background-color: rgb(26, 00, 255);
+    border: 5px;
+    border-radius: 5px;
+    color:rgb(129, 129, 129);
+    text-shadow: 2px;
+}
+
+.search {
+    border-radius: 5px;
+    text-align: center;
+}
+
+.hoteltables {
+    background-color: rgb(41, 41, 41);
+    border: 10px;
+    border-radius: 5px;
+    color: aliceblue;
+}
+
+.footer {
+    text-align: center;
+}

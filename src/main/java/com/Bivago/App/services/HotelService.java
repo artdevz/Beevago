@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Bivago.App.exceptions.LengthException;
-import com.Bivago.App.enums.ERoomType;
 import com.Bivago.App.exceptions.AttributeExistsException;
 import com.Bivago.App.models.HotelModel;
 import com.Bivago.App.repositories.HotelRepository;
@@ -17,9 +16,6 @@ public class HotelService {
     
     @Autowired
     private HotelRepository hr;
-
-    @Autowired
-    private RoomService rs;
 
     private static final int HOTELNAMEMINIMUMLENGTH = 2;
     private static final int HOTELNAMEMAXIMUMLENGTH = 48;
@@ -62,21 +58,8 @@ public class HotelService {
         return hr.findHotelNameById(id);
     }
 
-    public UUID findHotelIdByCity(String hotelCity) {
-        return hr.findHotelIdByCity(hotelCity);
-    }    
-
     public List<HotelModel> findAllHotelsByCity(String hotelCity) {
         return hr.findAllHotelsByCity(hotelCity);
-    }
-
-    public List<HotelModel> findAllHotelsByCityWithSpecificRoomType(String hotelCity, ERoomType roomType) {
-        
-        //hr.findHotelIdByCity(hotelCity); // TEM OS IDs DAS CIDADESCERTAS
-        //rs.findHotelIdByRoomType(roomType); // TEM OS IDs DOS TIPOCERTOS
-        return hr.findHotelIdWithIdEqualsId(hr.findAllHotelsIdByCity(hotelCity), rs.findHotelIdByRoomType(roomType));
-        //return hr.findAllHotelsById(hr.findHotelIdWithIdEqualsId(rs.findHotelIdByRoomType(roomType)));
-
     }
 
     public HotelModel findById(UUID id) {

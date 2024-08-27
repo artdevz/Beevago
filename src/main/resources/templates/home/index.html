@@ -14,35 +14,44 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
 <body>
     <div class="main-home">
-        <h1>B I V A G O</h1>
+        <div class="header">
+            <div class="bivago">
+                <h1>
+                    <font color="#FF2626">B I</font>
+                    <font color="#FFA600">V A</font>
+                    <font color="#2600FF">G O</font>
+                </h1>
+            </div>                   
+                
+            <div>
+                <form method="get" action="/cadastro">
+                    <button class="btn-register">Fazer Cadastro</button>
+                </form>
+            </div>
+
+            <div>
+                <form method="get" action="/login">
+                    <button class="btn-login">Login</button>
+                </form>
+            </div>
+
+            <div>
+                <form method="get" action="/settings">
+                    <button class="btn-settings">Configs</button>
+                </form>
+            </div>
+
+            <div>
+                <form method="post" action="logout">
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+            </div>
+
+        </div>
 
         <div class="welcome">
             <strong>Bem Vindo <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span></strong>
-        </div>        
-                
-        <div>
-            <form method="get" action="/cadastro">
-                <button class="btn-register">Fazer Cadastro</button>
-            </form>
-        </div>
-
-        <div>
-            <form method="get" action="/login">
-                <button class="btn-login">Login</button>
-            </form>
-        </div>
-
-        <div>
-            <form method="get" action="/settings">
-                <button class="btn-settings">Configs</button>
-            </form>
-        </div>
-
-        <div>
-            <form method="post" action="logout">
-                <button type="submit" class="btn-logout">Logout</button>
-            </form>
-        </div>
+        </div> 
 
         <div class="search">
             <form method="post" th:action="@{/buscar}">
@@ -66,12 +75,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </form>
         </div>
 
-        <div class="row">
-            <h2> Hotéis disponíveis
+        <div class="hoteltables">
+            <h2> Hotéis disponíveis:
                 <tr th:each="hotel : ${hotelCity}">
-                    <td> em <span th:text="${hotel.hotelCity}"></span></td>
-                </tr>
-                :  
+                    <td><span th:text="${hotel.hotelCity}"></span></td>
+                </tr>                  
             </h2>
             <table class="table table-striped">                                              
                 <thead>
@@ -171,7 +179,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 </tbody>
             </table>
         </div>
-        
+        <div class="footer">
+            JOGUE LETRIS
+        </div>
     </div>    
 </body>
 
