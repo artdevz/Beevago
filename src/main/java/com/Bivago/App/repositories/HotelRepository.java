@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.Bivago.App.enums.ERoomType;
 import com.Bivago.App.models.HotelModel;
 
 @Repository
@@ -25,11 +24,14 @@ public interface HotelRepository extends JpaRepository<HotelModel, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE HOTELCITY LIKE %:hotelCity%")
     public List<HotelModel> findAllHotelsByCity(String hotelCity);
 
+    @Query(nativeQuery = true, value = "SELECT ID FROM hotel WHERE HOTELCITY LIKE %:hotelCity%")
+    public UUID findAllHotelsIdByCity(String hotelCity);
+
     // @Query (nativeQuery = true, value = "SELECT * FROM hotel WHERE ID = :uuidByCity AND ID = :uuidByRoomType")
     // public List<HotelModel> findHotelWithIdEqualsId(UUID uuidByCity, UUID uuidByRoomType);
-
-    @Query (nativeQuery = true, value = "SELECT * FROM hotel WHERE ID = :uuidByCity AND ID = :uuidByRoomType")
-    public UUID findHotelIdWithIdEqualsId(UUID uuidByCity, UUID uuidByRoomType);
+    @Query (nativeQuery = true, value = "SELECT ID FROM hotel WHERE ID = :uuidByCity AND ID = :uuidByRoomType")
+    public List<HotelModel> findHotelIdWithIdEqualsId(UUID uuidByCity, UUID uuidByRoomType);
+    //@Query (nativeQuery = true, value = "SELECT * FROM hotel WHERE ID = :uuidByRoomType")
 
     @Query (nativeQuery = true, value = "SELECT * FROM hotel WHERE ID = :hotelUuid")
     public List<HotelModel> findAllHotelsById(UUID hotelUuid);

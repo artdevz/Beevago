@@ -74,12 +74,13 @@ public class HotelService {
         
         //hr.findHotelIdByCity(hotelCity); // TEM OS IDs DAS CIDADESCERTAS
         //rs.findHotelIdByRoomType(roomType); // TEM OS IDs DOS TIPOCERTOS
-        
-        return hr.findAllHotelsById(hr.findHotelIdWithIdEqualsId(hr.findHotelIdByCity(hotelCity), rs.findHotelIdByRoomType(roomType)));
+        return hr.findHotelIdWithIdEqualsId(hr.findAllHotelsIdByCity(hotelCity), rs.findHotelIdByRoomType(roomType));
+        //return hr.findAllHotelsById(hr.findHotelIdWithIdEqualsId(rs.findHotelIdByRoomType(roomType)));
+
     }
 
     public HotelModel findById(UUID id) {
         return hr.findById(id);
-    }    
+    }
 
 }

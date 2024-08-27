@@ -37,17 +37,19 @@ public class ReservationController {
     public ModelAndView searchHotels(@RequestParam("searchcity") String hotelCity, @RequestParam(value = "categoryfilter", required = false) ERoomType roomType) {                
         ModelAndView mv = new ModelAndView();        
         mv.setViewName("home/index");        
-        mv.addObject("hotelCity", new HotelSearchDTO(hotelCity));
-        mv.addObject("categories", ERoomType.values());
+        mv.addObject("hotelCity", new HotelSearchDTO(hotelCity));        
         if (roomType != null) {
-            List<HotelModel> hotelsFiltrado = hs.findAllHotelsByCityWithSpecificRoomType(hotelCity, roomType);
-            mv.addObject("HotelList", hotelsFiltrado);
-            mv.addObject("categories", ERoomType.values());
+            List<HotelModel> hotels = hs.findAllHotelsByCity(hotelCity);
+            mv.addObject("HotelList", hotels);
+            mv.addObject("categories", roomType.getRoomType());
+            mv.addObject("categoriesList", ERoomType.values());
             return mv;
         }
         List<HotelModel> hotels = hs.findAllHotelsByCity(hotelCity);
         mv.addObject("HotelsList", hotels);
-        
+        mv.addObject("categories", ERoomType.values());
+        mv.addObject("categoriesList", ERoomType.values());
+
         return mv;
     }
 

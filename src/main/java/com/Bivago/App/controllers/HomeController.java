@@ -23,7 +23,8 @@ public class HomeController {
         mv.setViewName("home/index");
         List<HotelModel> hotels = hs.findAllHotels();        
         mv.addObject("HotelsList", hotels);
-        mv.addObject("categories", ERoomType.values());           
+        mv.addObject("categories", ERoomType.values());
+        mv.addObject("categoriesList", ERoomType.values());           
         return mv;
     }
 

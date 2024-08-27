@@ -25,6 +25,9 @@ public class RoomModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private UUID id;
+
+    @Column(name = "HOTELID")
+    private UUID hotelId;
     
     @ManyToOne
     @JoinColumn(name = "HOTELROOM")    
@@ -53,6 +56,14 @@ public class RoomModel implements Serializable {
 
     public void setId(UUID id) {
         this.id = id;
+    }   
+
+    public UUID getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(UUID hotelId) {
+        this.hotelId = hotelId;
     }
 
     public HotelModel getHotelRoom() {
@@ -85,6 +96,10 @@ public class RoomModel implements Serializable {
 
     public void setRoomCapacity(int roomCapacity) {
         this.roomCapacity = roomCapacity;
+    }
+
+    public void setHotelRoom(HotelModel hotelRoom) {
+        this.hotelRoom = hotelRoom;
     }
     
 }
