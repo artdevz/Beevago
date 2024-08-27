@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Bivago.App.enums.ERoomType;
 import com.Bivago.App.models.HotelModel;
 import com.Bivago.App.services.HotelService;
 
@@ -28,6 +29,7 @@ public class HotelController {
         mv.addObject("hotel", new HotelModel());
         List<HotelModel> hotels = hs.findAllHotels();
         mv.addObject("HotelsList", hotels);
+        mv.addObject("roomtypes", ERoomType.values());
         return mv;
     }
 

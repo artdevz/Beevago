@@ -37,7 +37,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 <div class="form-group">
                     <label>Categoria do Quarto:</label>
                       <select th:field="*{roomType}">
-                        <option 
+                        <option                                                       
                             th:each="room : ${roomtypes}"
                             th:text="${room.roomType}"
                             th:value="${room}">

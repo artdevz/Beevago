@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Bivago.App.enums.ERoomType;
 import com.Bivago.App.exceptions.AttributeExistsException;
 import com.Bivago.App.models.RoomModel;
 import com.Bivago.App.repositories.RoomRepository;
@@ -44,6 +45,10 @@ public class RoomService {
 
     public List<RoomModel> findAllRoomsInTheHotel(UUID id) {
         return rr.findAllRoomsInTheHotel(id);
+    }
+
+    public UUID findHotelIdByRoomType(ERoomType roomType) {
+        return rr.findHotelIdByRoomType(roomType);
     }
 
     // public ArrayList<Object> findAllRoomsByCity(String hotelCity) {

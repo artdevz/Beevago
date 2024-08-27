@@ -21,7 +21,7 @@ public class HomeController {
     public ModelAndView getHomePage() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("home/index");
-        List<HotelModel> hotels = hs.findAllHotels();
+        List<HotelModel> hotels = hs.findAllHotels();        
         mv.addObject("HotelsList", hotels);
         mv.addObject("categories", ERoomType.values());           
         return mv;

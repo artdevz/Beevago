@@ -47,7 +47,20 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         <div class="search">
             <form method="post" th:action="@{/buscar}">
                 <div>
-                    <input type="search" class="form-control" name="buscarcidade" placeholder="Para onde desejas ir?">
+                    <input type="search" class="form-control" name="searchcity" placeholder="Para onde desejas ir?">
+                    
+                    <div class="form-group">
+                        <label>Categoria:</label>
+                          <select name="categoryfilter">
+                            <option text="Filtrar Categoria"></option>
+                            <option 
+                                th:each="room : ${categories}"
+                                th:text="${room.roomType}"
+                                th:value="${room}">
+                            </option>                        
+                        </select>                        
+                    </div>
+
                     <input class="btn-find" type="submit" value="Buscar">                    
                 </div>                
             </form>
@@ -55,7 +68,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
         <div class="row">
             <h2> Hotéis disponíveis
-                <tr th:each="hotel : ${HotelsList}">
+                <tr th:each="hotel : ${hotelCity}">
                     <td> em <span th:text="${hotel.hotelCity}"></span></td>
                 </tr>
                 :  

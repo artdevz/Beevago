@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Bivago.App.dto.HotelDTO;
+import com.Bivago.App.dto.HotelSearchDTO;
 import com.Bivago.App.dto.RoomDTO;
 import com.Bivago.App.dto.UserDTO;
 import com.Bivago.App.enums.ERoomType;
@@ -33,13 +34,20 @@ public class ReservationController {
     RoomService qs;
 
     @PostMapping("/buscar")
-    public ModelAndView searchHotels(@RequestParam("buscarcidade") String hotelCity) {                
+    public ModelAndView searchHotels(@RequestParam("searchcity") String hotelCity, @RequestParam(value = "categoryfilter", required = false) ERoomType roomType) {                
         ModelAndView mv = new ModelAndView();        
-        mv.setViewName("home/index");
-        // mv.addObject("hotel", new HotelDTO(hotelCity, hs.findHotelIdByCity(hotelCity))); GAMBIARRA KKKKK       
+        mv.setViewName("home/index");        
+        mv.addObject("hotelCity", new HotelSearchDTO(hotelCity));
+        mv.addObject("categories", ERoomType.values());
+        if (roomType != null) {
+            List<HotelModel> hotelsFiltrado = hs.findAllHotelsByCityWithSpecificRoomType(hotelCity, roomType);
+            mv.addObject("HotelList", hotelsFiltrado);
+            mv.addObject("categories", ERoomType.values());
+            return mv;
+        }
         List<HotelModel> hotels = hs.findAllHotelsByCity(hotelCity);
         mv.addObject("HotelsList", hotels);
-        mv.addObject("categories", ERoomType.values());
+        
         return mv;
     }
 
