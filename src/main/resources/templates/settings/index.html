@@ -52,6 +52,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <div>
                         Data de Criação da Conta: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userCreatedDate,'?')}"></span>
                     </div> -->
+
+                    <div>
+                        <form method="get" action="#" th:action="@{/adminhotel}">
+                            <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                            <button type="submit" class="btn_adminhotel">Seus Hotéis</button>
+                        </form>
+                    </div>
+
                 </div>
                 <!-- <form method="post" action="cadastrarUser" th:object="${user}">                     -->
 

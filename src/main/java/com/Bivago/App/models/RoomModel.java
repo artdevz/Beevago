@@ -11,8 +11,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -28,10 +26,6 @@ public class RoomModel implements Serializable {
 
     @Column(name = "HOTELID")
     private UUID hotelId;
-    
-    @ManyToOne
-    @JoinColumn(name = "HOTELROOM")    
-    private HotelModel hotelRoom;
 
     @NotNull
     @Column(name = "ROOMNUMBER")
@@ -43,7 +37,10 @@ public class RoomModel implements Serializable {
 
     @NotNull
     @Column(name = "ROOMCAPACITY")
-    private int roomCapacity;   
+    private int roomCapacity;
+    
+    @Column(name = "ROOMSTATUS") 
+    private boolean roomStatus;
 
     // Fazer método de calcular preço;
     // Fazer método de verificar disponibilidade;    
@@ -64,14 +61,6 @@ public class RoomModel implements Serializable {
 
     public void setHotelId(UUID hotelId) {
         this.hotelId = hotelId;
-    }
-
-    public HotelModel getHotelRoom() {
-        return hotelRoom;
-    }
-
-    public void setHotel(HotelModel hotelRoom) {
-        this.hotelRoom = hotelRoom;
     }
 
     public int getRoomNumber() {
@@ -98,8 +87,12 @@ public class RoomModel implements Serializable {
         this.roomCapacity = roomCapacity;
     }
 
-    public void setHotelRoom(HotelModel hotelRoom) {
-        this.hotelRoom = hotelRoom;
+    public boolean isRoomStatus() {
+        return roomStatus;
+    }
+
+    public void setRoomStatus(boolean roomStatus) {
+        this.roomStatus = roomStatus;
     }
     
 }

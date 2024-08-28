@@ -57,9 +57,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         
         <button type="submit">Criar User</button>
     
-    </form>
-
-    <h3>READ:</h3>
+    </form>                
+    
+    <h3>INFO</h3>
     <table>
         <thead>
             <tr>
@@ -81,31 +81,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 <td><span th:text="${user.userEmail}"></span></td>
                 <td><span th:text="${user.userCpf}"></span></td>
                 <td><span th:text="${user.userBirthday}"></span></td>
-                <td><span th:text="${user.userRole}"></span></td>
-                <td><span th:text="${user.userCreatedDate}"></span></td>
-                <td><span th:text="${user.userUpdatedDate}"></span></td>
-            </tr>
-        </tbody>  
-    </table>
-    
-    <h3>DELETE</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Cargo</th>
-                <th>Created</th>
-                <th>Updated</th>
-            </tr>
-        </thead>
-    
-        <tbody>
-            <tr th:each="user : ${userList}">
-                <td><span th:text="${user.id}"></span></td>
-                <td><span th:text="${user.userName}"></span></td>
-                <td><span th:text="${user.userEmail}"></span></td>
                 <td><span th:text="${user.userRole}"></span></td>
                 <td><span th:text="${user.userCreatedDate}"></span></td>
                 <td><span th:text="${user.userUpdatedDate}"></span></td>

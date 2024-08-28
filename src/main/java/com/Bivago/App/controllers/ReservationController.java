@@ -43,6 +43,7 @@ public class ReservationController {
             mv.addObject("HotelList", hotels);
             mv.addObject("categories", roomType.getRoomType());
             mv.addObject("categoriesList", ERoomType.values());
+            mv.addObject("valRoomType", rs.roomTypeVal(roomType));
             return mv;
         }
         List<HotelModel> hotels = hs.findAllHotelsByCity(hotelCity);
@@ -54,8 +55,11 @@ public class ReservationController {
     }
 
     @GetMapping("/reservar")
-    public ModelAndView getReservaHotelPage(@RequestParam("userid") UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomtype") ERoomType roomType) {
-        ModelAndView mv = new ModelAndView();        
+    public ModelAndView getReservaHotelPage(@RequestParam(value = "userid", required = false) UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomtype") ERoomType roomType) {
+        ModelAndView mv = new ModelAndView();
+        if (userId == null) {
+            mv.setViewName("redirect:/login"); return mv;
+        }        
         mv.addObject("user", new UserDTO(userId));        
         mv.addObject("hotel", new HotelDTO(hs.findHotelNameById(hotelId), hotelId));
         mv.addObject("room", new RoomDTO(roomType));
@@ -70,7 +74,7 @@ public class ReservationController {
         reserva.setUserID(userId);        
         reserva.setHotelID(hotelId);        
         reserva.setRoomType(roomType);        
-        reserva.setTotalPrice(rs.reservationPriceCalculator(reserva.getQuantidadeDePessoas(), reserva.getHotelID(), reserva.getRoomType()));        
+        reserva.setTotalPrice(rs.reservationPriceCalculator(reserva.getQuantidadeDePessoas(), reserva.getHotelID(), reserva.getRoomType(), reserva.getCheckInDate(), reserva.getCheckOutDate()));        
         rs.saveReservation(reserva);
         mv.setViewName("redirect:/");
 

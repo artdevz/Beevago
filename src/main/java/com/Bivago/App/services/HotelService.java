@@ -52,6 +52,10 @@ public class HotelService {
 
     public List<HotelModel> findAllHotels() {
         return hr.findAll();
+    } 
+
+    public List<HotelModel> findAllHotelsWithUserId(UUID userId) {
+        return hr.findAllHotelsWithUserId(userId);
     }    
 
     public String findHotelNameById(UUID id) {
@@ -64,6 +68,10 @@ public class HotelService {
 
     public HotelModel findById(UUID id) {
         return hr.findById(id);
+    }
+
+    public void deleteHotelById(UUID id) {
+        hr.deleteByHotelId(id);
     }
 
 }

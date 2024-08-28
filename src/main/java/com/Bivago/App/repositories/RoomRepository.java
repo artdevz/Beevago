@@ -14,10 +14,10 @@ import com.Bivago.App.models.RoomModel;
 @Repository
 public interface RoomRepository extends JpaRepository<RoomModel, Long> {
     
-    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE HOTEL = :hotel AND ROOMNUMBER = :roomNumber")
-    public List<HotelModel> findRoomInHotel(HotelModel hotel, int roomNumber);
+    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE HOTEL = :hotelId AND ROOMNUMBER = :roomNumber")
+    public List<HotelModel> findRoomInHotel(UUID hotelId, int roomNumber);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE HOTELROOM = :id")
+    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE HOTELID = :id")
     public List<RoomModel> findAllRoomsInTheHotel(UUID id);
 
     @Query(nativeQuery = true, value = "SELECT ID FROM room WHERE ROOMTYPE = :roomType")

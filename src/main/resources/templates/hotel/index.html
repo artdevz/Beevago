@@ -65,7 +65,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <label>Lux:</label>
                         <input type="number" class="form-control" th:field="*{valByLuxType}" placeholder="Valor do Quarto de Luxo">
                     </div>
-            
+
+                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
                     <button type="submit" class="btn_cadastrarhotel">Cadastrar Hotel</button>
                                 
                 </form>

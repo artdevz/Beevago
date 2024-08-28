@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Bivago.App.enums.ERole;
+import com.Bivago.App.models.HotelModel;
 import com.Bivago.App.models.UserModel;
+import com.Bivago.App.services.HotelService;
 import com.Bivago.App.services.UserService;
 
 @Controller
@@ -19,6 +21,9 @@ public class AdminController {
     
     @Autowired
     UserService us;
+
+    @Autowired
+    HotelService hs;
 
     @GetMapping("/admin")
     public ModelAndView getAdminPage() {
@@ -61,6 +66,26 @@ public class AdminController {
     public ModelAndView getAdminHotelCrud() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("admin/hotelcrud");
+        mv.addObject("hotel", new HotelModel());
+        List<HotelModel> hotelList = hs.findAllHotels();
+        mv.addObject("hotelList", hotelList);
+
+        return mv;
+    }
+
+    @PostMapping("/admin/hotel/create")
+    public ModelAndView createHotel(HotelModel hotel) throws Exception {
+        ModelAndView mv = new ModelAndView();
+        hs.saveHotel(hotel);
+        mv.setViewName("redirect:/admin/hotel");
+        return mv;
+    }
+
+    @PostMapping("/admin/hotel/delete")
+    public ModelAndView deleteHotel(@RequestParam("hotelid") UUID hotelId) {
+        ModelAndView mv = new ModelAndView();
+        hs.deleteHotelById(hotelId);
+        mv.setViewName("redirect:/admin/hotel");
         return mv;
     }
 

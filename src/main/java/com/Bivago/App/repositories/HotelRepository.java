@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.Bivago.App.models.HotelModel;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface HotelRepository extends JpaRepository<HotelModel, Long> {
@@ -21,7 +24,15 @@ public interface HotelRepository extends JpaRepository<HotelModel, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE HOTELCITY LIKE %:hotelCity%")
     public List<HotelModel> findAllHotelsByCity(String hotelCity);
 
-    @Query (nativeQuery = true, value = "SELECT * FROM hotel WHERE ID = :hotelUuid")
-    public List<HotelModel> findAllHotelsById(UUID hotelUuid); 
+    @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE ID = :hotelUuid")
+    public List<HotelModel> findAllHotelsById(UUID hotelUuid);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE OWNERID = :userUuid")
+    public List<HotelModel> findAllHotelsWithUserId(UUID userUuid);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value = "DELETE FROM hotel h WHERE h.ID = :id")
+    public void deleteByHotelId(UUID id);
     
 }

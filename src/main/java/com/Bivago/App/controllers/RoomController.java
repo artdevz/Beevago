@@ -51,7 +51,6 @@ public class RoomController {
         //     return mv;
         // }
 
-        room.setHotel(hs.findById(id));
         room.setHotelId(id);
         rs.saveRoom(room);
         session.setAttribute("quartoCadastrado", room);

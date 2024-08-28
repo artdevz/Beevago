@@ -25,6 +25,9 @@ public class HotelModel implements Serializable {
     @Column(name = "ID")
     private UUID id;
 
+    @Column(name = "OWNERID")
+    private UUID ownerId;
+
     @NotEmpty
     @Size(min = 2, max = 48, message = "Nome do Hotel deve conter entre 2 a 48 caracteres.")
     @Column(name = "HOTELNAME", unique = true)
@@ -60,6 +63,14 @@ public class HotelModel implements Serializable {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UUID getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(UUID ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getHotelName() {

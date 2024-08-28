@@ -34,10 +34,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <button class="btn-login">Login</button>
                 </form>
             </div>
-
+            
             <div>
-                <form method="get" action="/settings">
-                    <button class="btn-settings">Configs</button>
+                <form method="get" action="#" th:action="@{/settings}">
+                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
+                    <button type="submit" class="btn-settings">Configs</button>
                 </form>
             </div>
 
@@ -100,13 +101,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${hotel.hotelName}"></span></td>
                         <td><span th:text="${hotel.hotelAddress}"></span></td>
                         <td><span th:text="${hotel.hotelCity}"></span></td>
-                        <td><span th:text="${categories[2]}"></span></td>
+                        <td><span th:text="${categories[2].getRoomType()}"></span></td>
                         <td><span th:text="${hotel.valByStandardType}"></span></td>
                         
                         <td>
                             <div>
                                 <form method="get" action="#" th:action="@{/reservar}">
-                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
                                     <input type="hidden" name="hotelid" th:value="${hotel.id}">
                                     <input type="hidden" name="roomtype" th:value="${categories[2]}">
                                     <td><button class="btn-reservar">Reservar</button></td>
@@ -120,13 +121,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${hotel.hotelName}"></span></td>
                         <td><span th:text="${hotel.hotelAddress}"></span></td>
                         <td><span th:text="${hotel.hotelCity}"></span></td>
-                        <td><span th:text="${categories[1]}"></span></td>
+                        <td><span th:text="${categories[1].getRoomType()}"></span></td>
                         <td><span th:text="${hotel.valByFamilyType}"></span></td>
                     
                         <td>
                             <div>
                                 <form method="get" action="#" th:action="@{/reservar}">
-                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
                                     <input type="hidden" name="hotelid" th:value="${hotel.id}">
                                     <input type="hidden" name="roomtype" th:value="${categories[1]}">
                                     <td><button class="btn-reservar">Reservar</button></td>
@@ -140,13 +141,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${hotel.hotelName}"></span></td>
                         <td><span th:text="${hotel.hotelAddress}"></span></td>
                         <td><span th:text="${hotel.hotelCity}"></span></td>
-                        <td><span th:text="${categories[0]}"></span></td>
+                        <td><span th:text="${categories[0].getRoomType()}"></span></td>
                         <td><span th:text="${hotel.valByLuxType}"></span></td>
                     
                         <td>
                             <div>
                                 <form method="get" action="#" th:action="@{/reservar}">
-                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
                                     <input type="hidden" name="hotelid" th:value="${hotel.id}">
                                     <input type="hidden" name="roomtype" th:value="${categories[0]}">
                                     <td><button class="btn-reservar">Reservar</button></td>
@@ -161,20 +162,22 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${hotel.hotelAddress}"></span></td>
                         <td><span th:text="${hotel.hotelCity}"></span></td>
                         <td><span th:text="${categories}"></span></td>
-                        <td><span th:text="${hotel.valByLuxType}"></span></td>
-                    
+                        <td><span th:if='${valRoomType == "valByStandardType"}' th:text="${hotel.valByStandardType}"></span>
+                            <span th:if='${valRoomType == "valByFamilyType"}' th:text="${hotel.valByFamilyType}"></span>
+                            <span th:if='${valRoomType == "valByLuxType"}' th:text="${hotel.valByLuxType}"></span></td>
+
                         <td>
                             <div>
                                 <form method="get" action="#" th:action="@{/reservar}">
-                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
                                     <input type="hidden" name="hotelid" th:value="${hotel.id}">
-                                    <input type="hidden" name="roomtype" th:value="${categories[0]}">
+                                    <input type="hidden" name="roomtype" th:value="${categories}">
                                     <td><button class="btn-reservar">Reservar</button></td>
                                 </form>
                             </div>
                         </td>
 
-                    </tr> 
+                    </tr>
 
                 </tbody>
             </table>

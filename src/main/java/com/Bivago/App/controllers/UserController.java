@@ -1,5 +1,7 @@
 package com.Bivago.App.controllers;
 
+import java.util.UUID;
+
 //import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -114,13 +117,13 @@ public class UserController {
     @GetMapping("/settings")
     //@RolesAllowed("USER")
     //@PostAuthorize("hasRole('USER')")
-    public ModelAndView userSettings(HttpServletRequest request) throws ServletException {
-        ModelAndView mv = new ModelAndView();         
-        
-        
-
+    public ModelAndView userSettings(@RequestParam(value="userid", required = false) UUID userId, HttpServletRequest request) throws ServletException {
+        ModelAndView mv = new ModelAndView();     
+        if (userId == null) {
+            mv.setViewName("redirect:/login"); return mv;
+        }
+        mv.setViewName("settings/index");
         // if (request.isUserInRole("USER")) {
-            mv.setViewName("settings/index");
             //return mv;
         //}
         //mv.setViewName("redirect:/login");              
