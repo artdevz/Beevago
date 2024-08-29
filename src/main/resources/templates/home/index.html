@@ -15,6 +15,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 <body>
     <div class="main-home">
         <div class="header">
+            <div class="bee-img">
+                <img class="bee-icon" th:src="@{/image/bee.svg}">
+            </div>
             <div class="beevago">
                 <h1>
                     <font color="#ecc900">B E E</font>
@@ -23,55 +26,58 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 </h1>
             </div>                   
                 
-            <div>
-                <form method="get" action="/cadastro">
-                    <button class="btn-register">Fazer Cadastro</button>
-                </form>
-            </div>
+            <div class="register-btns">
+                <div>
+                    <form method="get" action="/cadastro">
+                        <button class="btn-register">Criar conta</button>
+                    </form>
+                </div>
 
-            <div>
-                <form method="get" action="/login">
-                    <button class="btn-login">Login</button>
-                </form>
-            </div>
-            
-            <div>
-                <form method="get" action="#" th:action="@{/settings}">
-                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
-                    <button type="submit" class="btn-settings">Configs</button>
-                </form>
-            </div>
+                <div>
+                    <form method="get" action="/login">
+                        <button class="btn-login">Login</button>
+                    </form>
+                </div>
+                
+                <div>
+                    <form method="get" action="#" th:action="@{/settings}">
+                        <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
+                        <button type="submit" class="btn-settings">Configs</button>
+                    </form>
+                </div>
 
-            <div>
-                <form method="post" action="logout">
-                    <button type="submit" class="btn-logout">Logout</button>
-                </form>
+                <div>
+                    <form method="post" action="logout">
+                        <button type="submit" class="btn-logout">Logout</button>
+                    </form>
+                </div>
             </div>
 
         </div>
 
-        <div class="welcome">
-            <strong>Bem Vindo <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span></strong>
-        </div> 
+        <div class="second-header">
+            <div class="welcome">
+                <strong>Bem Vindo, <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span></strong>
+            </div> 
 
-        <div class="search">
-            <form method="post" th:action="@{/buscar}">
-                <div>
-                    <input type="search" class="form-control" name="searchcity" placeholder="Para onde desejas ir?">
-                    
-                        <label>Categoria:</label>
-                          <select name="categoryfilter">
-                            <option text="Filtrar Categoria"></option>
-                            <option 
-                                th:each="room : ${categoriesList}"
-                                th:text="${room.roomType}"
-                                th:value="${room}">
-                            </option>                        
-                        </select>                        
+            <div class="search">
+                <form method="post" th:action="@{/buscar}">
+                    <div>
+                        <input type="search" class="form-control" name="searchcity" placeholder="Para onde desejas ir?">
+                        
+                            <select name="categoryfilter">
+                                <option text="Filtrar Categoria" ></option>
+                                <option 
+                                    th:each="room : ${categoriesList}"
+                                    th:text="${room.roomType}"
+                                    th:value="${room}">
+                                </option>                        
+                            </select>                        
 
-                    <input class="btn-find" type="submit" value="Buscar">                    
-                </div>                
-            </form>
+                        <input class="btn-find" type="submit" value="Buscar">                    
+                    </div>                
+                </form>
+            </div>
         </div>
 
         <div class="hoteltables">
@@ -80,7 +86,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <td><span th:text="${hotel.hotelCity}"></span></td>
                 </tr>                  
             </h2>
-            <table class="table table-striped">                                              
+            <table class="table-table-striped">                                              
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -181,7 +187,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </table>
         </div>
         <div class="footer">
-            <a href="https://github.com/8enrich/Letris" target="_blank">JOGUE LETRIS</a>
+            <div class="play-txt">
+                <p>JOGUE</p>
+            </div>
+            <div class="letris-img">
+                <a href="https://github.com/8enrich/Letris" target="_blank"><img class="letris-icon" th:src="@{/image/letris-logo.png}"></a>
+            </div>
         </div>
     </div>    
 </body>
