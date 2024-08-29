@@ -9,17 +9,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}"/>
     <script type="text/javascript" th:src = "@{/js/home.js}"></script>
-    <title>Bivago Home</title>
+    <title>Beevago Home</title>
 </head>
 
 <body>
     <div class="main-home">
         <div class="header">
-            <div class="bivago">
+            <div class="beevago">
                 <h1>
-                    <font color="#FF2626">B I</font>
-                    <font color="#FFA600">V A</font>
-                    <font color="#2600FF">G O</font>
+                    <font color="#ecc900">B E E</font>
+                    <font color="#000000">V A</font>
+                    <font color="#000000">G O</font>
                 </h1>
             </div>                   
                 
@@ -59,7 +59,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 <div>
                     <input type="search" class="form-control" name="searchcity" placeholder="Para onde desejas ir?">
                     
-                    <div class="form-group">
                         <label>Categoria:</label>
                           <select name="categoryfilter">
                             <option text="Filtrar Categoria"></option>
@@ -69,7 +68,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                                 th:value="${room}">
                             </option>                        
                         </select>                        
-                    </div>
 
                     <input class="btn-find" type="submit" value="Buscar">                    
                 </div>                
@@ -183,7 +181,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </table>
         </div>
         <div class="footer">
-            JOGUE LETRIS
+            <a href="https://github.com/8enrich/Letris" target="_blank">JOGUE LETRIS</a>
         </div>
     </div>    
 </body>

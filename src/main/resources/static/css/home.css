@@ -1,9 +1,36 @@
 body {
     background-color: rgb(26, 26, 26);
+    padding-top: 80px;
 }
 
 .header {
-    background-color: rgb(0, 0, 0);        
+    background-color: rgb(0, 12, 99);
+    border: 10px;
+    border-radius: 5px; 
+    border-color: #ecc900;
+    text-shadow: 2px;
+    display: flex;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    align-items: center;
+    justify-content: center;     
+}
+
+.beevago {
+    /*
+    border-style: solid;
+    border-color: blue;
+    */
+    margin-right: 20px;
+    flex: 1;
+    margin-left: 550px;
+}
+
+.header button{
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .btn-register {
@@ -52,4 +79,8 @@ body {
 
 .footer {
     text-align: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
