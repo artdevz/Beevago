@@ -28,6 +28,7 @@ public class AdminController {
     @GetMapping("/admin")
     public ModelAndView getAdminPage() {
         ModelAndView mv = new ModelAndView();
+        // FAZER: SOMENTE ADMIN PODER ENTRAR
         mv.setViewName("admin/index");
         return mv;
     }

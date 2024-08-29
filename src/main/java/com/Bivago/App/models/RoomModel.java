@@ -39,14 +39,38 @@ public class RoomModel implements Serializable {
     @Column(name = "ROOMCAPACITY")
     private int roomCapacity;
     
-    @Column(name = "ROOMSTATUS") 
-    private boolean roomStatus;
+    @Column(name = "ROOMPRICE")
+    private int roomPrice;
 
-    // Fazer método de calcular preço;
-    // Fazer método de verificar disponibilidade;    
+    private String roomHotelName;
+    private String roomHotelAddress;
+    private String roomHotelCity;
+    
+    public String getRoomHotelName() {
+        return roomHotelName;
+    }
+
+    public void setRoomHotelName(String roomHotelName) {
+        this.roomHotelName = roomHotelName;
+    }
+
+    public String getRoomHotelAddress() {
+        return roomHotelAddress;
+    }
+
+    public void setRoomHotelAddress(String roomHotelAddress) {
+        this.roomHotelAddress = roomHotelAddress;
+    }
+
+    public String getRoomHotelCity() {
+        return roomHotelCity;
+    }
+
+    public void setRoomHotelCity(String roomHotelCity) {
+        this.roomHotelCity = roomHotelCity;
+    }
 
     // Getters and Setters:
-
     public UUID getId() {
         return id;
     }
@@ -87,12 +111,12 @@ public class RoomModel implements Serializable {
         this.roomCapacity = roomCapacity;
     }
 
-    public boolean isRoomStatus() {
-        return roomStatus;
+    public int getRoomPrice() {
+        return roomPrice;
     }
 
-    public void setRoomStatus(boolean roomStatus) {
-        this.roomStatus = roomStatus;
+    public void setRoomPrice(int roomPrice) {
+        this.roomPrice = roomPrice;
     }
-    
+
 }

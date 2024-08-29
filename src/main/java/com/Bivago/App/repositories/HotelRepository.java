@@ -21,6 +21,12 @@ public interface HotelRepository extends JpaRepository<HotelModel, Long> {
     @Query(nativeQuery = true, value = "SELECT HOTELNAME FROM hotel WHERE ID = :hotelUuid")
     public String findHotelNameById(UUID hotelUuid);
 
+    @Query(nativeQuery = true, value = "SELECT HOTELADDRESS FROM hotel WHERE ID = :hotelUuid")
+    public String findHotelAddressById(UUID hotelUuid);
+
+    @Query(nativeQuery = true, value = "SELECT HOTELCITY FROM hotel WHERE ID = :hotelUuid")
+    public String findHotelCityById(UUID hotelUuid);
+
     @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE HOTELCITY LIKE %:hotelCity%")
     public List<HotelModel> findAllHotelsByCity(String hotelCity);
 

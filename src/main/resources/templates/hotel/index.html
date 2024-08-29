@@ -49,7 +49,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <input type="text" class="form-control" th:field="*{hotelCity}" placeholder="Cidade (Máximo 128)">
                     </div>
 
-                    <h3>Preços/Pessoas pela Categoria:</h3>
+                    <!-- <h3>Preços/Pessoas pela Categoria:</h3>
 
                     <div class="form-group">
                         <label>Standard:</label>
@@ -64,7 +64,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <div class="form-group">
                         <label>Lux:</label>
                         <input type="number" class="form-control" th:field="*{valByLuxType}" placeholder="Valor do Quarto de Luxo">
-                    </div>
+                    </div> -->
 
                     <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
                     <button type="submit" class="btn_cadastrarhotel">Cadastrar Hotel</button>

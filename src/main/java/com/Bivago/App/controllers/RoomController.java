@@ -52,6 +52,9 @@ public class RoomController {
         // }
 
         room.setHotelId(id);
+        room.setRoomHotelName(hs.findHotelNameById(id));
+        room.setRoomHotelAddress(hs.findHotelAddressById(id));
+        room.setRoomHotelCity(hs.findHotelCityById(id));
         rs.saveRoom(room);
         session.setAttribute("quartoCadastrado", room);
         attributes.addFlashAttribute("msg", "Quarto cadastrado com Sucesso!");        

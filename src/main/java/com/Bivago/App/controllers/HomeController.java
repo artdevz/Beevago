@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Bivago.App.enums.ERoomType;
-import com.Bivago.App.models.HotelModel;
+import com.Bivago.App.models.RoomModel;
 import com.Bivago.App.services.HotelService;
+import com.Bivago.App.services.RoomService;
 
 @Controller
 public class HomeController {   
@@ -17,14 +18,15 @@ public class HomeController {
     @Autowired
     HotelService hs;
 
+    @Autowired
+    RoomService rs;
+
     @GetMapping("/")
     public ModelAndView getHomePage() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("home/index");
-        List<HotelModel> hotels = hs.findAllHotels();        
-        mv.addObject("HotelsList", hotels);
-        // ERoomType[] roomTypes = {ERoomType.ROOMTYPE_STANDARD, ERoomType.ROOMTYPE_FAMILY, ERoomType.ROOMTYPE_LUX};
-        mv.addObject("categories", ERoomType.values());
+        List<RoomModel> rooms = rs.findAllRooms();
+        mv.addObject("RoomsList", rooms);
         mv.addObject("categoriesList", ERoomType.values());           
         return mv;
     }

@@ -29,50 +29,54 @@ public class ReservationService {
 
     }
 
-    public double reservationPriceCalculator(int qntDePessoas, UUID hotelID, ERoomType roomType, Date checkInDate, Date checkOutDate) {
-        
-        long daysInRoom = ( (checkOutDate.getTime() - checkInDate.getTime() ) / (1000*60*60*24) ) % 365;
-        
-        System.out.println(checkInDate.getTime());
-        System.out.println(checkOutDate.getTime());
+    public long daysInRoom(Date checkInDate, Date checkOutDate) {
+        return ( (checkOutDate.getTime() - checkInDate.getTime() ) / (1000*60*60*24) ) % 365;
+    }
 
+    public boolean isRoomBusyInTheDays(Date checkInDate, Date checkOutDate) {
+        
+        long daysInRoom = daysInRoom(checkInDate, checkOutDate);
+        
+        long[] busyDays = new long[(int)daysInRoom]; int count = 0;
         for (long time = checkInDate.getTime(); time < checkOutDate.getTime(); time+=86400000 ) {
-            System.out.printf("Dia: %d\n", time);
-            // Verificar se esse .getTime() o Quarto está ocupado.
+            System.out.println(busyDays[count++]);
         }
 
-        switch (roomType) {
-            case ROOMTYPE_STANDARD:
-                return qntDePessoas * daysInRoom * findPricePerDayForRoomTypeById(hotelID, roomType);
-            case ROOMTYPE_FAMILY:
-                return qntDePessoas * daysInRoom * findPricePerDayForRoomTypeById(hotelID, roomType);
-            case ROOMTYPE_LUX:
-                return qntDePessoas * daysInRoom * findPricePerDayForRoomTypeById(hotelID, roomType);
-            default:
-                break;
-        }
-
-        return qntDePessoas * 350800.47;
+        return false;
     }
 
-    public double findPricePerDayForRoomTypeById(UUID id, ERoomType roomType) {
-        switch (roomType) {
-            case ROOMTYPE_STANDARD: return rr.findPricePerDayForStandardRoomTypeById(id);                
-            case ROOMTYPE_FAMILY: return rr.findPricePerDayForFamilyRoomTypeById(id);                
-            case ROOMTYPE_LUX: return rr.findPricePerDayForLuxRoomTypeById(id);                
-            default: break;
-        }
-        return 350800.47;
+    public double reservationPriceCalculator(int qntDePessoas, double pricePerDay, Date checkInDate, Date checkOutDate) {
+        
+        long daysInRoom = daysInRoom(checkInDate, checkOutDate);
+        
+        System.out.println("CheckIn:" + checkInDate.getTime());
+        System.out.println("CheckOut: " + checkOutDate.getTime());
+
+        long[] busyDays = new long[(int)daysInRoom]; int count = 0;
+        for (long time = checkInDate.getTime(); time < checkOutDate.getTime(); time+=86400000 ) busyDays[count++] = time;
+
+        // switch (roomType) {
+        //     case ROOMTYPE_STANDARD:
+        //         return qntDePessoas * daysInRoom * findPricePerDayForRoomTypeById(hotelID, roomType);
+        //     case ROOMTYPE_FAMILY:
+        //         return qntDePessoas * daysInRoom * findPricePerDayForRoomTypeById(hotelID, roomType);
+        //     case ROOMTYPE_LUX:
+        //         return qntDePessoas * daysInRoom * findPricePerDayForRoomTypeById(hotelID, roomType);
+        //     default:
+        //         break;
+        // }
+        
+        return qntDePessoas * pricePerDay * daysInRoom;
     }
 
-    public String roomTypeVal(ERoomType roomType) {
-        switch (roomType) {
-            case ROOMTYPE_STANDARD: return "valByStandardType"; 
-            case ROOMTYPE_FAMILY: return "valByFamilyType"; 
-            case ROOMTYPE_LUX: return "valByLuxType"; 
-            default: break;
-        }
-        return null;
-    }
+    // public double findPricePerDayForRoomTypeById(UUID id, ERoomType roomType) {
+    //     switch (roomType) {
+    //         case ROOMTYPE_STANDARD: return rr.findPricePerDayForStandardRoomTypeById(id);                
+    //         case ROOMTYPE_FAMILY: return rr.findPricePerDayForFamilyRoomTypeById(id);                
+    //         case ROOMTYPE_LUX: return rr.findPricePerDayForLuxRoomTypeById(id);                
+    //         default: break;
+    //     }
+    //     return 350800.47;
+    // }
 
 }

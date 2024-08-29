@@ -43,18 +43,6 @@ public class HotelModel implements Serializable {
     @Column(name = "HOTELCITY")
     private String hotelCity;
 
-    // @Size(min = 1)
-    @Column(name = "VALBYSTANDARD")
-    private double valByStandardType;
-
-    // @Size(min = 1)
-    @Column(name = "VALBYFAMILY")
-    private double valByFamilyType;
-
-    // @Size(min = 1)
-    @Column(name = "VALBYLUX")
-    private double valByLuxType;
-
     // GetterSetters:
 
     public UUID getId() {
@@ -96,29 +84,5 @@ public class HotelModel implements Serializable {
     public void setHotelCity(String hotelCity) {
         this.hotelCity = hotelCity;
     }
-
-    public double getValByStandardType() {
-        return valByStandardType;
-    }
-
-    public void setValByStandardType(double valByStandardType) {
-        this.valByStandardType = valByStandardType;
-    }
-
-    public double getValByFamilyType() {
-        return valByFamilyType;
-    }
-
-    public void setValByFamilyType(double valByFamilyType) {
-        this.valByFamilyType = valByFamilyType;
-    }
-
-    public double getValByLuxType() {
-        return valByLuxType;
-    }
-
-    public void setValByLuxType(double valByLuxType) {
-        this.valByLuxType = valByLuxType;
-    }   
 
 }

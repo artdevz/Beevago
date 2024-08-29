@@ -20,8 +20,20 @@ public interface RoomRepository extends JpaRepository<RoomModel, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM room WHERE HOTELID = :id")
     public List<RoomModel> findAllRoomsInTheHotel(UUID id);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE ROOMTYPE = :roomType")
+    public List<RoomModel> findAllRoomsWithRoomType(ERoomType roomType);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE ROOM_HOTEL_CITY LIKE %:hotelCity%")
+    public List<RoomModel> findAllRoomsWithHotelCity(String hotelCity);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE ROOM_HOTEL_CITY LIKE %:hotelCity% AND ROOMTYPE = :roomType")
+    public List<RoomModel> findAllRoomsWithHotelCityRoomType(String hotelCity, ERoomType roomType);
+
     @Query(nativeQuery = true, value = "SELECT ID FROM room WHERE ROOMTYPE = :roomType")
     public UUID findHotelIdByRoomType(ERoomType roomType);
+
+    @Query(nativeQuery = true, value = "SELECT ROOMPRICE FROM room WHERE :id")
+    public double findPriceById(UUID id);
 
     // @Query(nativeQuery =  = true, value = "SELECT ")
     // public UUID findHotelIdsByRoomType(ERoomType roomType);

@@ -27,6 +27,7 @@ public class HotelController {
     @GetMapping("/adminhotel")
     public ModelAndView getAdminHotelMainPage(@RequestParam(value="userid", required = false) UUID userId) {
         ModelAndView mv = new ModelAndView();
+        // FAZER: SOMENTE MODS PODEREM ACESSAR
         mv.setViewName("hotel/index");
         mv.addObject("hotel", new HotelModel());
         List<HotelModel> hotels = hs.findAllHotelsWithUserId(userId);

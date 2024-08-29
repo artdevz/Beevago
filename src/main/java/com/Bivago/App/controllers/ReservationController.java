@@ -15,10 +15,10 @@ import com.Bivago.App.dto.HotelSearchDTO;
 import com.Bivago.App.dto.RoomDTO;
 import com.Bivago.App.dto.UserDTO;
 import com.Bivago.App.enums.ERoomType;
-import com.Bivago.App.models.HotelModel;
 import com.Bivago.App.models.ReservationModel;
 import com.Bivago.App.services.HotelService;
 import com.Bivago.App.services.ReservationService;
+import com.Bivago.App.models.RoomModel;
 import com.Bivago.App.services.RoomService;
 
 @Controller
@@ -37,17 +37,21 @@ public class ReservationController {
     public ModelAndView searchHotels(@RequestParam("searchcity") String hotelCity, @RequestParam(value = "categoryfilter", required = false) ERoomType roomType) {                
         ModelAndView mv = new ModelAndView();        
         mv.setViewName("home/index");        
-        mv.addObject("hotelCity", new HotelSearchDTO(hotelCity));        
-        if (roomType != null) {
-            List<HotelModel> hotels = hs.findAllHotelsByCity(hotelCity);
-            mv.addObject("HotelList", hotels);
-            mv.addObject("categories", roomType.getRoomType());
+        mv.addObject("hotelCity", new HotelSearchDTO(hotelCity));
+        if (hotelCity == null) {
+            List<RoomModel> rooms = qs.findAllRoomsWithHotelCity(roomType);
+            mv.addObject("RoomsList", rooms);
             mv.addObject("categoriesList", ERoomType.values());
-            mv.addObject("valRoomType", rs.roomTypeVal(roomType));
+            return mv;
+        }        
+        if (roomType != null) {
+            List<RoomModel> rooms = qs.findAllRoomsWithHotelCity(hotelCity, roomType);
+            mv.addObject("RoomsList", rooms);
+            mv.addObject("categoriesList", ERoomType.values());
             return mv;
         }
-        List<HotelModel> hotels = hs.findAllHotelsByCity(hotelCity);
-        mv.addObject("HotelsList", hotels);
+        List<RoomModel> rooms = qs.findAllRoomsWithHotelCity(hotelCity);
+        mv.addObject("RoomsList", rooms);
         mv.addObject("categories", ERoomType.values());
         mv.addObject("categoriesList", ERoomType.values());
 
@@ -55,26 +59,27 @@ public class ReservationController {
     }
 
     @GetMapping("/reservar")
-    public ModelAndView getReservaHotelPage(@RequestParam(value = "userid", required = false) UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomtype") ERoomType roomType) {
+    public ModelAndView getReservaHotelPage(@RequestParam(value = "userid", required = false) UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId, @RequestParam("roomtype") ERoomType roomType) {
         ModelAndView mv = new ModelAndView();
         if (userId == null) {
             mv.setViewName("redirect:/login"); return mv;
-        }        
+        }
         mv.addObject("user", new UserDTO(userId));        
         mv.addObject("hotel", new HotelDTO(hs.findHotelNameById(hotelId), hotelId));
-        mv.addObject("room", new RoomDTO(roomType));
+        mv.addObject("room", new RoomDTO(roomId, roomType));
         mv.addObject("reserva", new ReservationModel());
         mv.setViewName("reserva/reservar");
         return mv;
     }
 
     @PostMapping("/reservarquarto")
-    public ModelAndView reservandoHotel(ReservationModel reserva, @RequestParam("userid") UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomtype") ERoomType roomType) {
+    public ModelAndView reservandoHotel(ReservationModel reserva, @RequestParam("userid") UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId, @RequestParam("roomtype") ERoomType roomType) {
         ModelAndView mv = new ModelAndView();
         reserva.setUserID(userId);        
-        reserva.setHotelID(hotelId);        
+        reserva.setHotelID(hotelId); 
+        reserva.setRoomID(roomId);       
         reserva.setRoomType(roomType);        
-        reserva.setTotalPrice(rs.reservationPriceCalculator(reserva.getQuantidadeDePessoas(), reserva.getHotelID(), reserva.getRoomType(), reserva.getCheckInDate(), reserva.getCheckOutDate()));        
+        reserva.setTotalPrice(rs.reservationPriceCalculator(reserva.getQuantidadeDePessoas(), qs.findPriceById(roomId), reserva.getCheckInDate(), reserva.getCheckOutDate()));         
         rs.saveReservation(reserva);
         mv.setViewName("redirect:/");
 

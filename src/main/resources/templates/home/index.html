@@ -66,7 +66,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <input type="search" class="form-control" name="searchcity" placeholder="Para onde desejas ir?">
                         
                             <select name="categoryfilter">
-                                <option text="Filtrar Categoria" ></option>
+                                <option text="Filtrar Categoria"></option>
                                 <option 
                                     th:each="room : ${categoriesList}"
                                     th:text="${room.roomType}"
@@ -97,30 +97,28 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr>
-                        <td colspan="3"></td>
-                    </tr> -->
 
-                    <tr th:each="hotel : ${HotelsList}">
-                        <td><span th:text="${hotel.hotelName}"></span></td>
-                        <td><span th:text="${hotel.hotelAddress}"></span></td>
-                        <td><span th:text="${hotel.hotelCity}"></span></td>
-                        <td><span th:text="${categories[2].getRoomType()}"></span></td>
-                        <td><span th:text="${hotel.valByStandardType}"></span></td>
+                    <tr th:each="room : ${RoomsList}">
+                        <td><span th:text="${room.roomHotelName}"></span></td>
+                        <td><span th:text="${room.roomHotelAddress}"></span></td>
+                        <td><span th:text="${room.roomHotelCity}"></span></td>
+                        <td><span th:text="${room.roomType.getRoomType}"></span></td>
+                        <td><span th:text="${room.roomPrice}"></span></td>
                         
                         <td>
                             <div>
                                 <form method="get" action="#" th:action="@{/reservar}">
                                     <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
-                                    <input type="hidden" name="hotelid" th:value="${hotel.id}">
-                                    <input type="hidden" name="roomtype" th:value="${categories[2]}">
+                                    <input type="hidden" name="hotelid" th:value="${room.hotelId}">
+                                    <input type="hidden" name="roomid" th:value="${room.id}">
+                                    <input type="hidden" name="roomtype" th:value="${room.roomType}">
                                     <td><button class="btn-reservar">Reservar</button></td>
                                 </form>
                             </div>
                         </td>
 
                     </tr>
-
+                    <!--
                     <tr th:each="hotel : ${HotelsList}">
                         <td><span th:text="${hotel.hotelName}"></span></td>
                         <td><span th:text="${hotel.hotelAddress}"></span></td>
@@ -182,7 +180,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         </td>
 
                     </tr>
-
+                -->
                 </tbody>
             </table>
         </div>

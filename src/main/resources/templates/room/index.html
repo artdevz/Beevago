@@ -32,6 +32,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 <div class="form-group">
                     <label>Número do Quarto:</label> 
                     <input type="number" class="form-control" th:field="*{roomNumber}" placeholder="Número do Quarto">
+                </div>                                            
+            
+                <div class="form-group">
+                    <label>Capacidade do Quarto:</label> 
+                    <input type="number" class="form-control" th:field="*{roomCapacity}" placeholder="Capacidade">
+                </div>
+
+                <div class="form-group">
+                    <label>Preço do Quarto:</label> 
+                    <input type="number" class="form-control" th:field="*{roomPrice}" placeholder="R$ 0,00">
                 </div>
 
                 <div class="form-group">
@@ -43,12 +53,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                             th:value="${room}">
                         </option>                        
                     </select>
-                </div>                              
-            
-                <div class="form-group">
-                    <label>Capacidade do Quarto:</label> 
-                    <input type="number" class="form-control" th:field="*{roomCapacity}" placeholder="Capacidade">
-                </div>
+                </div>  
         
                 <button type="submit" class="btn_cadastrarquarto">Adicionar Quarto</button>
     
@@ -56,11 +61,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         </div>
 
         <div class="container">
-            <!-- <div class="row" style="padding-bottom: 30px;">
-                <div class="col">
-                    <a th:href="@"></a>
-                </div>
-            </div> -->
 
             <div class="row">
                 <table class="table table-striped">
@@ -69,6 +69,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                             <th>Número</th>
                             <th>Categoria</th>
                             <th>Capacidade</th>
+                            <th>Preço</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,6 +80,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                             <td><span th:text="${room.roomNumber}"></span></td>
                             <td><span th:text="${room.roomType.roomType}"></span></td>
                             <td><span th:text="${room.roomCapacity}"></span></td>
+                            <td><span th:text="${room.roomPrice}"></span></td>
                         </tr>
                     </tbody>
                 </table>

@@ -43,12 +43,28 @@ public class RoomService {
         return rr.findAll();
     }
 
+    public List<RoomModel> findAllRoomsWithHotelCity(ERoomType roomType) {
+        return rr.findAllRoomsWithRoomType(roomType);
+    }
+
+    public List<RoomModel> findAllRoomsWithHotelCity(String hotelCity) {
+        return rr.findAllRoomsWithHotelCity(hotelCity);
+    }
+
+    public List<RoomModel> findAllRoomsWithHotelCity(String hotelCity, ERoomType roomType) {
+        return rr.findAllRoomsWithHotelCityRoomType(hotelCity, roomType);
+    }
+
     public List<RoomModel> findAllRoomsInTheHotel(UUID id) {
         return rr.findAllRoomsInTheHotel(id);
     }
 
     public UUID findHotelIdByRoomType(ERoomType roomType) {
         return rr.findHotelIdByRoomType(roomType);
+    }
+
+    public double findPriceById(UUID id) {
+        return rr.findPriceById(id);
     }
 
     // public ArrayList<Object> findAllRoomsByCity(String hotelCity) {
