@@ -32,7 +32,7 @@ public interface RoomRepository extends JpaRepository<RoomModel, Long> {
     @Query(nativeQuery = true, value = "SELECT ID FROM room WHERE ROOMTYPE = :roomType")
     public UUID findHotelIdByRoomType(ERoomType roomType);
 
-    @Query(nativeQuery = true, value = "SELECT ROOMPRICE FROM room WHERE :id")
+    @Query(nativeQuery = true, value = "SELECT ROOMPRICE FROM room WHERE ID = :id")
     public double findPriceById(UUID id);
 
     // @Query(nativeQuery =  = true, value = "SELECT ")

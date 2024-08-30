@@ -1,9 +1,12 @@
 package com.Bivago.App.repositories;
 
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+// import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.Bivago.App.models.ReservationModel;
@@ -11,13 +14,10 @@ import com.Bivago.App.models.ReservationModel;
 @Repository
 public interface ReservationRepository extends JpaRepository<ReservationModel, Long> {
     
-    // @Query(nativeQuery = true, value = "SELECT VALBYSTANDARD FROM hotel WHERE ID = :hotelUuid")
-    // public double findPricePerDayForStandardRoomTypeById(UUID hotelUuid);
+    @Query(nativeQuery = true, value = "SELECT check_in FROM reservation WHERE ROOMID = :roomId")
+    List<Date> findAllCheckInDateById(UUID roomId);
 
-    // @Query(nativeQuery = true, value = "SELECT VALBYFAMILY FROM hotel WHERE ID = :hotelUuid")
-    // public double findPricePerDayForFamilyRoomTypeById(UUID hotelUuid);
-    
-    // @Query(nativeQuery = true, value = "SELECT VALBYLUX FROM hotel WHERE ID = :hotelUuid")
-    // public double findPricePerDayForLuxRoomTypeById(UUID hotelUuid);
+    @Query(nativeQuery = true, value = "SELECT check_out FROM reservation WHERE ROOMID = :roomId")
+    List<Date> findAllCheckOutDateById(UUID roomId);
 
 }

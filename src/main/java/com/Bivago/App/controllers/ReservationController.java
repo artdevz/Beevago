@@ -75,12 +75,21 @@ public class ReservationController {
     @PostMapping("/reservarquarto")
     public ModelAndView reservandoHotel(ReservationModel reserva, @RequestParam("userid") UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId, @RequestParam("roomtype") ERoomType roomType) {
         ModelAndView mv = new ModelAndView();
+
+        if (rs.dateConflicts(roomId, reserva.getCheckInDate(), reserva.getCheckOutDate())) {
+            // System.out.println("Ocupado");
+            mv.setViewName("redirect:/");
+            return mv;
+        }
+
         reserva.setUserID(userId);        
         reserva.setHotelID(hotelId); 
         reserva.setRoomID(roomId);       
-        reserva.setRoomType(roomType);        
-        reserva.setTotalPrice(rs.reservationPriceCalculator(reserva.getQuantidadeDePessoas(), qs.findPriceById(roomId), reserva.getCheckInDate(), reserva.getCheckOutDate()));         
+        reserva.setRoomType(roomType);
+        reserva.setTotalPrice( rs.daysInRoom(reserva.getCheckInDate(), reserva.getCheckOutDate()) * reserva.getQuantidadeDePessoas() * qs.findPriceById(roomId) );
+                 
         rs.saveReservation(reserva);
+        // System.out.println("Sucesso");        
         mv.setViewName("redirect:/");
 
         return mv;
