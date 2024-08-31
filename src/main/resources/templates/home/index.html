@@ -20,8 +20,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </div>
             <div class="beevago">
                 <h1>
-                    <font color="#ecc900">B E E</font>
-                    <font color="#000000">V A G O</font>
+                    <a href="/"
+                        <font color="#ecc900">B E E</font>
+                        <font color="#000000">V A G O</font>
+                    </a>
                 </h1>
             </div>                   
                 
@@ -61,6 +63,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
             <div class="search">
                 <form method="post" th:action="@{/buscar}">
+                    
                     <div>
                         <input type="search" class="form-control" name="searchcity" placeholder="Para onde desejas ir?">
                         
@@ -74,24 +77,34 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                             </select>                        
 
                         <input class="btn-find" type="submit" value="Buscar">                    
-                    </div>                
+                    </div>
+                    
+                    <div>
+                        <input type="number" min="1" value="1" class="form-control" name="searchperson" placeholder="Pessoas">
+                    </div>
+
+                    <div>
+                        <input type="number" min="0" value="1000" class="form-control" name="searchprice" placeholder="Até R$ 0,00">
+                    </div>
+
                 </form>
             </div>
         </div>
 
         <div class="hoteltables">
-            <h2> Hotéis disponíveis:
-                <tr th:each="hotel : ${hotelCity}">
-                    <td><span th:text="${hotel.hotelCity}"></span></td>
-                </tr>                  
-            </h2>
+
+            <h2>Quartos disponíveis               
+                <td><span th:text="${stringSearch}"></span></td>                                 
+            </h2>            
+
             <table class="table-table-striped">                                              
                 <thead>
                     <tr>
-                        <th>Nome</th>
+                        <th>Hotel</th>
                         <th>Endereço</th>
                         <th>Cidade</th>
                         <th>Categoria</th>
+                        <th>Capacidade</th>
                         <th>Preço</th>
                     </tr>
                 </thead>
@@ -102,6 +115,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${room.roomHotelAddress}"></span></td>
                         <td><span th:text="${room.roomHotelCity}"></span></td>
                         <td><span th:text="${room.roomType.getRoomType}"></span></td>
+                        <td><span th:text="${room.roomCapacity}"></span></td>
                         <td><span th:text="${room.roomPrice}"></span></td>
                         
                         <td>
@@ -183,6 +197,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 </tbody>
             </table>
         </div>
+
         <div class="footer">
             <div class="play-txt">
                 <p>JOGUE</p>
@@ -191,6 +206,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 <a href="https://github.com/8enrich/Letris" target="_blank"><img class="letris-icon" th:src="@{/image/letris-logo.png}"></a>
             </div>
         </div>
+        
     </div>    
 </body>
 

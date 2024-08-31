@@ -19,26 +19,18 @@ public interface RoomRepository extends JpaRepository<RoomModel, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM room WHERE HOTELID = :id")
     public List<RoomModel> findAllRoomsInTheHotel(UUID id);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE ROOMTYPE = :roomType")
-    public List<RoomModel> findAllRoomsWithRoomType(ERoomType roomType);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE ROOM_HOTEL_CITY LIKE %:hotelCity%")
-    public List<RoomModel> findAllRoomsWithHotelCity(String hotelCity);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE ROOM_HOTEL_CITY LIKE %:hotelCity% AND ROOMTYPE = :roomType")
-    public List<RoomModel> findAllRoomsWithHotelCityRoomType(String hotelCity, ERoomType roomType);
-
-    @Query(nativeQuery = true, value = "SELECT ID FROM room WHERE ROOMTYPE = :roomType")
-    public UUID findHotelIdByRoomType(ERoomType roomType);
+    
+    @Query(nativeQuery = true, value = "SELECT * FROM room WHERE (:hotelCity IS NULL OR room_hotel_city LIKE %:hotelCity%) AND " +
+                                        "(:roomType IS NULL OR ROOMTYPE = :roomType) AND " +
+                                        "(:personCapacity IS NULL OR ROOMCAPACITY >= :personCapacity) AND " +
+                                        "(:maximumPrice IS NULL OR ROOMPRICE <= :maximumPrice)"
+                                        )
+    public List<RoomModel> findAllRooms(String hotelCity, ERoomType roomType, int personCapacity, double maximumPrice);
 
     @Query(nativeQuery = true, value = "SELECT ROOMPRICE FROM room WHERE ID = :id")
     public double findPriceById(UUID id);
 
-    // @Query(nativeQuery =  = true, value = "SELECT ")
-    // public UUID findHotelIdsByRoomType(ERoomType roomType);
-
-    // @Query(nativeQuery = true, value = "")
-    // public List<RoomModel> findById();
+    @Query(nativeQuery = true, value = "SELECT ROOMCAPACITY FROM room WHERE ID = :id")
+    public int findCapacityById(UUID id);
 
 }
