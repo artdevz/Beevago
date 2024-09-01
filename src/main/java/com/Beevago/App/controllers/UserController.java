@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Beevago.App.exceptions.LengthException;
+import com.Beevago.App.exceptions.NewPasswordEqualsException;
 import com.Beevago.App.exceptions.ServicException;
 import com.Beevago.App.models.UserModel;
 import com.Beevago.App.services.UserService;
@@ -57,17 +58,12 @@ public class UserController {
             mv.setViewName("redirect:/cadastro");
             return mv;
         }
-
         us.saveUser(user);
         session.setAttribute("usuarioLogado", user);
         attributes.addFlashAttribute("msg", "Cadastro feito com Sucesso!");        
         mv.setViewName("redirect:/");
         return mv;
     }
-
-
-
-
 
     // Login:
     @GetMapping("/login")
@@ -105,101 +101,53 @@ public class UserController {
     // Logout:
     @PostMapping("logout")
     public ModelAndView logout(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
         session.invalidate();
-        return getLoginPage();
+        mv.setViewName("redirect:/");
+        return mv;
     }
-
-
-
-
 
     // Configurações:
     @GetMapping("/settings")
-    //@RolesAllowed("USER")
-    //@PostAuthorize("hasRole('USER')")
     public ModelAndView userSettings(@RequestParam(value="userid", required = false) UUID userId, HttpServletRequest request) throws ServletException {
-        ModelAndView mv = new ModelAndView();     
+        ModelAndView mv = new ModelAndView();
         if (userId == null) {
             mv.setViewName("redirect:/login"); return mv;
         }
-        mv.setViewName("settings/index");
-        // if (request.isUserInRole("USER")) {
-            //return mv;
-        //}
-        //mv.setViewName("redirect:/login");              
+        mv.setViewName("settings/index");       
 
         return mv;
     }
-    
 
-
-
-
-    @GetMapping("/settings/changingusername")
-    public ModelAndView userChangingName(HttpSession session) {
+    @PostMapping("settings/changingusername")
+    public ModelAndView userChangingName(@RequestParam("userid") UUID userId, @RequestParam("changingusername") String newUserName, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, LengthException {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("user", new UserModel());
-        mv.setViewName("settings/changingname");
-        return mv;
-    }
 
-    @PostMapping("postchangingusername")
-    public ModelAndView userChangingName(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, LengthException {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("user", new UserModel());
-
-        if (result.hasErrors()) {
-            mv.setViewName("login/index");
-        }
+        us.changeUserName(userId, newUserName);
+        attributes.addFlashAttribute("msg", "Nome do Usuário renomeado com Sucesso!");        
         
-        UserModel userLogin = us.loginUser(user.getUserEmail(), UtilPassword.md5(user.getUserPassword()));        
+        // JWT TOKEN SAVE THIS:
+        UserModel userLogin = us.loginUser(us.findEmailById(userId), us.findPasswordById(userId));
+        if (userLogin != null) session.setAttribute("usuarioLogado", userLogin);
 
-        if (userLogin != null) {
-            session.setAttribute("usuarioLogado", userLogin);
-            us.changeUserName(userLogin, user.getUserName());
-            attributes.addFlashAttribute("msg", "Nome do Usuário renomeado com Sucesso!");        
-            mv.setViewName("redirect:/settings");                       
-            return mv;            
-        }
+        mv.setViewName("redirect:/");
 
-        mv.addObject("msg", "Usuário não encontrado.");
-        mv.setViewName("redirect:/changingusername");
-        return mv; 
-    }
-
-
-
-
-
-    @GetMapping("/settings/changinguserpassword")
-    public ModelAndView userChangingPassword(HttpSession session) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("user", new UserModel());
-        mv.setViewName("settings/changingpassword");
         return mv;
     }
 
-    @PostMapping("postchanginguserpassword")
-    public ModelAndView userChangingPassword(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, LengthException {
+    @PostMapping("settings/changinguserpassword")
+    public ModelAndView userChangingPassword(@RequestParam("userid") UUID userId, @RequestParam("changinguserpassword") String newUserPassword, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, LengthException, NewPasswordEqualsException {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("user", new UserModel());
 
-        if (result.hasErrors()) {
-            mv.setViewName("login/index");
-        }
+        us.changeUserPassword(userId, newUserPassword);
+        attributes.addFlashAttribute("msg", "Nome do Usuário renomeado com Sucesso!");
 
-        UserModel userLogin = us.loginUser(user.getUserEmail(), UtilPassword.md5(user.getUserPassword()));
+        // JWT TOKEN SAVE THIS:
+        UserModel userLogin = us.loginUser(us.findEmailById(userId), us.findPasswordById(userId));
+        if (userLogin != null) session.setAttribute("usuarioLogado", userLogin);
         
-        if (userLogin != null) {
-            session.setAttribute("usuarioLogado", userLogin);
-            us.changeUserPassword(userLogin, user.getUserConfirmedPassword());
-            attributes.addFlashAttribute("msg", "Senha alterada com Sucesso!");        
-            mv.setViewName("redirect:/settings");                       
-            return mv;            
-        }
-
-        mv.setViewName("redirect:/settings");
-
+        mv.setViewName("redirect:/");
+        
         return mv;
     }
 

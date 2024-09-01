@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Beevago.App.enums.ERole;
 import com.Beevago.App.enums.ERoomType;
 import com.Beevago.App.models.HotelModel;
 import com.Beevago.App.services.HotelService;
+import com.Beevago.App.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -23,11 +25,18 @@ public class HotelController {
 
     @Autowired
     private HotelService hs;
+
+    @Autowired
+    private UserService us;
     
     @GetMapping("/adminhotel")
     public ModelAndView getAdminHotelMainPage(@RequestParam(value="userid", required = false) UUID userId) {
         ModelAndView mv = new ModelAndView();
-        // FAZER: SOMENTE MODS PODEREM ACESSAR
+
+        if ( !(us.findRoleById(userId).equals(ERole.ROLE_MOD) || us.findRoleById(userId).equals(ERole.ROLE_ADMIN)) ) {
+            mv.setViewName("redirect:/"); return mv;
+        }
+
         mv.setViewName("hotel/index");
         mv.addObject("hotel", new HotelModel());
         List<HotelModel> hotels = hs.findAllHotelsWithUserId(userId);

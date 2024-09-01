@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.Beevago.App.enums.ERole;
 import com.Beevago.App.exceptions.AttributeExistsException;
 import com.Beevago.App.exceptions.CriptoExistException;
 import com.Beevago.App.exceptions.LengthException;
+import com.Beevago.App.exceptions.NewPasswordEqualsException;
+import com.Beevago.App.exceptions.PasswordConfirmation;
 import com.Beevago.App.exceptions.ServicException;
 import com.Beevago.App.models.UserModel;
 import com.Beevago.App.repositories.UserRepository;
@@ -46,10 +49,9 @@ public class UserService {
             if ( (user.getUserPassword()).length() < USERPASSWORDMINIMUMLENGTH || (user.getUserPassword()).length() > USERPASSWORDMAXIMUMLENGTH ) {
                 throw new LengthException("Senha deve conter entre 8 a 32 caracteres.");
             }
-
-            // if ( (user.getUserPassword()) != (user.getUserConfirmedPassword()) ) {                
-            //     throw new PasswordConfirmedNotEqualsUserPassword("A Confirmação da Senha deve ser igual à Senha.");
-            // }
+            if ( !(user.getUserPassword()).equals(user.getUserConfirmedPassword()) ) {                
+                throw new PasswordConfirmation("A Confirmação da Senha deve ser igual à Senha.");
+            }
 
             user.setUserPassword(UtilPassword.md5(user.getUserPassword()));
 
@@ -68,32 +70,53 @@ public class UserService {
         return userLogin;
     }    
     
-    public UserModel changeUserName(UserModel user, String newUserName) throws LengthException {
+    public void changeUserName(UUID userId, String newUserName) throws LengthException {
         
         if ( newUserName.length() < USERNAMEMINIMUMLENGTH || newUserName.length() > USERNAMEMAXIMUMLENGTH ) {
             throw new LengthException("Novo nome de Usuário também deve conter entre 3 a 120 caracteres.");
         }
 
+        UserModel user = findUserById(userId);
         user.setUserName(newUserName);
-        ur.save(user);        
+        ur.save(user);
 
-        return user;
     }
 
-    public UserModel changeUserPassword(UserModel user, String newUserPassword) throws LengthException, NoSuchAlgorithmException {
+    public void changeUserPassword(UUID userId, String newUserPassword) throws LengthException, NoSuchAlgorithmException, NewPasswordEqualsException {
         
         if ( newUserPassword.length() < USERPASSWORDMINIMUMLENGTH || newUserPassword.length() > USERPASSWORDMAXIMUMLENGTH ) {
             throw new LengthException("Nova Senha deve conter entre 8 a 32 caracteres.");
         }
 
+        if ( (UtilPassword.md5(newUserPassword)).equals(findPasswordById(userId)) ) {
+            System.out.println("Senha Igual a Anterior");
+            throw new NewPasswordEqualsException("Senha igual a anterior.");
+        }
+
+        UserModel user = findUserById(userId);
         user.setUserPassword(UtilPassword.md5(newUserPassword));
         ur.save(user);
 
-        return user;
     }
 
     public List<UserModel> findAllUsers() {
         return ur.findAll();
+    }
+
+    public UserModel findUserById(UUID id) {
+        return ur.findUserById(id);
+    }
+
+    public ERole findRoleById(UUID id) {
+        return ERole.values()[ur.findRoleById(id)];
+    }
+
+    public String findEmailById(UUID id) {
+        return ur.findEmailById(id);
+    }
+
+    public String findPasswordById(UUID id) {
+        return ur.findPasswordById(id);
     }
 
     public void deleteUserById(UUID id) {

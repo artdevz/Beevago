@@ -24,7 +24,7 @@ public enum ERole {
      * 
      */
 
-    private String role;
+    private final String role;
     
     ERole(String role) {
         this.role = role;

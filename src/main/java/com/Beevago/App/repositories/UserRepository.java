@@ -1,6 +1,5 @@
 package com.Beevago.App.repositories;
 
-//import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,10 +22,20 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     UserDetails findByUserEmail(String userEmail);
 
-    //Optional<User> findByUserEmail(String userEmail);
-
     @Query(nativeQuery = true, value = "SELECT * FROM user WHERE USEREMAIL = :userEmail AND USERPASSWORD = :userPassword")
     public UserModel findLogin(String userEmail, String userPassword);    
+
+    @Query(nativeQuery = true, value = "SELECT * FROM user WHERE ID = :id")
+    public UserModel findUserById(UUID id);
+
+    @Query(nativeQuery = true, value = "SELECT USERROLE FROM user WHERE ID = :id")
+    public Byte findRoleById(UUID id);
+
+    @Query(nativeQuery = true, value = "SELECT USEREMAIL FROM user WHERE ID = :id")
+    public String findEmailById(UUID id);
+
+    @Query(nativeQuery = true, value = "SELECT USERPASSWORD FROM user WHERE ID = :id")
+    public String findPasswordById(UUID id);
 
     @Transactional
     @Modifying

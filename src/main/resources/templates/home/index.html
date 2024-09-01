@@ -116,7 +116,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${room.roomHotelCity}"></span></td>
                         <td><span th:text="${room.roomType.getRoomType}"></span></td>
                         <td><span th:text="${room.roomCapacity}"></span></td>
-                        <td><span th:text="${room.roomPrice}"></span></td>
+                        <td><span th:utext="'R$ ' + ${room.roomPrice}"></span></td>
                         
                         <td>
                             <div>

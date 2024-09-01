@@ -14,6 +14,7 @@ import com.Beevago.App.enums.ERole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -50,7 +51,6 @@ public class UserModel implements Serializable {
     private String userEmail;
 
     @NotEmpty
-    //@Size(min = 8, max = 32, message = "Senha deve conter entre 8 e 32 caracteres.")
     @Column(name = "USERPASSWORD")
     private String userPassword;
     
@@ -68,6 +68,7 @@ public class UserModel implements Serializable {
     @Column(name = "USERUPDATEDDATE")
     private Date userUpdatedDate;
 
+    @Enumerated
     @NotNull
     @Column(name = "USERROLE")
     private ERole userRole;    
