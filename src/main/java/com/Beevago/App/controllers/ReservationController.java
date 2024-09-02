@@ -1,5 +1,8 @@
 package com.Beevago.App.controllers;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,18 +40,23 @@ public class ReservationController {
         @RequestParam(value = "searchcity", required = false) String hotelCity,
         @RequestParam(value = "categoryfilter", required = false) ERoomType roomType,
         @RequestParam(value = "searchperson", required = false) int personCapacity,
-        @RequestParam(value = "searchprice", required = false) double maximumPrice
-        ) {
+        @RequestParam(value = "searchprice", required = false) double maximumPrice,
+        @RequestParam(value = "searchcheckin", required = false) String searchCheckInDate,
+        @RequestParam(value = "searchcheckout", required = false) String searchCheckOutDate
+        ) throws ParseException {
 
         ModelAndView mv = new ModelAndView();        
         mv.setViewName("home/index");        
         mv.addObject("categoriesList", ERoomType.values());
-
+        mv.addObject("currentDate", new Date(System.currentTimeMillis()));
+        
         String sRoomType = (roomType != null)? roomType.getRoomType() : "Todas as Categorias";
         String sHotelCity = (hotelCity != "")? hotelCity : "Todas as Cidades";
-        mv.addObject("stringSearch", "em " + sHotelCity + ", " + sRoomType + ", " + personCapacity + " Pessoa(s)" + ", Até R$"+ maximumPrice + ":");
+        mv.addObject("stringSearch", "em " + sHotelCity + ", " + sRoomType + ", " + personCapacity + " Pessoa(s)" + ", Até R$"+ maximumPrice + ", De " + searchCheckInDate + " Até " + searchCheckOutDate + ":");
 
-        List<RoomModel> rooms = qs.findAllRooms(hotelCity, roomType, personCapacity, maximumPrice);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date checkIn = sdf.parse(searchCheckInDate); java.util.Date checkOut = sdf.parse(searchCheckOutDate);
+        List<RoomModel> rooms = qs.findAllRooms(hotelCity, roomType, personCapacity, maximumPrice, new java.sql.Date(checkIn.getTime()), new java.sql.Date(checkOut.getTime()));
         mv.addObject("RoomsList", rooms);        
 
         return mv;
@@ -73,13 +81,11 @@ public class ReservationController {
         ModelAndView mv = new ModelAndView();
 
         if (rs.dateConflicts(roomId, reserva.getCheckInDate(), reserva.getCheckOutDate())) {
-            // System.out.println("Ocupado");
             mv.setViewName("redirect:/");
             return mv;
         }
 
         if (qs.findCapacityById(roomId) < reserva.getQuantidadeDePessoas()) {
-            // System.out.println("Acima da Capacidade");
             mv.setViewName("redirect:/");
             return mv;
         }
@@ -91,7 +97,6 @@ public class ReservationController {
         reserva.setTotalPrice( rs.daysInRoom(reserva.getCheckInDate(), reserva.getCheckOutDate()) * reserva.getQuantidadeDePessoas() * qs.findPriceById(roomId) );
                  
         rs.saveReservation(reserva);
-        // System.out.println("Sucesso");        
         mv.setViewName("redirect:/");
 
         return mv;

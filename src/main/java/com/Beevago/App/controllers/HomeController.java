@@ -1,5 +1,6 @@
 package com.Beevago.App.controllers;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class HomeController {
         List<RoomModel> rooms = rs.findAllRooms();
         mv.addObject("RoomsList", rooms);
         mv.addObject("categoriesList", ERoomType.values());
-        mv.addObject("stringSearch", ":");           
+        mv.addObject("stringSearch", ":");
+        mv.addObject("currentDate", new Date(System.currentTimeMillis()));           
         return mv;
     }
 

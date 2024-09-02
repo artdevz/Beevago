@@ -13,9 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-// import jakarta.validation.constraints.Size;
-//import jakarta.validation.constraints.NotEmpty;
-//import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="reservation")
@@ -49,7 +46,6 @@ public class ReservationModel implements Serializable {
     // @Size(min = 1)
     @Column(name = "pessoas")
     private int quantidadeDePessoas;
-    // falta Getters e Setters
     
     //@NotEmpty
     // @Size(min = 0)
@@ -59,11 +55,6 @@ public class ReservationModel implements Serializable {
     @Enumerated
     @Column(name = "reservationRoomtype")
     private ERoomType roomType;
-
-    // // @NotEmpty
-    // @ManyToOne
-    // @JoinColumn(name = "userReservation")   
-    // private UserModel userReservation;
 
     // GetterSetters:
 
@@ -138,13 +129,5 @@ public class ReservationModel implements Serializable {
     public void setRoomType(ERoomType roomType) {
         this.roomType = roomType;
     }
-
-    // public User getUserReservation() {
-    //     return userReservation;
-    // }
-
-    // public void setUserReservation(User userReservation) {
-    //     this.userReservation = userReservation;
-    // }      
 
 }

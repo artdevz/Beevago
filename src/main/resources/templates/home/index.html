@@ -74,17 +74,18 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                                     th:text="${room.roomType}"
                                     th:value="${room}">
                                 </option>                        
-                            </select>                        
+                            </select>
+                            
+                        <input type="number" min="1" value="1" class="form-control" name="searchperson" placeholder="Pessoas">
+                        <input type="number" min="0" value="1000" class="form-control" name="searchprice" placeholder="Até R$ 0,00">
+
+                        <label><strong>De </strong></label>
+                        <input type="date" th:value="${currentDate}" class="form-control" name="searchcheckin">
+
+                        <label><strong>Até </strong></label>
+                        <input type="date" th:value="${currentDate}" class="form-control" name="searchcheckout">
 
                         <input class="btn-find" type="submit" value="Buscar">                    
-                    </div>
-                    
-                    <div>
-                        <input type="number" min="1" value="1" class="form-control" name="searchperson" placeholder="Pessoas">
-                    </div>
-
-                    <div>
-                        <input type="number" min="0" value="1000" class="form-control" name="searchprice" placeholder="Até R$ 0,00">
                     </div>
 
                 </form>

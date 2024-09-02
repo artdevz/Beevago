@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -78,6 +79,7 @@ public class UserService {
 
         UserModel user = findUserById(userId);
         user.setUserName(newUserName);
+        user.setUserUpdatedDate(new Date(System.currentTimeMillis()));
         ur.save(user);
 
     }
@@ -95,6 +97,7 @@ public class UserService {
 
         UserModel user = findUserById(userId);
         user.setUserPassword(UtilPassword.md5(newUserPassword));
+        user.setUserUpdatedDate(new Date(System.currentTimeMillis()));
         ur.save(user);
 
     }

@@ -115,6 +115,10 @@ body {
 .search {
     border-radius: 5px;
     text-align: center;
+    color: aliceblue;
+    margin-left: 12px; 
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .hoteltables {

@@ -15,8 +15,10 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface HotelRepository extends JpaRepository<HotelModel, Long> {
 
-    public HotelModel findById(UUID id);
     public HotelModel findByHotelName(String hotelName);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE OWNERID = :userUuid")
+    public List<HotelModel> findAllHotelsWithUserId(UUID userUuid);
 
     @Query(nativeQuery = true, value = "SELECT HOTELNAME FROM hotel WHERE ID = :hotelUuid")
     public String findHotelNameById(UUID hotelUuid);
@@ -26,15 +28,6 @@ public interface HotelRepository extends JpaRepository<HotelModel, Long> {
 
     @Query(nativeQuery = true, value = "SELECT HOTELCITY FROM hotel WHERE ID = :hotelUuid")
     public String findHotelCityById(UUID hotelUuid);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE HOTELCITY LIKE %:hotelCity%")
-    public List<HotelModel> findAllHotelsByCity(String hotelCity);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE ID = :hotelUuid")
-    public List<HotelModel> findAllHotelsById(UUID hotelUuid);
-
-    @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE OWNERID = :userUuid")
-    public List<HotelModel> findAllHotelsWithUserId(UUID userUuid);
 
     @Transactional
     @Modifying

@@ -70,14 +70,6 @@ public class HotelService {
         return hr.findHotelCityById(id);
     }
 
-    public List<HotelModel> findAllHotelsByCity(String hotelCity) {
-        return hr.findAllHotelsByCity(hotelCity);
-    }
-
-    public HotelModel findById(UUID id) {
-        return hr.findById(id);
-    }
-
     public void deleteHotelById(UUID id) {
         hr.deleteByHotelId(id);
     }
