@@ -53,6 +53,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <label>Confirmar Senha:</label> 
                         <input type="password" class="form-control" th:field="*{userConfirmedPassword}" placeholder="Confirme sua Senha.">
                     </div>
+
+                    <div class="error" th:if="${errorMessage}">
+                        <div th:text="${errorMessage}"></div>
+                    </div>
                     
                     <button type="submit" class="btn_cadastrar">Cadastrar</button>
 

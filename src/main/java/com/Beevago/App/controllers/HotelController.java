@@ -29,7 +29,7 @@ public class HotelController {
     @Autowired
     private UserService us;
     
-    @GetMapping("/adminhotel")
+    @GetMapping("settings/hotelsettings")
     public ModelAndView getAdminHotelMainPage(@RequestParam(value="userid", required = false) UUID userId) {
         ModelAndView mv = new ModelAndView();
 
@@ -59,7 +59,7 @@ public class HotelController {
         hs.saveHotel(hotel);        
         session.setAttribute("hotelCadastrado", hotel);
         attributes.addFlashAttribute("msg", "Hotel cadastrado com Sucesso!");        
-        mv.setViewName("redirect:/adminhotel?userid=" + userId);
+        mv.setViewName("redirect:/settings/hotelsettings?userid=" + userId);
         return mv;
         
     }

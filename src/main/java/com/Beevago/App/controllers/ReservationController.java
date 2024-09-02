@@ -90,9 +90,9 @@ public class ReservationController {
             return mv;
         }
 
-        reserva.setUserID(userId);        
-        reserva.setHotelID(hotelId); 
-        reserva.setRoomID(roomId);       
+        reserva.setUserId(userId);        
+        reserva.setHotelId(hotelId); 
+        reserva.setRoomId(roomId);       
         reserva.setRoomType(roomType);
         reserva.setTotalPrice( rs.daysInRoom(reserva.getCheckInDate(), reserva.getCheckOutDate()) * reserva.getQuantidadeDePessoas() * qs.findPriceById(roomId) );
                  

@@ -1,6 +1,5 @@
 package com.Beevago.App.controllers;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Beevago.App.enums.ERole;
+import com.Beevago.App.enums.ERoomType;
 import com.Beevago.App.models.HotelModel;
+import com.Beevago.App.models.RoomModel;
 import com.Beevago.App.models.UserModel;
 import com.Beevago.App.services.HotelService;
+import com.Beevago.App.services.ReservationService;
+import com.Beevago.App.services.RoomService;
 import com.Beevago.App.services.UserService;
 
 @Controller
@@ -25,10 +28,19 @@ public class AdminController {
     @Autowired
     HotelService hs;
 
+    @Autowired
+    RoomService qs;
+
+    @Autowired
+    ReservationService rs;
+
     @GetMapping("/admin")
-    public ModelAndView getAdminPage() {
+    public ModelAndView getAdminPage(@RequestParam(value="userid", required = false) UUID userId) {
         ModelAndView mv = new ModelAndView();
-        // FAZER: SOMENTE ADMIN PODER ENTRAR
+        // JWT TOKEN SAVE THIS:
+        // if ( !(us.findRoleById(userId).equals(ERole.ROLE_ADMIN)) ) {
+        //     mv.setViewName("redirect:/"); return mv;
+        // }
         mv.setViewName("admin/index");
         return mv;
     }
@@ -40,8 +52,7 @@ public class AdminController {
         mv.addObject("user", new UserModel());
         ERole[] role = {ERole.ROLE_USER, ERole.ROLE_MOD};
         mv.addObject("roleList", role);
-        List<UserModel> userList = us.findAllUsers();
-        mv.addObject("userList", userList);
+        mv.addObject("userList", us.findAllUsers());
 
         return mv;
     }
@@ -68,8 +79,7 @@ public class AdminController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("admin/hotelcrud");
         mv.addObject("hotel", new HotelModel());
-        List<HotelModel> hotelList = hs.findAllHotels();
-        mv.addObject("hotelList", hotelList);
+        mv.addObject("hotelList", hs.findAllHotels());
 
         return mv;
     }
@@ -94,6 +104,25 @@ public class AdminController {
     public ModelAndView getAdminRoomCrud() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("admin/roomcrud");
+        mv.addObject("room", new RoomModel());
+        mv.addObject("roomList", qs.findAllRooms());
+        mv.addObject("roomtypes", ERoomType.values());
+        return mv;
+    }
+
+    @PostMapping("/admin/room/create")
+    public ModelAndView createRoom(RoomModel room) throws Exception {
+        ModelAndView mv = new ModelAndView();
+        qs.saveRoom(room);
+        mv.setViewName("redirect:/admin/room");
+        return mv;
+    }
+
+    @PostMapping("/admin/room/delete")
+    public ModelAndView deleteRoom(@RequestParam("roomid") UUID roomId) {
+        ModelAndView mv = new ModelAndView();
+        qs.deleteRoomById(roomId);
+        mv.setViewName("redirect:/admin/room");
         return mv;
     }
 
@@ -101,6 +130,15 @@ public class AdminController {
     public ModelAndView getAdminReservationCrud() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("admin/reservationcrud");
+        mv.addObject("reservationList", rs.findAllReservations());
+        return mv;
+    }
+
+    @PostMapping("/admin/reservation/delete")
+    public ModelAndView deleteReservation(@RequestParam("reservationid") UUID reservationId) {
+        ModelAndView mv = new ModelAndView();
+        rs.deleteReservationById(reservationId);
+        mv.setViewName("redirect:/admin/reservation");
         return mv;
     }
     

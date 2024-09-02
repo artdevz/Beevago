@@ -26,14 +26,14 @@ public class ReservationModel implements Serializable {
 
     //@NotEmpty
     @Column(name = "userID")
-    private UUID userID;
+    private UUID userId;
 
     //@NotEmpty
     @Column(name = "hotelID")
-    private UUID hotelID;
+    private UUID hotelId;
 
     @Column(name = "roomID")
-    private UUID roomID;
+    private UUID roomId;
 
     //@NotNull
     @Column(name = "checkIn")
@@ -66,28 +66,28 @@ public class ReservationModel implements Serializable {
         this.id = id;
     }
 
-    public UUID getUserID() {
-        return userID;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setUserID(UUID userID) {
-        this.userID = userID;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
-    public UUID getHotelID() {
-        return hotelID;
+    public UUID getHotelId() {
+        return hotelId;
     }
 
-    public void setHotelID(UUID hotelID) {
-        this.hotelID = hotelID;
+    public void setHotelId(UUID hotelId) {
+        this.hotelId = hotelId;
     }
 
-    public UUID getRoomID() {
-        return roomID;
+    public UUID getRoomId() {
+        return roomId;
     }
 
-    public void setRoomID(UUID roomID) {
-        this.roomID = roomID;
+    public void setRoomId(UUID roomId) {
+        this.roomId = roomId;
     }
 
     public Date getCheckInDate() {

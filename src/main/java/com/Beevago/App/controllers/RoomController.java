@@ -29,7 +29,7 @@ public class RoomController {
     @Autowired
     HotelService hs;
     
-    @GetMapping("adminhotel/roomsettings/{id}")
+    @GetMapping("/settings/hotelsettings/roomsettings/{id}")
     public ModelAndView getRoomSettingsPage(@PathVariable UUID id) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("room/index");                  
@@ -58,7 +58,7 @@ public class RoomController {
         rs.saveRoom(room);
         session.setAttribute("quartoCadastrado", room);
         attributes.addFlashAttribute("msg", "Quarto cadastrado com Sucesso!");        
-        mv.setViewName("redirect:/adminhotel/roomsettings/{id}");
+        mv.setViewName("redirect:/settings/hotelsettings/roomsettings/{id}");
 
         return mv;
     }

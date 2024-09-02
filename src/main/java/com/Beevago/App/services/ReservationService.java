@@ -46,4 +46,12 @@ public class ReservationService {
         return false;
     }
 
+    public List<ReservationModel> findAllReservations() {
+        return rr.findAll();
+    }
+
+    public void deleteReservationById(UUID id) {
+        rr.deleteByReservationId(id);
+    }
+
 }

@@ -63,7 +63,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     </div>
 
                     <div>
-                        <form method="get" action="#" th:action="@{/adminhotel}">
+                        <form method="get" action="#" th:action="@{/settings/hotelsettings}">
                             <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
                             <button type="submit" class="btn_adminhotel">Seus Hotéis</button>
                         </form>

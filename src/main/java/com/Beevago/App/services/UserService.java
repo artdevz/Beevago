@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,10 +14,12 @@ import org.springframework.stereotype.Service;
 
 import com.Beevago.App.enums.ERole;
 import com.Beevago.App.exceptions.AttributeExistsException;
+import com.Beevago.App.exceptions.CPFInvalidException;
 import com.Beevago.App.exceptions.CriptoExistException;
 import com.Beevago.App.exceptions.LengthException;
+import com.Beevago.App.exceptions.MinimumAgeException;
 import com.Beevago.App.exceptions.NewPasswordEqualsException;
-import com.Beevago.App.exceptions.PasswordConfirmation;
+import com.Beevago.App.exceptions.PasswordConfirmationException;
 import com.Beevago.App.exceptions.ServicException;
 import com.Beevago.App.models.UserModel;
 import com.Beevago.App.repositories.UserRepository;
@@ -28,6 +32,7 @@ public class UserService {
     private static final int USERPASSWORDMAXIMUMLENGTH = 32;
     private static final int USERNAMEMINIMUMLENGTH = 3;
     private static final int USERNAMEMAXIMUMLENGTH = 120;
+    private static final int MINIMUMAGE = 18;
 
     @Autowired
     private UserRepository ur;
@@ -51,7 +56,15 @@ public class UserService {
                 throw new LengthException("Senha deve conter entre 8 a 32 caracteres.");
             }
             if ( !(user.getUserPassword()).equals(user.getUserConfirmedPassword()) ) {                
-                throw new PasswordConfirmation("A Confirmação da Senha deve ser igual à Senha.");
+                throw new PasswordConfirmationException("A Confirmação da Senha deve ser igual à Senha.");
+            }
+
+            if (user.getUserBirthday().after(minimumDate())) {
+                throw new MinimumAgeException("Deve ter pelo menos 18 anos para criar uma conta.");
+            }
+
+            if (!(isCPFValid(user.getUserCpf()))) {
+                throw new CPFInvalidException("CPF deve ser válido.");
             }
 
             user.setUserPassword(UtilPassword.md5(user.getUserPassword()));
@@ -100,6 +113,19 @@ public class UserService {
         user.setUserUpdatedDate(new Date(System.currentTimeMillis()));
         ur.save(user);
 
+    }
+
+    public Date minimumDate() {
+
+        LocalDateTime ldate = LocalDateTime.now().minusYears(MINIMUMAGE);
+        java.util.Date date = new java.util.Date();
+        date = Date.from(ldate.atZone(ZoneId.systemDefault()).toInstant());
+        return new java.sql.Date(date.getTime());
+
+    }
+
+    public boolean isCPFValid(String cpf) {
+        return false;
     }
 
     public List<UserModel> findAllUsers() {

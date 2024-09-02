@@ -9,9 +9,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <title>Admin</title>
 </head>
 <body>
-    <h1>HOTEL:</h1>
+    <h1>HOTÉIS:</h1>
     
-    <h3>CREATE:</h3>
+    <!-- <h3>CREATE:</h3>
     <form method="post" action="hotel/create" th:object="${hotel}">
 
         <div>
@@ -28,49 +28,41 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             <label>Cidade:</label> 
             <input type="text" class="form-control" th:field="*{hotelCity}">
         </div>
-
-        <div>
-            <label>Valor Padrão:</label> 
-            <input type="number" class="form-control" th:field="*{valByStandardType}">
-        </div>
-
-        <div>
-            <label>Valor Família:</label> 
-            <input type="number" class="form-control" th:field="*{valByFamilyType}">
-        </div>
-
-        <div>
-            <label>Valor Luxo:</label> 
-            <input type="number" class="form-control" th:field="*{valByLuxType}">
-        </div>
         
         <button type="submit">Criar Hotel</button>
     
-    </form>
+    </form> -->
 
-    <h3>INFO</h3>
+    <!-- <h3>INFO</h3> -->
     <table>
+
         <thead>
             <tr>
                 <th>ID</th>
+                <th>OWNERID</th>
                 <th>Nome</th>
                 <th>Endereço</th>
                 <th>Cidade</th>
-                <th>Valor Padrão</th>
-                <th>Valor Família</th>
-                <th>Valor Luxo</th>
             </tr>
         </thead>
     
         <tbody>
             <tr th:each="hotel : ${hotelList}">
+
                 <td><span th:text="${hotel.id}"></span></td>
+                <td><span th:text="${hotel.ownerId}"></span></td>
                 <td><span th:text="${hotel.hotelName}"></span></td>
                 <td><span th:text="${hotel.hotelAddress}"></span></td>
                 <td><span th:text="${hotel.hotelCity}"></span></td>
-                <td><span th:text="${hotel.valByStandardType}"></span></td>
-                <td><span th:text="${hotel.valByFamilyType}"></span></td>
-                <td><span th:text="${hotel.valByLuxType}"></span></td>
+
+                <td>
+                    <div>
+                        <form method="post" action="#" th:action="@{/admin/hotel/update}">
+                            <input type="hidden" name="hotelid" th:value="${hotel.id}">
+                            <td><button class="btn-deletar">Editar</button></td>
+                        </form>
+                    </div>
+                </td>
 
                 <td>
                     <div>
@@ -80,8 +72,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         </form>
                     </div>
                 </td>
+
             </tr>
-        </tbody>  
+
+        </tbody> 
+
     </table>
     
 </body>

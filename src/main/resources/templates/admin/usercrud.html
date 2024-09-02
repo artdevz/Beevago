@@ -87,6 +87,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
                 <td>
                     <div>
+                        <form method="post" action="#" th:action="@{/admin/user/update}">
+                            <input type="hidden" name="userid" th:value="${user.id}">
+                            <td><button class="btn-reservar">Editar</button></td>
+                        </form>
+                    </div>
+                </td>
+
+                <td>
+                    <div>
                         <form method="post" action="#" th:action="@{/admin/user/delete}">
                             <input type="hidden" name="userid" th:value="${user.id}">
                             <td><button class="btn-reservar">Deletar</button></td>

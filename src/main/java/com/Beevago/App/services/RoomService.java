@@ -63,4 +63,8 @@ public class RoomService {
         return rr.findPriceById(id);
     }
 
+    public void deleteRoomById(UUID id) {
+        rr.deleteByRoomId(id);
+    }
+
 }

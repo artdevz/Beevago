@@ -1,8 +1,8 @@
 package com.Beevago.App.exceptions;
 
-public class PasswordConfirmation extends Exception {
+public class CPFInvalidException extends Exception {
     
-    public PasswordConfirmation(String message) {
+    public CPFInvalidException(String message) {
         super(message);
     }
 

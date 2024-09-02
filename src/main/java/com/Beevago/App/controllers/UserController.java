@@ -32,7 +32,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-//import jakarta.validation.Valid;
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {  
@@ -50,17 +50,24 @@ public class UserController {
     }
 
     @PostMapping("/cadastro/cadastrando")
-    public ModelAndView cadastrarUser(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws Exception {
+    public ModelAndView cadastrarUser(@Valid UserModel user, BindingResult result, RedirectAttributes attributes, HttpSession session) throws Exception {
         ModelAndView mv = new ModelAndView();
 
         if (result.hasErrors()) {
-            attributes.addFlashAttribute("msg_erro", "ERRO! Verifique se há campos em branco.");
+            attributes.addFlashAttribute("errorMessage", "Erro! Verifique se há campos em branco.");
             mv.setViewName("redirect:/cadastro");
             return mv;
         }
-        us.saveUser(user);
+        
+        try {
+            us.saveUser(user); 
+        } catch (Exception e) {
+            attributes.addFlashAttribute("errorMessage", e.getMessage());
+            mv.setViewName("redirect:/cadastro");
+            return mv;
+        }
+        
         session.setAttribute("usuarioLogado", user);
-        attributes.addFlashAttribute("msg", "Cadastro feito com Sucesso!");        
         mv.setViewName("redirect:/");
         return mv;
     }
@@ -80,6 +87,7 @@ public class UserController {
         mv.addObject("user", new UserModel());
 
         if (result.hasErrors()) {
+            attributes.addFlashAttribute("msg", "Usuário não encontrado.");
             mv.setViewName("login/index");
         }
 
