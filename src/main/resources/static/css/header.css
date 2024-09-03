@@ -1,36 +1,38 @@
 .header {
+    max-width: 1720px;
+    display: flex;
+    position: fixed;
+    margin: 0 auto;
+    padding: 0 24px;
     background-color: rgb(17, 17, 17);
     border: 10px;
     border-radius: 5px; 
     border-color: #ecc900;
     text-shadow: 2px;
-    display: flex;
-    position: fixed;
     right: 0;
     left: 0;
     top: 0;
     align-items: center;
-    justify-content: center;
-    padding-right: 12px;
+    justify-content: space-between;
     z-index: 100;   
 }
 
-.bee-img {
-    margin-left: 520px;
-    margin-right: 20px;
+
+.logo {
+    display: flex;
+    align-items: center;
 }
 
-.bee-icon {
+.logo .bee-img .bee-icon {
     width: 50px;
     height: 50px;
 }
 
-.beevago {
-    margin-right: 20px;
-    flex: 1;
+.logo .beevago {
+    padding-left: 10px;
 }
 
-.beevago-title:visited {
+.beevago .beevago-title:visited {
     color: #ecc900;
 }
 
@@ -45,11 +47,17 @@
 }
 
 .header button {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 0 10px;
     background-color: rgb(17, 17, 17);
+    font-weight: 500;
+    font-size: .95rem;
     transition: color 0.15s;
     cursor: pointer;
+    transition: .3s;
+}
+
+.header button:hover {
+    color: #ecc900;
 }
 
 .btn-register {

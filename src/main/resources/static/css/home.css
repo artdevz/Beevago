@@ -1,3 +1,10 @@
+.main-home {
+    display: flex;
+    flex-direction: column;
+    max-width: 1720px;
+    margin: 0 auto;
+}
+
 .second-header {
     display: flex;
     justify-content: center;
@@ -7,11 +14,13 @@
 }
 
 .welcome {
-    color: white;
-    margin-left: 12px; 
+    color: white; 
     font-size: 30px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    transition: .3s;
+}
+
+.welcome span {
+    color: #ecc900;
 }
 
 .search {
@@ -23,12 +32,50 @@
     margin-bottom: 20px;
 }
 
+form .upper-side input,
+form .lower-side input {
+    height: 35px;
+    padding: 0 10px;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.upper-side select {
+    height: 35px;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.lower-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.lower-side .btn-find {
+    max-width: 200px;
+    min-width: 100px;
+    background-color: #ecc900;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0 auto;
+    transition: .3s;
+}
+
+.lower-side .btn-find:hover {
+    background-color: #e2c51e;
+}
+
+.search form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 .container {
     background-color: rgb(41, 41, 41);
-    border: 5px;
-    border-radius: 5px;
-    border-style: solid;
-    color: aliceblue;
+    border: 2px solid #fff;
+    border-radius: 15px;
     display: grid;
     margin-top: 20px;
     padding: 12px;
@@ -49,3 +96,11 @@
 /* .hoteltables-columns-items {
     display: flex;
 } */
+
+
+td button {
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ecc900;
+    padding: 5px;
+}

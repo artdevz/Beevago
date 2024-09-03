@@ -25,17 +25,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
         <div class="second-header">
             <div class="welcome">
-                <strong>Bem Vindo, <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span></strong>
+                <strong>Bem Vindo, <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span> !</strong>
             </div> 
 
             <div class="search">
                 <form method="post" th:action="@{/buscar}">
                     
-                    <div>
+                    <div class="upper-side">
                         <input type="search" class="form-control" name="searchcity" placeholder="Para onde desejas ir?">
                         
                             <select name="categoryfilter">
-                                <option text="Filtrar Categoria"></option>
+                                <option text="Todas as Categorias"></option>
                                 <option 
                                     th:each="room : ${categoriesList}"
                                     th:text="${room.roomType}"
@@ -43,16 +43,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                                 </option>                        
                             </select>
                             
-                        <input type="number" min="1" value="1" class="form-control" name="searchperson" placeholder="Pessoas" required>
-                        <input type="number" min="0" value="1000" class="form-control" name="searchprice" placeholder="Até R$ 0,00" required>
+                        <input type="number" min="1" class="form-control" name="searchperson" placeholder="Qtd de pessoas" required>
+                        <input type="number" min="0" value="1000" class="form-control" name="searchprice" placeholder="Até R$ 0,00" required>                    
+                    </div>
 
-                        <label><strong>De </strong></label>
-                        <input type="date" th:value="${currentDate}" class="form-control" name="searchcheckin">
-
-                        <label><strong>Até </strong></label>
-                        <input type="date" th:value="${currentDate}" class="form-control" name="searchcheckout">
-
-                        <input class="btn-find" type="submit" value="Buscar">                    
+                    <div class="lower-side">
+                        <div class="container-options">
+                            <label><strong>De </strong></label>
+                            <input type="date" th:value="${currentDate}" class="form-control" name="searchcheckin">
+    
+                            <label><strong>Até </strong></label>
+                            <input type="date" th:value="${currentDate}" class="form-control" name="searchcheckout">    
+                        </div>
+                        <input class="btn-find" type="submit" value="Buscar">
                     </div>
 
                 </form>
