@@ -20,46 +20,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
 <body>
 
-    <div class="header">
-        <div class="bee-img">
-            <img class="bee-icon" th:src="@{/image/bee.svg}">
-        </div>
-        <div class="beevago">
-            <h1>
-                <a class = "beevago-title" href="/"
-                    <font color="#ecc900">B E E</font>
-                    <font color="#000000">V A G O</font>
-                </a>
-            </h1>
-        </div>                   
-            
-        <div class="register-btns">
-            <div>
-                <form method="get" action="/cadastro">
-                    <button class="btn-register">Criar conta</button>
-                </form>
-            </div>
-
-            <div>
-                <form method="get" action="/login">
-                    <button class="btn-login">Login</button>
-                </form>
-            </div>
-            
-            <div>
-                <form method="get" action="#" th:action="@{/settings}">
-                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
-                    <button type="submit" class="btn-settings">Configs</button>
-                </form>
-            </div>
-
-            <div>
-                <form method="post" action="logout">
-                    <button type="submit" class="btn-logout">Logout</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <div th:replace="shared/header :: header"></div>
 
     <div class="form">
         <div class ="container">
@@ -80,11 +41,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         </form>
                     </div>
 
-                    <div>
+                    <div class="form-group">
                         CPF: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userCpf,'?')}"></span>
                     </div>
 
-                    <div>
+                    <div class="form-group">
                         Email: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userEmail,'?')}"></span>
                     </div>
                     
@@ -97,19 +58,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         </form>
                     </div>
 
-                    <div>
+                    <div class="form-group">
                         Data de Nascimento: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userBirthday,'?')}"></span>
                     </div>
 
-                    <div>
+                    <div class="form-group">
                         Data de Criação da Conta: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userCreatedDate,'?')}"></span>
                     </div>
 
-                    <div>
+                    <div class="form-group">
                         Última Atualização da Conta: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userUpdatedDate,'?')}"></span>
                     </div>
 
-                    <div>
+                    <div class="hotel-btn">
                         <form method="get" action="#" th:action="@{/settings/hotelsettings}">
                             <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
                             <button type="submit" class="btn_adminhotel">Seus Hotéis</button>

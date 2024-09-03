@@ -5,7 +5,7 @@ body {
     padding-bottom: 80px;
 }
 
-.welcome{
+.welcome {
     color: white;
     margin-left: 12px; 
     font-size: 30px;
@@ -13,7 +13,7 @@ body {
     margin-bottom: 20px;
 }
 
-.form{
+/* .form {
     margin-top: 80px;
     color: white;
     margin-left: 60px;
@@ -24,6 +24,6 @@ body {
     padding-left: 20px;
 }
 
-.form div{
+.form div {
     margin-bottom: 20px;
-}
+} */

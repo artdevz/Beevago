@@ -12,55 +12,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <link rel="stylesheet" href="../../static/footer/home.css" th:href="@{/css/footer.css}"/>
     <link rel="stylesheet" href="../../static/template/home.css" th:href="@{/css/template.css}"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script type="text/javascript" th:src = "@{/js/home.js}"></script>
     <title>Beevago Home</title>
 </head>
 
 <body>
     <div class="main-home">
-        <div class="header">
-            <div class="bee-img">
-                <img class="bee-icon" th:src="@{/image/bee.svg}">
-            </div>
-            <div class="beevago">
-                <h1>
-                    <a class = "beevago-title" href="/"
-                        <font color="#ecc900">B E E</font>
-                        <font color="#000000">V A G O</font>
-                    </a>
-                </h1>
-            </div>                   
-                
-            <div class="register-btns">
-                <div>
-                    <form method="get" action="/cadastro">
-                        <button class="btn-register">Criar conta</button>
-                    </form>
-                </div>
-
-                <div>
-                    <form method="get" action="/login">
-                        <button class="btn-login">Login</button>
-                    </form>
-                </div>
-                
-                <div>
-                    <form method="get" action="#" th:action="@{/settings}">
-                        <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
-                        <button type="submit" class="btn-settings">Configs</button>
-                    </form>
-                </div>
-
-                <div>
-                    <form method="post" action="logout">
-                        <button type="submit" class="btn-logout">Logout</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
+        
+        <div th:replace="shared/header :: header"></div>
 
         <div class="second-header">
             <div class="welcome">
@@ -98,27 +59,28 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </div>
         </div>
 
-        <div class="tables">
+        <div class="container">
 
-            <div class="tables-title">
-                <h2>Quartos disponíveis               
-                    <td><span th:text="${stringSearch}"></span></td>                                 
-                </h2>
-            </div>            
+            <h2>Quartos disponíveis               
+                <td><span th:text="${stringSearch}"></span></td>                                 
+            </h2>
 
-                <table>                                              
-                    <thead>
-                        <tr class="hoteltables-columns">
-                            <th>Hotel</th>
-                            <th>Endereço</th>
-                            <th>Cidade</th>
-                            <th>Categoria</th>
-                            <th>Capacidade</th>
-                            <th>Preço</th>
-                        </tr>
-                    </thead>
+            <div class="row">
+                <table class="table table-striped">
+
+                <thead>
+                    <tr class="hoteltables-columns">
+                        <th>Hotel</th>
+                        <th>Endereço</th>
+                        <th>Cidade</th>
+                        <th>Categoria</th>
+                        <th>Capacidade</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+
                 <tbody>
-                    <tr th:each="room : ${RoomsList}">
+                    <tr class="hoteltables-lines" th:each="room : ${RoomsList}">
                         <td><span th:text="${room.roomHotelName}"></span></td>
                         <td><span th:text="${room.roomHotelAddress}"></span></td>
                         <td><span th:text="${room.roomHotelCity}"></span></td>
@@ -126,17 +88,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${room.roomCapacity}"></span></td>
                         <td><span th:utext="'R$ ' + ${room.roomPrice}"></span></td>
                         
-                        <td>
-                            <div>
-                                <form method="get" action="#" th:action="@{/reservar}">
-                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
-                                    <input type="hidden" name="hotelid" th:value="${room.hotelId}">
-                                    <input type="hidden" name="roomid" th:value="${room.id}">
-                                    <input type="hidden" name="roomtype" th:value="${room.roomType}">
-                                    <td><button class="btn-reservar">Reservar</button></td>
-                                </form>
-                            </div>
+                        <td>                            
+                            <form method="get" action="#" th:action="@{/reservar}">
+                                <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
+                                <input type="hidden" name="hotelid" th:value="${room.hotelId}">
+                                <input type="hidden" name="roomid" th:value="${room.id}">
+                                <input type="hidden" name="roomtype" th:value="${room.roomType}">
+                                <td><button class="btn-reservar">Reservar</button></td>
+                            </form>                            
                         </td>
+                        
                     </tr>
                 </tbody>
             </table>

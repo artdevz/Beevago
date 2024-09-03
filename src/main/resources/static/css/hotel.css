@@ -1,11 +1,17 @@
-body {
-    background-color: rgb(26, 26, 26);
-    padding-top: 80px;
-    font-family: Roboto, Arial;
-    padding-bottom: 80px;
-}   
+.form {
+    width: 400px;
+    height: 250px;
+}
 
-.form{
-    width: 500px;
-    height: 900px;
+.container {
+    background-color: rgb(41, 41, 41);
+    border: 5px;
+    border-radius: 5px;
+    border-style: solid;
+    color: aliceblue;
+    display: grid;
+    margin-top: 20px;
+    padding: 12px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
