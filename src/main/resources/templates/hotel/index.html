@@ -8,13 +8,21 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/hotel.css" th:href="@{/css/hotel.css}"/>
+    <link rel="stylesheet" href="../../static/css/header.css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" href="../../static/css/footer.css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" href="../../static/css/template.css" th:href="@{/css/template.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script type="text/javascript" th:src = "@{/js/hotel.js}"></script>
     <title>Beevago Admin do Hotel</title>
 </head>
 
 <body>
-    <div class="main-home">
-        <h1>B E E V A G O</h1>
+    
+    <div th:replace="shared/header :: header"></div>
+
+    <div class="hotel">
 
         <div class="welcome">
             <h2>
@@ -22,7 +30,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </h2>
         </div>
 
-        <div class="container">
+        <div class="form">
 
             <div>
                 <form method="post" action="/cadastrohotel/cadastrando" th:object="${hotel}">
@@ -49,34 +57,39 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                                 
                 </form>
             </div>
+        </div>
 
-            <div class="row">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Endereço</th>
-                            <th>Cidade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:if="${HotelsList.empty}">
-                            <td colspan="3">Não há hoteis registrados.</td>
-                        </tr>
-                        <tr th:each="hotel : ${HotelsList}">
-                            <td><span th:text="${hotel.hotelName}"></span></td>
-                            <td><span th:text="${hotel.hotelAddress}"></span></td>
-                            <td><span th:text="${hotel.hotelCity}"></span></td>
-                            <form method="get" action="#" th:action="@{/settings/hotelsettings/roomsettings/{id}(id=${hotel.id})}">
-                                <td><button class="btn-settingshotel">Configurações do Hotel</button></td>
-                            </form>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Endereço</th>
+                        <th>Cidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${HotelsList.empty}">
+                        <td colspan="3">Não há hoteis registrados.</td>
+                    </tr>
+                    <tr th:each="hotel : ${HotelsList}">
+                        <td><span th:text="${hotel.hotelName}"></span></td>
+                        <td><span th:text="${hotel.hotelAddress}"></span></td>
+                        <td><span th:text="${hotel.hotelCity}"></span></td>
+                        <form method="get" action="#" th:action="@{/settings/hotelsettings/roomsettings/{id}(id=${hotel.id})}">
+                            <td><button class="btn-settingshotel">Configurações do Hotel</button></td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         </div>
                 
-    </div>    
+    </div>
+    
+    <div th:replace="shared/footer :: footer"></div>
+
 </body>
 
 </html>

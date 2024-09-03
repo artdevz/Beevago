@@ -8,7 +8,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/login.css" th:href="@{/css/login.css}"/>
-    <link rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" href="../../static/header/home.css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" href="../../static/footer/home.css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" href="../../static/template/home.css" th:href="@{/css/template.css}"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -17,49 +19,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 </head>
 
 <body>
-
-    <div class="main-home">
-        <div class="header">
-            <div class="bee-img">
-                <img class="bee-icon" th:src="@{/image/bee.svg}">
-            </div>
-            <div class="beevago">
-                <h1>
-                    <a class = "beevago-title" href="/"
-                        <font color="#ecc900">B E E</font>
-                        <font color="#000000">V A G O</font>
-                    </a>
-                </h1>
-            </div>                   
-                
-            <div class="register-btns">
-                <div>
-                    <form method="get" action="/cadastro">
-                        <button class="btn-register">Criar conta</button>
-                    </form>
-                </div>
-
-                <div>
-                    <form method="get" action="/login">
-                        <button class="btn-login">Login</button>
-                    </form>
-                </div>
-                
-                <div>
-                    <form method="get" action="#" th:action="@{/settings}">
-                        <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
-                        <button type="submit" class="btn-settings">Configs</button>
-                    </form>
-                </div>
-
-                <div>
-                    <form method="post" action="logout">
-                        <button type="submit" class="btn-logout">Logout</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
+    <div th:replace="shared/header :: header"></div>
 
     <div class="form">
         <div class ="container">
@@ -94,14 +54,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         </div>
     </div>
 
-    <div class="footer">
-        <div>
-            <p class="play-txt">JOGUE</p>
-        </div>
-        <div class="letris-img">
-            <a href="https://github.com/8enrich/Letris" target="_blank"><img class="letris-icon" th:src="@{/image/letris-logo.png}"></a>
-        </div>
-    </div>
+    <div th:replace="shared/footer :: footer"></div>
         
 </body>
 

@@ -8,13 +8,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/room.css" th:href="@{/css/room.css}"/>
+    <link rel="stylesheet" href="../../static/header/home.css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" href="../../static/footer/home.css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" href="../../static/template/home.css" th:href="@{/css/template.css}"/>
     <script type="text/javascript" th:src = "@{/js/room.js}"></script>
     <title>Beevago Quartos do Hotel</title>
 </head>
 
 <body>
+
+    <div th:replace="shared/header :: header"></div>
     <div class="main-home">
-        <h1>B E E V A G O</h1>
 
         <div class="welcome">
             <tbody>
@@ -87,7 +91,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </div>
         </div>
                 
-    </div>    
+    </div>
+    
+    <div th:replace="shared/footer :: footer"></div>
+
 </body>
 
 </html>
