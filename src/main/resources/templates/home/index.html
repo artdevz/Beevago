@@ -8,6 +8,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script type="text/javascript" th:src = "@{/js/home.js}"></script>
     <title>Beevago Home</title>
 </head>
@@ -20,7 +23,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </div>
             <div class="beevago">
                 <h1>
-                    <a href="/"
+                    <a class = "beevago-title" href="/"
                         <font color="#ecc900">B E E</font>
                         <font color="#000000">V A G O</font>
                     </a>
@@ -76,8 +79,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                                 </option>                        
                             </select>
                             
-                        <input type="number" min="1" value="1" class="form-control" name="searchperson" placeholder="Pessoas">
-                        <input type="number" min="0" value="1000" class="form-control" name="searchprice" placeholder="Até R$ 0,00">
+                        <input type="number" min="1" value="1" class="form-control" name="searchperson" placeholder="Pessoas" required>
+                        <input type="number" min="0" value="1000" class="form-control" name="searchprice" placeholder="Até R$ 0,00" required>
 
                         <label><strong>De </strong></label>
                         <input type="date" th:value="${currentDate}" class="form-control" name="searchcheckin">
@@ -94,23 +97,24 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
         <div class="hoteltables">
 
-            <h2>Quartos disponíveis               
-                <td><span th:text="${stringSearch}"></span></td>                                 
-            </h2>            
+            <div class="hoteltables-title">
+                <h2>Quartos disponíveis               
+                    <td><span th:text="${stringSearch}"></span></td>                                 
+                </h2>
+            </div>            
 
-            <table class="table-table-striped">                                              
-                <thead>
-                    <tr>
-                        <th>Hotel</th>
-                        <th>Endereço</th>
-                        <th>Cidade</th>
-                        <th>Categoria</th>
-                        <th>Capacidade</th>
-                        <th>Preço</th>
-                    </tr>
-                </thead>
+                <table>                                              
+                    <thead>
+                        <tr class="hoteltables-columns">
+                            <th>Hotel</th>
+                            <th>Endereço</th>
+                            <th>Cidade</th>
+                            <th>Categoria</th>
+                            <th>Capacidade</th>
+                            <th>Preço</th>
+                        </tr>
+                    </thead>
                 <tbody>
-
                     <tr th:each="room : ${RoomsList}">
                         <td><span th:text="${room.roomHotelName}"></span></td>
                         <td><span th:text="${room.roomHotelAddress}"></span></td>
@@ -130,78 +134,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                                 </form>
                             </div>
                         </td>
-
                     </tr>
-                    <!--
-                    <tr th:each="hotel : ${HotelsList}">
-                        <td><span th:text="${hotel.hotelName}"></span></td>
-                        <td><span th:text="${hotel.hotelAddress}"></span></td>
-                        <td><span th:text="${hotel.hotelCity}"></span></td>
-                        <td><span th:text="${categories[1].getRoomType()}"></span></td>
-                        <td><span th:text="${hotel.valByFamilyType}"></span></td>
-                    
-                        <td>
-                            <div>
-                                <form method="get" action="#" th:action="@{/reservar}">
-                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
-                                    <input type="hidden" name="hotelid" th:value="${hotel.id}">
-                                    <input type="hidden" name="roomtype" th:value="${categories[1]}">
-                                    <td><button class="btn-reservar">Reservar</button></td>
-                                </form>
-                            </div>
-                        </td>
-
-                    </tr>
-
-                    <tr th:each="hotel : ${HotelsList}">
-                        <td><span th:text="${hotel.hotelName}"></span></td>
-                        <td><span th:text="${hotel.hotelAddress}"></span></td>
-                        <td><span th:text="${hotel.hotelCity}"></span></td>
-                        <td><span th:text="${categories[0].getRoomType()}"></span></td>
-                        <td><span th:text="${hotel.valByLuxType}"></span></td>
-                    
-                        <td>
-                            <div>
-                                <form method="get" action="#" th:action="@{/reservar}">
-                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
-                                    <input type="hidden" name="hotelid" th:value="${hotel.id}">
-                                    <input type="hidden" name="roomtype" th:value="${categories[0]}">
-                                    <td><button class="btn-reservar">Reservar</button></td>
-                                </form>
-                            </div>
-                        </td>
-
-                    </tr>
-                    
-                    <tr th:each="hotel : ${HotelList}">
-                        <td><span th:text="${hotel.hotelName}"></span></td>
-                        <td><span th:text="${hotel.hotelAddress}"></span></td>
-                        <td><span th:text="${hotel.hotelCity}"></span></td>
-                        <td><span th:text="${categories}"></span></td>
-                        <td><span th:if='${valRoomType == "valByStandardType"}' th:text="${hotel.valByStandardType}"></span>
-                            <span th:if='${valRoomType == "valByFamilyType"}' th:text="${hotel.valByFamilyType}"></span>
-                            <span th:if='${valRoomType == "valByLuxType"}' th:text="${hotel.valByLuxType}"></span></td>
-
-                        <td>
-                            <div>
-                                <form method="get" action="#" th:action="@{/reservar}">
-                                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
-                                    <input type="hidden" name="hotelid" th:value="${hotel.id}">
-                                    <input type="hidden" name="roomtype" th:value="${categories}">
-                                    <td><button class="btn-reservar">Reservar</button></td>
-                                </form>
-                            </div>
-                        </td>
-
-                    </tr>
-                -->
                 </tbody>
             </table>
         </div>
 
         <div class="footer">
-            <div class="play-txt">
-                <p>JOGUE</p>
+            <div>
+                <p class="play-txt">JOGUE</p>
             </div>
             <div class="letris-img">
                 <a href="https://github.com/8enrich/Letris" target="_blank"><img class="letris-icon" th:src="@{/image/letris-logo.png}"></a>

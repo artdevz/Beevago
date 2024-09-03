@@ -1,7 +1,8 @@
 body {
     background-color: rgb(26, 26, 26);
     padding-top: 80px;
-    height: 3000px;
+    font-family: Roboto, Arial;
+    padding-bottom: 80px;
 }
 
 .header {
@@ -17,7 +18,8 @@ body {
     top: 0;
     align-items: center;
     justify-content: center;
-    padding-right: 12px     
+    padding-right: 12px;
+    z-index: 100;   
 }
 
 .bee-img{
@@ -37,6 +39,14 @@ body {
     */
     margin-right: 20px;
     flex: 1;
+}
+
+.beevago-title:visited{
+    color: #ecc900;
+}
+
+.beevago-title{
+    text-decoration: none;
 }
 
 .second-header{
@@ -129,7 +139,21 @@ body {
     color: aliceblue;
     display: grid;
     margin-top: 20px;
-    padding: 2px 2px 2px 2px;
+    padding: 2px;
+}
+
+.hoteltables-title{
+    margin-left: 50px;
+}
+
+.hoteltables-columns{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin-left: 120px;
+}
+
+.hoteltables-columns-items{
+    display: flex;
 }
 
 .footer {
@@ -149,4 +173,35 @@ body {
     margin-left: 20px;
     width: 100px;
     height: 100%;
+}
+
+.form{
+    margin-top: 80px;
+    color: white;
+    margin-left: 60px;
+    border: white;
+    border-style: solid;
+    font-size: 20px;
+    padding-top: 100px;
+    padding-left: 20px;
+}
+
+.form div{
+    margin-bottom: 20px;
+}
+
+.btn-div{
+    display: flex;
+    justify-content: center;
+}
+
+.form form div button{
+    background-color: yellow;
+    border: 0px;
+    padding: 10px;
+    width: 100px;
+}
+
+.form .register{
+    font-size: 15px;
 }

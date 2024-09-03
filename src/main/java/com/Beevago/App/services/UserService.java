@@ -125,7 +125,7 @@ public class UserService {
     }
 
     public boolean isCPFValid(String cpf) {
-        return false;
+        return true;
     }
 
     public List<UserModel> findAllUsers() {
