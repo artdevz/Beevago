@@ -38,7 +38,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
                 <div class="form-group">
                     <label>CPF:</label> 
-                    <input type="text" class="form-control" th:field="*{userCpf}" placeholder="000.000.000-00">
+                    <input type="text" class="form-control" th:field="*{userCpf}" placeholder="000.000.000-00" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})">
                 </div>
 
                 <div class="form-group">
@@ -57,7 +57,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 </div>
 
                 <div class="error" th:if="${errorMessage}">
-                    <div th:text="${errorMessage}"></div>
+                    <strong><div th:text="${errorMessage}"></strong></div>
                 </div>
                 
                 <div class="btn-div">

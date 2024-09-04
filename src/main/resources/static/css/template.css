@@ -13,6 +13,10 @@ body {
     margin-bottom: 20px;
 }
 
+.error {
+    color: rgb(212, 0, 0);
+}
+
 /* .form {
     margin-top: 80px;
     color: white;

@@ -125,7 +125,28 @@ public class UserService {
     }
 
     public boolean isCPFValid(String cpf) {
-        return true;
+
+        char[] charCpf = cpf.toCharArray();
+        int[] numberCpf = new int[11];
+        int j = 0;
+
+        for (int i = 0; i < 14; i++) {
+            if (i == 3 || i == 7 || i == 11) continue;
+            numberCpf[j++] = (charCpf[i]-48);            
+        }
+
+        int b10 = 0; int b11 = 0;
+
+        for (int i = 0; i < 9;) {
+            b10 += numberCpf[i++]*(i);
+            b11 += numberCpf[i]*(i);           
+        }
+        
+        if (b10%11 == 10) b10 = 0; if (b11%11 == 11) b11 = 1;
+        
+        if ( (b10 % 11 == (int)(charCpf[12]-48)) && (b11 % 11 == (int)(charCpf[13]-48)) ) return true;
+
+        return false;
     }
 
     public List<UserModel> findAllUsers() {
