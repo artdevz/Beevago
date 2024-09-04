@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Beevago.App.dto.HotelDTO;
 import com.Beevago.App.dto.RoomDTO;
@@ -63,40 +64,48 @@ public class ReservationController {
     }
 
     @GetMapping("/reservar")
-    public ModelAndView getReservaHotelPage(@RequestParam(value = "userid", required = false) UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId, @RequestParam("roomtype") ERoomType roomType) {
+    public ModelAndView getReservaHotelPage(@RequestParam(value = "userid", required = false) UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId) {
         ModelAndView mv = new ModelAndView();
         if (userId == null) {
             mv.setViewName("redirect:/login"); return mv;
         }
         mv.addObject("user", new UserDTO(userId));        
         mv.addObject("hotel", new HotelDTO(hs.findHotelNameById(hotelId), hotelId));
-        mv.addObject("room", new RoomDTO(roomId, roomType));
+        mv.addObject("room", new RoomDTO(roomId));
         mv.addObject("reserva", new ReservationModel());
         mv.setViewName("reserva/reservar");
         return mv;
     }
 
     @PostMapping("/reservarquarto")
-    public ModelAndView reservandoHotel(ReservationModel reserva, @RequestParam("userid") UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId, @RequestParam("roomtype") ERoomType roomType) {
+    public ModelAndView reservandoHotel(ReservationModel reserva, @RequestParam("userid") UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
 
         if (rs.dateConflicts(roomId, reserva.getCheckInDate(), reserva.getCheckOutDate())) {
-            mv.setViewName("redirect:/");
+            attributes.addFlashAttribute("errorMessage", "Quarto indisponível durante esse período.");
+            mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
             return mv;
         }
 
         if (qs.findCapacityById(roomId) < reserva.getQuantidadeDePessoas()) {
-            mv.setViewName("redirect:/");
+            attributes.addFlashAttribute("errorMessage", "Quantidade de Pessoas é maior que a Capacidade do Quarto: [" + qs.findCapacityById(roomId) + "].");
+            mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
             return mv;
         }
 
         reserva.setUserId(userId);        
         reserva.setHotelId(hotelId); 
         reserva.setRoomId(roomId);       
-        reserva.setRoomType(roomType);
         reserva.setTotalPrice( rs.daysInRoom(reserva.getCheckInDate(), reserva.getCheckOutDate()) * reserva.getQuantidadeDePessoas() * qs.findPriceById(roomId) );
-                 
-        rs.saveReservation(reserva);
+        
+        try {
+            rs.saveReservation(reserva);
+        } catch (Exception e) {
+            attributes.addFlashAttribute("errorMessage", e.getMessage());
+            mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
+            return mv;
+        }
+        
         mv.setViewName("redirect:/");
 
         return mv;

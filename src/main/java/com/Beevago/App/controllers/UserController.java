@@ -61,7 +61,7 @@ public class UserController {
         
         try {
             us.saveUser(user); 
-        } catch (Exception e) {
+        } catch (Exception e) {            
             attributes.addFlashAttribute("errorMessage", e.getMessage());
             mv.setViewName("redirect:/cadastro");
             return mv;
@@ -131,7 +131,14 @@ public class UserController {
     public ModelAndView userChangingName(@RequestParam("userid") UUID userId, @RequestParam("changingusername") String newUserName, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, LengthException {
         ModelAndView mv = new ModelAndView();
 
-        us.changeUserName(userId, newUserName);
+        try {
+            us.changeUserName(userId, newUserName);
+        } catch (Exception e) {
+            attributes.addFlashAttribute("newNameErrorMessage", e.getMessage());
+            mv.setViewName("redirect:/settings?userid=" + userId);
+            return mv;
+        }
+        
         attributes.addFlashAttribute("msg", "Nome do Usuário renomeado com Sucesso!");        
         
         // JWT TOKEN SAVE THIS:
@@ -146,8 +153,15 @@ public class UserController {
     @PostMapping("settings/changinguserpassword")
     public ModelAndView userChangingPassword(@RequestParam("userid") UUID userId, @RequestParam("changinguserpassword") String newUserPassword, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException, LengthException, NewPasswordEqualsException {
         ModelAndView mv = new ModelAndView();
-
-        us.changeUserPassword(userId, newUserPassword);
+        
+        try {
+            us.changeUserPassword(userId, newUserPassword);
+        } catch (Exception e) {
+            attributes.addFlashAttribute("newPasswordErrorMessage", e.getMessage());
+            mv.setViewName("redirect:/settings?userid=" + userId);
+            return mv;
+        }
+        
         attributes.addFlashAttribute("msg", "Nome do Usuário renomeado com Sucesso!");
 
         // JWT TOKEN SAVE THIS:

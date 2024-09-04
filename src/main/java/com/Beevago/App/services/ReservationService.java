@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Beevago.App.exceptions.InvalidDateException;
 import com.Beevago.App.models.ReservationModel;
 import com.Beevago.App.repositories.ReservationRepository;
 
@@ -19,10 +20,10 @@ public class ReservationService {
     @Autowired
     HotelService hs;
 
-    public void saveReservation(ReservationModel reservation) {
+    public void saveReservation(ReservationModel reservation) throws InvalidDateException {
         
         if (reservation.getCheckInDate().after(reservation.getCheckOutDate())) {
-            System.out.println("Data Inválida");
+            throw new InvalidDateException("Data de CheckIn não pode ser depois da Data de CheckOut");
         }
 
         rr.save(reservation);

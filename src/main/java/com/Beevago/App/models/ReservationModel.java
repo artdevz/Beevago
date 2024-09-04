@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
 
-import com.Beevago.App.enums.ERoomType;
+// import com.Beevago.App.enums.ERoomType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
+// import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -51,10 +51,6 @@ public class ReservationModel implements Serializable {
     // @Size(min = 0)
     @Column(name = "price")
     private double totalPrice;
-
-    @Enumerated
-    @Column(name = "reservationRoomtype")
-    private ERoomType roomType;
 
     // GetterSetters:
 
@@ -120,14 +116,6 @@ public class ReservationModel implements Serializable {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public ERoomType getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(ERoomType roomType) {
-        this.roomType = roomType;
     }
 
 }

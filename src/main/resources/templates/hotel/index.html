@@ -52,6 +52,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <input type="text" class="form-control" th:field="*{hotelCity}" placeholder="Cidade (Máximo 128)">
                     </div>
 
+                    <div class="error" th:if="${errorMessage}">
+                        <strong><div th:text="${errorMessage}"></strong></div>
+                    </div>
+
                     <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
                     <button type="submit" class="btn_cadastrarhotel">Cadastrar Hotel</button>
                                 
@@ -76,7 +80,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${hotel.hotelName}"></span></td>
                         <td><span th:text="${hotel.hotelAddress}"></span></td>
                         <td><span th:text="${hotel.hotelCity}"></span></td>
-                        <form method="get" action="#" th:action="@{/settings/hotelsettings/roomsettings/{id}(id=${hotel.id})}">
+                        <form method="get" action="#" th:action="@{/settings/hotelsettings/roomsettings}">
+                            <input type="hidden" name="hotelId" th:value="${hotel.id}">                            
                             <td><button class="btn-settingshotel">Configurações do Hotel</button></td>
                         </form>
                     </tr>

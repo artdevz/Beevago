@@ -19,32 +19,28 @@ public class HotelService {
 
     private static final int HOTELNAMEMINIMUMLENGTH = 2;
     private static final int HOTELNAMEMAXIMUMLENGTH = 48;
-    private static final int HOTELCITYNAMEMAXIMUMLENGTH = 128;
+    private static final int HOTELADDRESSMINIMUMLENGTH = 3;
     private static final int HOTELADDRESSMAXIMUMLENGTH = 512;
+    private static final int HOTELCITYNAMEMINIMUMLENGTH = 3;
+    private static final int HOTELCITYNAMEMAXIMUMLENGTH = 128;
 
-    public void saveHotel(HotelModel hotel) throws Exception {
-
-        try {
+    public void saveHotel(HotelModel hotel) throws Exception {        
             
-            if (hr.findByHotelName(hotel.getHotelName()) != null) {
-                throw new AttributeExistsException("Já existe um Hotel com esse nome.");
-            }
-
-            if (hotel.getHotelName().length() < HOTELNAMEMINIMUMLENGTH || hotel.getHotelName().length() > HOTELNAMEMAXIMUMLENGTH ) {
-                throw new LengthException("Nome do Hotel deve conter entre 2 a 48 caracteres.");
-            }
-
-            if (hotel.getHotelAddress().length() < HOTELADDRESSMAXIMUMLENGTH) {
-                throw new LengthException("Endereço do Hotel deve conter no máximo 512 caracteres.");
-            }
-
-            if (hotel.getHotelCity().length() < HOTELCITYNAMEMAXIMUMLENGTH) {
-                throw new LengthException("Nome da Cidade do Hotel deve conter no máximo 128 caracteres.");
-            }
-
-        } catch (Exception e) {
-            
+        if (hr.findByHotelName(hotel.getHotelName()) != null) {
+            throw new AttributeExistsException("Já existe um Hotel com esse nome.");
         }
+
+        if (hotel.getHotelName().length() < HOTELNAMEMINIMUMLENGTH || hotel.getHotelName().length() > HOTELNAMEMAXIMUMLENGTH ) {
+            throw new LengthException("Nome do Hotel deve conter entre " + HOTELNAMEMINIMUMLENGTH + " a "  + HOTELNAMEMAXIMUMLENGTH + " caracteres.");
+        }
+
+        if (hotel.getHotelAddress().length() < HOTELADDRESSMINIMUMLENGTH || hotel.getHotelAddress().length() > HOTELADDRESSMAXIMUMLENGTH) {
+            throw new LengthException("Endereço do Hotel deve conter entre " + HOTELADDRESSMINIMUMLENGTH + " a " + HOTELADDRESSMAXIMUMLENGTH + " caracteres.");
+        }
+
+        if (hotel.getHotelCity().length() < HOTELCITYNAMEMINIMUMLENGTH || hotel.getHotelCity().length() > HOTELCITYNAMEMAXIMUMLENGTH) {
+            throw new LengthException("Nome da Cidade do Hotel deve conter entre " + HOTELCITYNAMEMINIMUMLENGTH + " a " + HOTELCITYNAMEMAXIMUMLENGTH + " caracteres.");
+        }        
 
         hr.save(hotel);
 

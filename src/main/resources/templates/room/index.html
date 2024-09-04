@@ -26,15 +26,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         <div class="welcome">
             <tbody>
                 <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, Quartos registrados no Hotel                        
-                        <tr th:each="hotel : ${HotelName}">
-                            <td><span th:text="${hotel.hotelName}"></span></td>
-                        </tr>
+                        <span th:text="${HotelName}"></span>
                 </strong>
             </tbody>            
         </div>
         
         <div class="form">
-            <form method="post" action="#" th:action="@{|/cadastrarquarto/${id}|}" th:object="${room}">
+            <form method="post" action="#" th:action="@{/cadastrarquarto}" th:object="${room}">
                 
                 <div class="form-group">
                     <label>Número do Quarto:</label> 
@@ -43,7 +41,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             
                 <div class="form-group">
                     <label>Capacidade do Quarto:</label> 
-                    <input type="number" class="form-control" th:field="*{roomCapacity}" placeholder="Capacidade">
+                    <input type="number" min="1" class="form-control" th:field="*{roomCapacity}" placeholder="Capacidade">
                 </div>
 
                 <div class="form-group">
@@ -60,8 +58,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                             th:value="${room}">
                         </option>                        
                     </select>
-                </div>  
-        
+                </div>
+                
+                <div class="error" th:if="${errorMessage}">
+                    <strong><div th:text="${errorMessage}"></strong></div>
+                </div>
+                
+                <input type="hidden" name="hotelId" th:value="${HotelId}">
                 <button type="submit" class="btn_cadastrarquarto">Adicionar Quarto</button>
     
             </form>

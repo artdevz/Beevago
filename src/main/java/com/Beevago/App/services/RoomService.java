@@ -24,14 +24,8 @@ public class RoomService {
 
     public void saveRoom(RoomModel room) throws Exception {
         
-        try {
-        
-            if (rr.findRoomInHotel(room.getHotelId(), room.getRoomNumber()) != null) {
-                throw new AttributeExistsException("Já existe um Quarto com esse número.");
-            }
-
-        } catch (Exception e) {
-            
+        if (  rr.findRoomInHotel( room.getHotelId(), room.getRoomNumber() ) != null ) {
+            throw new AttributeExistsException("Já existe um Quarto com esse número.");
         }
 
         rr.save(room);

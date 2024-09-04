@@ -50,13 +50,22 @@ public class HotelController {
         ModelAndView mv = new ModelAndView();
 
         if (result.hasErrors()) {
-            attributes.addFlashAttribute("msg_erro", "ERRO! Verifique se há campos em branco.");
-            mv.setViewName("redirect:/adminhotel/cadastrohotel");            
+            attributes.addFlashAttribute("errorMessage", "ERRO! Verifique se há campos em branco.");
+            mv.setViewName("redirect:/settings/hotelsettings?userid=" + userId);            
             return mv;
         }
         
         hotel.setOwnerId(userId);
-        hs.saveHotel(hotel);        
+
+        try {
+            hs.saveHotel(hotel);
+        } catch (Exception e) {
+            attributes.addFlashAttribute("errorMessage", e.getMessage());
+            mv.setViewName("redirect:/settings/hotelsettings?userid=" + userId);
+            return mv;
+        }
+        
+                
         session.setAttribute("hotelCadastrado", hotel);
         attributes.addFlashAttribute("msg", "Hotel cadastrado com Sucesso!");        
         mv.setViewName("redirect:/settings/hotelsettings?userid=" + userId);
