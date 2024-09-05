@@ -36,6 +36,14 @@ public class ReservationController {
     @Autowired
     RoomService qs;
 
+    @GetMapping("reservations")
+    public ModelAndView listReservations(@RequestParam("userid") UUID userId) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("reserva/index");
+        mv.addObject("ReservationsList", rs.findAllReservationsByUserId(userId));
+        return mv;
+    }
+
     @PostMapping("/buscar")
     public ModelAndView searchHotels(
         @RequestParam(value = "searchcity", required = false) String hotelCity,

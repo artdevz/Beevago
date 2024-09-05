@@ -31,74 +31,72 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             </tbody>            
         </div>
         
-        <div class="form">
-            <form method="post" action="#" th:action="@{/cadastrarquarto}" th:object="${room}">
-                
-                <div class="form-group">
-                    <label>Número do Quarto:</label> 
-                    <input type="number" class="form-control" th:field="*{roomNumber}" placeholder="Número do Quarto">
-                </div>                                            
-            
-                <div class="form-group">
-                    <label>Capacidade do Quarto:</label> 
-                    <input type="number" min="1" class="form-control" th:field="*{roomCapacity}" placeholder="Capacidade">
-                </div>
-
-                <div class="form-group">
-                    <label>Preço do Quarto:</label> 
-                    <input type="number" class="form-control" th:field="*{roomPrice}" placeholder="R$ 0,00">
-                </div>
-
-                <div class="form-group">
-                    <label>Categoria do Quarto:</label>
-                      <select th:field="*{roomType}">
-                        <option                                                       
-                            th:each="room : ${roomtypes}"
-                            th:text="${room.roomType}"
-                            th:value="${room}">
-                        </option>                        
-                    </select>
-                </div>
-                
-                <input type="hidden" name="hotelId" th:value="${HotelId}">
-                <button type="submit" class="cadastrarquarto-btn"><strong>Adicionar Quarto</strong></button>
-    
-                <div class="error" th:if="${errorMessage}">
-                    <strong><div th:text="${errorMessage}"></strong></div>
-                </div>
-
-            </form>
-        </div>
-
         <div class="container">
-
-            <div class="row">
-                <table class="table table-striped">
-
-                    <thead>
-                        <tr>
-                            <th>Número</th>
-                            <th>Categoria</th>
-                            <th>Capacidade</th>
-                            <th>Preço</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr th:if="${RoomsList.empty}">
-                            <td colspan="3">Não existem quartos disponíveis.</td>
-                        </tr>
-                        <tr th:each="room : ${RoomsList}">
-                            <td><span th:text="${room.roomNumber}"></span></td>
-                            <td><span th:text="${room.roomType.roomType}"></span></td>
-                            <td><span th:text="${room.roomCapacity}"></span></td>
-                            <td><span th:text="${room.roomPrice}"></span></td>
-                        </tr>
-                    </tbody>
+            <div class="form">            
+                <form method="post" action="#" th:action="@{/cadastrarquarto}" th:object="${room}">
                     
-                </table>
+                    <div class="form-group">
+                        <label>Número do Quarto:</label> 
+                        <input type="number" class="form-control" th:field="*{roomNumber}" placeholder="Número do Quarto">
+                    </div>                                            
+                
+                    <div class="form-group">
+                        <label>Capacidade do Quarto:</label> 
+                        <input type="number" min="1" class="form-control" th:field="*{roomCapacity}" placeholder="Capacidade">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preço do Quarto:</label> 
+                        <input type="number" class="form-control" th:field="*{roomPrice}" placeholder="R$ 0,00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Categoria do Quarto:</label>
+                        <select th:field="*{roomType}">
+                            <option                                                       
+                                th:each="room : ${roomtypes}"
+                                th:text="${room.roomType}"
+                                th:value="${room}">
+                            </option>                        
+                        </select>
+                    </div>
+                    
+                    <input type="hidden" name="hotelId" th:value="${HotelId}">
+                    <button type="submit" class="cadastrarquarto-btn"><strong>Adicionar Quarto</strong></button>
+        
+                    <div class="error" th:if="${errorMessage}">
+                        <strong><div th:text="${errorMessage}"></strong></div>
+                    </div>
+                </form>
             </div>
-        </div>
+        </div>        
+
+        <div class="row">
+            <table class="table table-striped">
+
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Categoria</th>
+                        <th>Capacidade</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:if="${RoomsList.empty}">
+                        <td colspan="3">Não existem quartos disponíveis.</td>
+                    </tr>
+                    <tr th:each="room : ${RoomsList}">
+                        <td><span th:text="${room.roomNumber}"></span></td>
+                        <td><span th:text="${room.roomType.roomType}"></span></td>
+                        <td><span th:text="${room.roomCapacity}"></span></td>
+                        <td><span th:utext="'R$ '+${room.roomPrice}"></span></td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>        
                 
     </div>
     

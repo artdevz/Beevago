@@ -17,10 +17,13 @@ import jakarta.transaction.Transactional;
 public interface ReservationRepository extends JpaRepository<ReservationModel, Long> {
     
     @Query(nativeQuery = true, value = "SELECT check_in FROM reservation WHERE ROOMID = :roomId")
-    List<Date> findAllCheckInDateById(UUID roomId);
+    public List<Date> findAllCheckInDateById(UUID roomId);
 
     @Query(nativeQuery = true, value = "SELECT check_out FROM reservation WHERE ROOMID = :roomId")
-    List<Date> findAllCheckOutDateById(UUID roomId);
+    public List<Date> findAllCheckOutDateById(UUID roomId);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM reservation WHERE USERID = :id")
+    public List<ReservationModel> findAllReservationsByUserId(UUID id);
 
     @Transactional
     @Modifying

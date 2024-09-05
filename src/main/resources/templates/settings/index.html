@@ -21,8 +21,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 <body>
 
     <div th:replace="shared/header :: header"></div>
-
-    <div class="form">
+    <!-- SOMENTE O USUÁRIO CONSEGUE ACESSAR SUA PRÓPRIA PÁGINA -->
+    <div class="form" th:if="${#objects.nullSafe(session?.usuarioLogado?.id == user.id?:,null)}">
         <div class ="container">
             <div class="main-div">
                 <div class = "header2">
@@ -35,7 +35,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <div class="form-group">
                         <form method="post" action="#" th:action="@{settings/changingusername}">
                             <label>Nome: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'?')}"></span></label>
-                            <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">                              
+                            <input type="hidden" name="userid" th:value="${user.id}">    
+                            <!-- VULNERÁVEL                           -->
                             <input type="text" name="changingusername">
                             <button class="changename-btn"><strong>Alterar Nome</strong></button>
                         </form>
@@ -55,7 +56,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     
                     <div class="form-group">
                         <form method="post" action="#" th:action="@{settings/changinguserpassword}">
-                            <label>Senha: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userPassword,'?')}"></span></label>
+                            <!-- <label>Senha: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userPassword,'?')}"></span></label> -->
+                            <label>Senha:</label>
                             <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">                              
                             <input type="password" name="changinguserpassword">
                             <button class="changepassword-btn"><strong>Alterar Senha</strong></button>
@@ -77,8 +79,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <div class="form-group">
                         Última Atualização da Conta: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userUpdatedDate,'?')}"></span>
                     </div>
-
-                    <div class="hotel-btn">
+                    
+                    <div class="hotel-btn" th:if="${#objects.nullSafe(session?.usuarioLogado?.userRole == roles[1]?:,null)}">
                         <form method="get" action="#" th:action="@{/settings/hotelsettings}">
                             <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
                             <button type="submit" class="adminhotel-btn"><strong>Seus Hotéis</strong></button>

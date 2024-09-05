@@ -28,9 +28,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
             <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, sua Lista de Hotéis:</strong>            
         </div>
 
-        <div class="form">
+        <div class="container">
 
-            <div>
+            <div class="form">
                 <form method="post" action="/cadastrohotel/cadastrando" th:object="${hotel}">
                     
                     <h3>Informações do novo Hotel:</h3>

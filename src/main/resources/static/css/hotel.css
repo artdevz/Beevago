@@ -8,7 +8,8 @@
     color: #ecc900;
 }
 
-.form {
+.container {
+    background-color: rgb(41, 41, 41);
     width: 400px;
     height: 250px;
     margin: auto;
@@ -30,10 +31,15 @@
 }
 
 .row {
+    background-color: rgb(41, 41, 41);
     width: 400px;
     height: 250px;
     margin: auto;
+    margin-top: 20px;
     color: aliceblue;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 20px;
 }
 
 .settingshotel-btn {
@@ -42,16 +48,3 @@
     background-color: #ecc900;
     padding: 5px;
 }
-
-/* .container {
-    background-color: rgb(41, 41, 41);
-    border: 5px;
-    border-radius: 5px;
-    border-style: solid;
-    color: aliceblue;
-    display: grid;
-    margin-top: 20px;
-    padding: 12px;
-    margin-left: 100px;
-    margin-right: 100px;
-} */

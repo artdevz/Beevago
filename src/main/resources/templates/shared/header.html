@@ -19,26 +19,34 @@
                 
             <div class="register-btns">
 
-                <div>
+                <div th:if="!${#objects.nullSafe(session?.usuarioLogado?:,null)}">
                     <form method="get" action="/cadastro">
                         <button class="btn-register">Criar conta</button>
                     </form>
                 </div>
 
-                <div>
+                <div th:if="!${#objects.nullSafe(session?.usuarioLogado?:,null)}">
                     <form method="get" action="/login">
                         <button class="btn-login">Login</button>
                     </form>
                 </div>
+
+                <div th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
+                    <form method="get" action="#" th:action="@{/reservations}">
+                        <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
+                        <button type="submit" class="btn-settings">Minhas Reservas</button>
+                    </form>
+                </div>
                 
-                <div>
+                <div th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
                     <form method="get" action="#" th:action="@{/settings}">
                         <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
                         <button type="submit" class="btn-settings">Configs</button>
                     </form>
                 </div>
-
-                <div>
+            
+                <div th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
+                    <span th:text="${usuarioLogado}"></span>
                     <form method="post" action="logout">
                         <button type="submit" class="btn-logout">Logout</button>
                     </form>

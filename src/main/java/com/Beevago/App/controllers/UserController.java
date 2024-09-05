@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Beevago.App.enums.ERole;
 import com.Beevago.App.exceptions.LengthException;
 import com.Beevago.App.exceptions.NewPasswordEqualsException;
 import com.Beevago.App.exceptions.ServicException;
@@ -122,7 +123,9 @@ public class UserController {
         if (userId == null) {
             mv.setViewName("redirect:/login"); return mv;
         }
-        mv.setViewName("settings/index");       
+        mv.setViewName("settings/index");
+        mv.addObject("user", us.findUserById(userId));
+        mv.addObject("roles", ERole.values());       
 
         return mv;
     }
