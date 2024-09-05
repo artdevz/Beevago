@@ -37,7 +37,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                             <label>Nome: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'?')}"></span></label>
                             <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">                              
                             <input type="text" name="changingusername">
-                            <button class="btn-change-name">Alterar Nome</button>
+                            <button class="changename-btn"><strong>Alterar Nome</strong></button>
                         </form>
                     </div>
 
@@ -58,7 +58,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                             <label>Senha: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userPassword,'?')}"></span></label>
                             <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">                              
                             <input type="password" name="changinguserpassword">
-                            <button class="btn-change-password">Alterar Senha</button>
+                            <button class="changepassword-btn"><strong>Alterar Senha</strong></button>
                         </form>
                     </div>
 
@@ -81,7 +81,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <div class="hotel-btn">
                         <form method="get" action="#" th:action="@{/settings/hotelsettings}">
                             <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
-                            <button type="submit" class="btn_adminhotel">Seus Hotéis</button>
+                            <button type="submit" class="adminhotel-btn"><strong>Seus Hotéis</strong></button>
                         </form>
                     </div>
 

@@ -60,13 +60,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     </select>
                 </div>
                 
+                <input type="hidden" name="hotelId" th:value="${HotelId}">
+                <button type="submit" class="cadastrarquarto-btn"><strong>Adicionar Quarto</strong></button>
+    
                 <div class="error" th:if="${errorMessage}">
                     <strong><div th:text="${errorMessage}"></strong></div>
                 </div>
-                
-                <input type="hidden" name="hotelId" th:value="${HotelId}">
-                <button type="submit" class="btn_cadastrarquarto">Adicionar Quarto</button>
-    
+
             </form>
         </div>
 

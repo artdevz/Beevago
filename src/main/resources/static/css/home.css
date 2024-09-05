@@ -85,11 +85,17 @@ form .lower-side input {
 
 .row {
     margin-left: 150px;
+    color: aliceblue;
+}
+
+h2 {
+    color: aliceblue;
 }
 
 .hoteltables-columns {
     /* display: grid; */
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    color: aliceblue;
     /* margin-left: 10px; */
 }
 

@@ -96,7 +96,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                                 <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
                                 <input type="hidden" name="hotelid" th:value="${room.hotelId}">
                                 <input type="hidden" name="roomid" th:value="${room.id}">
-                                <td><button class="btn-reservar">Reservar</button></td>
+                                <td><button class="btn-reservar"><strong>Reservar</strong></button></td>
                             </form>                            
                         </td>
                         

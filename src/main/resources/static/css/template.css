@@ -15,6 +15,18 @@ body {
 
 .error {
     color: rgb(212, 0, 0);
+    margin-top: 10px;
+}
+
+.form input{
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: -10px;
+}
+
+.form {
+    height: 405px;
+    margin-top: 0px;
 }
 
 /* .form {

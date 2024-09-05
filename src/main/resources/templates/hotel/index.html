@@ -25,9 +25,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <div class="hotel">
 
         <div class="welcome">
-            <h2>
-                <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, sua Lista de Hotéis:</strong>            
-            </h2>
+            <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, sua Lista de Hotéis:</strong>            
         </div>
 
         <div class="form">
@@ -52,12 +50,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <input type="text" class="form-control" th:field="*{hotelCity}" placeholder="Cidade (Máximo 128)">
                     </div>
 
+                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                    <button type="submit" class="cadastrarhotel-btn"><strong>Cadastrar Hotel</strong></button>
+                    
                     <div class="error" th:if="${errorMessage}">
                         <strong><div th:text="${errorMessage}"></strong></div>
                     </div>
-
-                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
-                    <button type="submit" class="btn_cadastrarhotel">Cadastrar Hotel</button>
                                 
                 </form>
             </div>
@@ -66,11 +64,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         <div class="row">
             <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Endereço</th>
-                        <th>Cidade</th>
-                    </tr>
+                    <strong>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Endereço</th>
+                            <th>Cidade</th>
+                        </tr>
+                    </strong>                    
                 </thead>
                 <tbody>
                     <tr th:if="${HotelsList.empty}">
@@ -82,7 +82,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${hotel.hotelCity}"></span></td>
                         <form method="get" action="#" th:action="@{/settings/hotelsettings/roomsettings}">
                             <input type="hidden" name="hotelId" th:value="${hotel.id}">                            
-                            <td><button class="btn-settingshotel">Configurações do Hotel</button></td>
+                            <td><button class="settingshotel-btn"><strong>Configurações do Hotel</strong></button></td>
                         </form>
                     </tr>
                 </tbody>
