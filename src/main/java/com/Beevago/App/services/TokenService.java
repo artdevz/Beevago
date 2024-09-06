@@ -24,7 +24,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
             String token = JWT.create()
-                .withIssuer("auth-api")
+                .withIssuer("beevago")
                 .withSubject(user.getUserEmail())
                 .withExpiresAt(getExpirationDate())
                 .sign(algorithm);
@@ -42,7 +42,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
             return JWT.require(algorithm)
-            .withIssuer("auth-api")
+            .withIssuer("beevago")
             .build()
             .verify(token)
             .getSubject();
@@ -57,4 +57,4 @@ public class TokenService {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
-}/* */
+}

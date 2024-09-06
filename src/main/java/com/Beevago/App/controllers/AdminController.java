@@ -49,7 +49,7 @@ public class AdminController {
     public ModelAndView getAdminUserCrud() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("admin/usercrud");
-        mv.addObject("user", new UserModel());
+        // mv.addObject("user", new UserModel());
         ERole[] role = {ERole.ROLE_USER, ERole.ROLE_MOD};
         mv.addObject("roleList", role);
         mv.addObject("userList", us.findAllUsers());

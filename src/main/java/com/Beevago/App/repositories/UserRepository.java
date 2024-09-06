@@ -18,7 +18,8 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     public UserModel findById(UUID id);
     public UserModel findByUserName(String userName);
     public UserModel findByUserCpf(String userCpf);
-    UserDetails findByUserEmail(String userEmail);
+
+    UserDetails findByUserEmail(String login);
 
     @Query(nativeQuery = true, value = "SELECT * FROM user WHERE USEREMAIL = :userEmail AND USERPASSWORD = :userPassword")
     public UserModel findLogin(String userEmail, String userPassword);    

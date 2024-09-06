@@ -4,7 +4,7 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/login.css" th:href="@{/css/login.css}"/>
@@ -24,7 +24,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <div class="form">
         <div class ="container">
             
-                <form method="post" action="login/logando" th:object="${user}">
+                <form method="post" action="/auth/login" th:object="${user}">
 
                     <div class="alert alert-danger" role="alert" th:if="${msg}">
                         <strong th:text="${msg}"></strong>   

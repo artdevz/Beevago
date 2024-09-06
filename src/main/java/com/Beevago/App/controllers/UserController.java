@@ -41,71 +41,65 @@ public class UserController {
     @Autowired
     private UserService us;
 
-    // Cadastro:
-    @GetMapping("/cadastro")
-    public ModelAndView getCadastrarPage() {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("user", new UserModel());
-        mv.setViewName("register/index");
-        return mv;
-    }
+    // // Cadastro:
+    // @GetMapping("/cadastro")
+    // public ModelAndView getRegisterPage() {
+    //     ModelAndView mv = new ModelAndView();
+    //     mv.addObject("user", new UserModel());
+    //     mv.setViewName("register/index");
+    //     return mv;
+    // }
 
-    @PostMapping("/cadastro/cadastrando")
-    public ModelAndView cadastrarUser(@Valid UserModel user, BindingResult result, RedirectAttributes attributes, HttpSession session) throws Exception {
-        ModelAndView mv = new ModelAndView();
+    // @PostMapping("/cadastro/cadastrando")
+    // public ModelAndView cadastrarUser(@Valid UserModel user, BindingResult result, RedirectAttributes attributes, HttpSession session) throws Exception {
+    //     ModelAndView mv = new ModelAndView();
 
-        if (result.hasErrors()) {
-            attributes.addFlashAttribute("errorMessage", "Erro! Verifique se há campos em branco.");
-            mv.setViewName("redirect:/cadastro");
-            return mv;
-        }
+    //     if (result.hasErrors()) {
+    //         attributes.addFlashAttribute("errorMessage", "Erro! Verifique se há campos em branco.");
+    //         mv.setViewName("redirect:/cadastro");
+    //         return mv;
+    //     }
         
-        try {
-            us.saveUser(user); 
-        } catch (Exception e) {            
-            attributes.addFlashAttribute("errorMessage", e.getMessage());
-            mv.setViewName("redirect:/cadastro");
-            return mv;
-        }
+    //     try {
+    //         us.saveUser(user); 
+    //     } catch (Exception e) {            
+    //         attributes.addFlashAttribute("errorMessage", e.getMessage());
+    //         mv.setViewName("redirect:/cadastro");
+    //         return mv;
+    //     }
         
-        session.setAttribute("usuarioLogado", user);
-        mv.setViewName("redirect:/");
-        return mv;
-    }
+    //     session.setAttribute("usuarioLogado", user);
+    //     mv.setViewName("redirect:/");
+    //     return mv;
+    // }
 
     // Login:
-    @GetMapping("/login")
-    public ModelAndView getLoginPage() {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("user", new UserModel());
-        mv.setViewName("login/index");
-        return mv;
-    }
+    
 
-    @PostMapping("login/logando")
-    public ModelAndView login(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException {
-        ModelAndView mv = new ModelAndView();        
-        mv.addObject("user", new UserModel());
+    // @PostMapping("login/logando")
+    // public ModelAndView login(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException {
+    //     ModelAndView mv = new ModelAndView();        
+    //     mv.addObject("user", new UserModel());
 
-        if (result.hasErrors()) {
-            attributes.addFlashAttribute("msg", "Usuário não encontrado.");
-            mv.setViewName("login/index");
-        }
+    //     if (result.hasErrors()) {
+    //         attributes.addFlashAttribute("msg", "Usuário não encontrado.");
+    //         mv.setViewName("login/index");
+    //     }
 
-        UserModel userLogin = us.loginUser(user.getUserEmail(), UtilPassword.md5(user.getUserPassword()));
+    //     UserModel userLogin = us.loginUser(user.getUserEmail(), UtilPassword.md5(user.getUserPassword()));
 
-        if (userLogin != null) {
-            session.setAttribute("usuarioLogado", userLogin);
-            attributes.addFlashAttribute("msg", "Login feito com Sucesso!");        
-            mv.setViewName("redirect:/");            
-            return mv;            
-        } 
+    //     if (userLogin != null) {
+    //         session.setAttribute("usuarioLogado", userLogin);
+    //         attributes.addFlashAttribute("msg", "Login feito com Sucesso!");        
+    //         mv.setViewName("redirect:/");            
+    //         return mv;            
+    //     } 
         
-        mv.addObject("msg", "Usuário não encontrado.");
-        mv.setViewName("redirect:/login");    
+    //     mv.addObject("msg", "Usuário não encontrado.");
+    //     mv.setViewName("redirect:/login");    
 
-        return mv;
-    }
+    //     return mv;
+    // }
 
     // Logout:
     @PostMapping("logout")

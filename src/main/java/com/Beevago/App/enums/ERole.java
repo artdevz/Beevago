@@ -1,6 +1,8 @@
 package com.Beevago.App.enums;
 
 public enum ERole {
+    ROLE_GUEST("guest"),
+    
     ROLE_USER("user"),
     // Usuário comum:
     /*

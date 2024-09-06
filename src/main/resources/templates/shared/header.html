@@ -20,13 +20,13 @@
             <div class="register-btns">
 
                 <div th:if="!${#objects.nullSafe(session?.usuarioLogado?:,null)}">
-                    <form method="get" action="/cadastro">
+                    <form method="get" action="/auth/register">
                         <button class="btn-register">Criar conta</button>
                     </form>
                 </div>
 
                 <div th:if="!${#objects.nullSafe(session?.usuarioLogado?:,null)}">
-                    <form method="get" action="/login">
+                    <form method="get" action="/auth/login">
                         <button class="btn-login">Login</button>
                     </form>
                 </div>

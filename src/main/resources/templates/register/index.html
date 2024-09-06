@@ -4,7 +4,7 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/register.css" th:href="@{/css/register.css}"/>
@@ -24,7 +24,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
     <div class="container">    
         <div class="form">
-                <form method="post" action="cadastro/cadastrando" th:object="${user}">
+                <form method="post" action="#" th:action="@{/auth/register}" th:object="${user}">
 
                 <div class="form-group">
                     <label>Nome:</label> 
@@ -51,10 +51,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <input type="password" class="form-control" th:field="*{userPassword}" placeholder="Senha deve conter entre 8 e 32 caracteres.">
                 </div>
 
-                <div class="form-group">
+                <input type="hidden" th:field="*{userRole}" value="ROLE_USER">
+
+                <!-- <div class="form-group">
                     <label>Confirmar Senha:</label> 
                     <input type="password" class="form-control" th:field="*{userConfirmedPassword}" placeholder="Confirme sua Senha.">
-                </div>                
+                </div>                 -->
                 
                 <div class="btn-div">
                     <button type="submit" class="register-btn"><strong>Cadastrar</strong></button>
