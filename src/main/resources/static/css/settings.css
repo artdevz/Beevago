@@ -1,0 +1,48 @@
+.form{
+    width: 900px;
+    margin: auto;
+}
+
+.container {
+    background-color: rgb(41, 41, 41);
+    border: 5px;
+    border-radius: 5px;
+    border-style: solid;
+    color: aliceblue;
+    display: grid;
+    margin-top: 20px;
+    padding: 12px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.form-group {
+    /* padding: 12px; */
+    margin-top: 10px;
+}
+
+.hotel-btn {
+    margin-top: 20px;
+    margin-left: 280px;
+}
+
+.changename-btn {
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ecc900;
+    padding: 5px;
+}
+
+.changepassword-btn {
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ecc900;
+    padding: 5px;
+}
+
+.adminhotel-btn {
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ecc900;
+    padding: 5px;
+}

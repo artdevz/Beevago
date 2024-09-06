@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/header.css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" href="../../static/css/template.css" th:href="@{/css/template.css}"/>
+    <title>Admin</title>
+</head>
+<body>
+
+    <div th:replace="shared/header :: header"></div>
+
+    <h1>ADMIN</h1>
+    <div>
+        <form method="get" action="/admin/user">
+            <button>USER</button>
+        </form>
+    </div>
+    <div>
+        <form method="get" action="/admin/hotel">
+            <button>HOTEL</button>
+        </form>
+    </div>
+    <div>
+        <form method="get" action="/admin/room">
+            <button>ROOM</button>
+        </form>
+    </div>
+    <div>
+        <form method="get" action="/admin/reservation">
+            <button>RESERVATION</button>
+        </form>
+    </div>
+</body>
+</html>

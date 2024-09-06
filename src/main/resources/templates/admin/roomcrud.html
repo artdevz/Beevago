@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+</head>
+<body>
+    <h1>QUARTOS:</h1>
+    
+    <!-- <h3>CREATE:</h3>
+    <form method="post" action="room/create" th:object="${room}">
+
+        <div class="form-group">
+            <label>Número do Quarto:</label> 
+            <input type="number" class="form-control" th:field="*{roomNumber}">
+        </div>                                            
+    
+        <div class="form-group">
+            <label>Capacidade do Quarto:</label> 
+            <input type="number" min="1" value="1" class="form-control" th:field="*{roomCapacity}">
+        </div>
+
+        <div class="form-group">
+            <label>Preço do Quarto:</label> 
+            <input type="number" min="0" value="1000" class="form-control" th:field="*{roomPrice}">
+        </div>
+
+        <div class="form-group">
+            <label>Categoria do Quarto:</label>
+              <select th:field="*{roomType}">
+                <option                                                       
+                    th:each="room : ${roomtypes}"
+                    th:text="${room.roomType}"
+                    th:value="${room}">
+                </option>                        
+            </select>
+        </div>
+        
+        <button type="submit">Criar Quarto</button>
+    
+    </form> -->
+
+    <!-- <h3>INFO</h3> -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>HOTELID</th>
+                <th>Número</th>
+                <th>Categoria</th>
+                <th>Capacidade</th>
+                <th>Preço</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="room : ${roomList}">
+
+                <td><span th:text="${room.id}"></span></td>
+                <td><span th:text="${room.hotelId}"></span></td>
+                <td><span th:text="${room.roomNumber}"></span></td>
+                <td><span th:text="${room.roomType.roomType}"></span></td>
+                <td><span th:text="${room.roomCapacity}"></span></td>
+                <td><span th:text="${room.roomPrice}"></span></td>
+
+                <td>
+                    <div>
+                        <form method="post" action="#" th:action="@{/admin/room/update}">
+                            <input type="hidden" name="roomid" th:value="${room.id}">
+                            <td><button class="btn-deletar">Editar</button></td>
+                        </form>
+                    </div>
+                </td>
+
+                <td>
+                    <div>
+                        <form method="post" action="#" th:action="@{/admin/room/delete}">
+                            <input type="hidden" name="roomid" th:value="${room.id}">
+                            <td><button class="btn-deletar">Deletar</button></td>
+                        </form>
+                    </div>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+</html>

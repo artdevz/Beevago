@@ -1,0 +1,58 @@
+<div class="header" th:fragment="header">
+    <div class="main-home">
+        <div class="header">
+
+            <div class="logo">
+                <div class="bee-img">
+                    <img class="bee-icon" th:src="@{/image/bee.svg}">
+                </div>
+                <div class="beevago">
+                    <h1>
+                        <a class = "beevago-title" href="/"
+                            <font color="#ecc900">B E E</font>
+                            <font color="#FFFFFF">V A G O</font>
+                        </a>
+                    </h1>
+                </div>                   
+            </div>
+
+                
+            <div class="register-btns">
+
+                <div th:if="!${#objects.nullSafe(session?.usuarioLogado?:,null)}">
+                    <form method="get" action="/cadastro">
+                        <button class="btn-register">Criar conta</button>
+                    </form>
+                </div>
+
+                <div th:if="!${#objects.nullSafe(session?.usuarioLogado?:,null)}">
+                    <form method="get" action="/login">
+                        <button class="btn-login">Login</button>
+                    </form>
+                </div>
+
+                <div th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
+                    <form method="get" action="#" th:action="@{/reservations}">
+                        <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
+                        <button type="submit" class="btn-settings">Minhas Reservas</button>
+                    </form>
+                </div>
+                
+                <div th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
+                    <form method="get" action="#" th:action="@{/settings}">
+                        <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
+                        <button type="submit" class="btn-settings">Configs</button>
+                    </form>
+                </div>
+            
+                <div th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
+                    <span th:text="${usuarioLogado}"></span>
+                    <form method="post" action="logout">
+                        <button type="submit" class="btn-logout">Logout</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

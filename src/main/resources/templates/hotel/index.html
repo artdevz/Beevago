@@ -8,79 +8,93 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/hotel.css" th:href="@{/css/hotel.css}"/>
+    <link rel="stylesheet" href="../../static/css/header.css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" href="../../static/css/footer.css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" href="../../static/css/template.css" th:href="@{/css/template.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script type="text/javascript" th:src = "@{/js/hotel.js}"></script>
-    <title>Bivago Admin do Hotel</title>
+    <title>Beevago Admin do Hotel</title>
 </head>
 
 <body>
-    <div class="main-home">
-        <h1>B I V A G O</h1>
+    
+    <div th:replace="shared/header :: header"></div>
+
+    <div class="hotel">
 
         <div class="welcome">
             <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, sua Lista de Hotéis:</strong>            
-        </div>        
-                
-        <div>
-            <form method="get" action="/cadastrohotel">
-                <button class="btn-registerhotel">Adicionar Hotel</button>
-            </form>
         </div>
 
         <div class="container">
-            <!-- <div class="row" style="padding-bottom: 30px;">
-                <div class="col">
-                    <a th:href="@"></a>
-                </div>
-            </div> -->
 
-            <div class="row">
-                <table class="table table-striped">
-                    <thead>
+            <div class="form">
+                <form method="post" action="/cadastrohotel/cadastrando" th:object="${hotel}">
+                    
+                    <h3>Informações do novo Hotel:</h3>
+
+                    <div class="form-group">
+                        <label>Nome do Hotel:</label> 
+                        <input type="text" class="form-control" th:field="*{hotelName}" placeholder="Nome do Hotel (2 a 48 caracteres)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Endereço do Hotel:</label> 
+                        <input type="text" class="form-control" th:field="*{hotelAddress}" placeholder="Endereço (Máximo 512 caracteres)">
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Cidade do Hotel:</label> 
+                        <input type="text" class="form-control" th:field="*{hotelCity}" placeholder="Cidade (Máximo 128)">
+                    </div>
+
+                    <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                    <button type="submit" class="cadastrarhotel-btn"><strong>Cadastrar Hotel</strong></button>
+                    
+                    <div class="error" th:if="${errorMessage}">
+                        <strong><div th:text="${errorMessage}"></strong></div>
+                    </div>
+                                
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <strong>
                         <tr>
                             <th>Nome</th>
                             <th>Endereço</th>
                             <th>Cidade</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:if="${HotelsList.empty}">
-                            <td colspan="3">Não existem hotéis disponíveis.</td>
-                        </tr>
-                        <tr th:each="hotel : ${HotelsList}">
-                            <td><span th:text="${hotel.hotelName}"></span></td>
-                            <td><span th:text="${hotel.hotelAddress}"></span></td>
-                            <td><span th:text="${hotel.hotelCity}"></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    </strong>                    
+                </thead>
+                <tbody>
+                    <tr th:if="${HotelsList.empty}">
+                        <td colspan="3">Não há hoteis registrados.</td>
+                    </tr>
+                    <tr th:each="hotel : ${HotelsList}">
+                        <td><span th:text="${hotel.hotelName}"></span></td>
+                        <td><span th:text="${hotel.hotelAddress}"></span></td>
+                        <td><span th:text="${hotel.hotelCity}"></span></td>
+                        <form method="get" action="#" th:action="@{/settings/hotelsettings/roomsettings}">
+                            <input type="hidden" name="hotelId" th:value="${hotel.id}">                            
+                            <td><button class="settingshotel-btn"><strong>Configurações do Hotel</strong></button></td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <!--
-        <div>
-            <form method="get" action="/login">
-                <button class="btn-login">Login</button>
-            </form>
         </div>
-
-        <div>
-            <form method="get" action="/settings">
-                <button class="btn-settings">Configs</button>
-            </form>
-        </div>
-
-        <div>
-            <form method="post" action="logout">
-                <button type="submit" class="btn-logout">Logout</button>
-            </form>
-        </div>
-
-        <div class="main">
-            <input type="text" name="pesquisar" placeholder="Para onde desejas ir?">
-            <a href="endereco"><img src="imagem.png"></a>
-        </div> -->
                 
-    </div>    
+    </div>
+    
+    <div th:replace="shared/footer :: footer"></div>
+
 </body>
 
 </html>

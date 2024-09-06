@@ -1,0 +1,43 @@
+.welcome {
+    color: white; 
+    font-size: 30px;
+    transition: .3s;
+}
+
+.welcome span {
+    color: #ecc900;
+}
+
+.container {
+    background-color: rgb(41, 41, 41);
+    width: 400px;
+    height: 250px;
+    margin: auto;
+    color: aliceblue;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 20px;
+}
+
+.form-group {
+    padding: 10px;
+}
+
+.cadastrarquarto-btn {
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ecc900;
+    padding: 5px;
+}
+
+.row {
+    background-color: rgb(41, 41, 41);
+    width: 400px;
+    height: 250px;
+    margin: auto;
+    margin-top: 20px;
+    color: aliceblue;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 20px;
+}
