@@ -14,15 +14,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <script type="text/javascript" th:src = "@{/js/settings.js}"></script>
+    <script type="text/javascript" th:src = "@{/js/sorry.js}"></script>
     <title>Beevago Confirgurações</title>
 </head>
 
 <body>
 
     <div th:replace="shared/header :: header"></div>
-    <!-- SOMENTE O USUÁRIO CONSEGUE ACESSAR SUA PRÓPRIA PÁGINA -->
-    <div class="form" th:if="${#objects.nullSafe(session?.usuarioLogado?.id == user.id?:,null)}">
+    <span th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}"></span>
         <div class ="container">
             <div class="main-div">
                 <div class = "header2">
@@ -35,8 +34,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <div class="form-group">
                         <form method="post" action="#" th:action="@{settings/changingusername}">
                             <label>Nome: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'?')}"></span></label>
-                            <input type="hidden" name="userid" th:value="${user.id}">    
-                            <!-- VULNERÁVEL                           -->
+                            <input type="hidden" name="userid" th:value="${user.id}">
                             <input type="text" name="changingusername">
                             <button class="changename-btn"><strong>Alterar Nome</strong></button>
                         </form>

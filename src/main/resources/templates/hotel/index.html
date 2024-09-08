@@ -22,7 +22,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     
     <div th:replace="shared/header :: header"></div>
 
-    <div class="hotel">
+    <div class="hotel" th:if="${#objects.nullSafe(session?.usuarioLogado?.id == userId?:, null)}">
 
         <div class="welcome">
             <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, sua Lista de Hotéis:</strong>            
@@ -50,6 +50,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <input type="text" class="form-control" th:field="*{hotelCity}" placeholder="Cidade (Máximo 128)">
                     </div>
 
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="text" class="form-control" name="useremail">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Senha:</label>
+                        <input type="password" class="form-control" name="userpassword">
+                    </div>
+
                     <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
                     <button type="submit" class="cadastrarhotel-btn"><strong>Cadastrar Hotel</strong></button>
                     
@@ -59,7 +69,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                                 
                 </form>
             </div>
-        </div>
+        
 
         <div class="row">
             <table class="table table-striped">
@@ -87,9 +97,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        </div>
+        </div>        
                 
     </div>
     

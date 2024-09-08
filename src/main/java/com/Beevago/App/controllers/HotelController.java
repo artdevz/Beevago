@@ -15,8 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.Beevago.App.enums.ERole;
 import com.Beevago.App.enums.ERoomType;
 import com.Beevago.App.models.HotelModel;
+import com.Beevago.App.models.UserModel;
 import com.Beevago.App.services.HotelService;
 import com.Beevago.App.services.UserService;
+import com.Beevago.App.utils.UtilPassword;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -38,6 +40,7 @@ public class HotelController {
         }
 
         mv.setViewName("hotel/index");
+        mv.addObject("userId", userId);
         mv.addObject("hotel", new HotelModel());
         List<HotelModel> hotels = hs.findAllHotelsWithUserId(userId);
         mv.addObject("HotelsList", hotels);
@@ -46,12 +49,18 @@ public class HotelController {
     }
 
     @PostMapping("/cadastrohotel/cadastrando")
-    public ModelAndView cadastrandoHotel(HotelModel hotel, @RequestParam("userid") UUID userId, BindingResult result, HttpSession session, RedirectAttributes attributes) throws Exception {
+    public ModelAndView cadastrandoHotel(HotelModel hotel, @RequestParam("userid") UUID userId, @RequestParam("useremail") String userEmail, @RequestParam("userpassword") String userPassword, BindingResult result, HttpSession session, RedirectAttributes attributes) throws Exception {
         ModelAndView mv = new ModelAndView();
 
         if (result.hasErrors()) {
             attributes.addFlashAttribute("errorMessage", "ERRO! Verifique se há campos em branco.");
             mv.setViewName("redirect:/settings/hotelsettings?userid=" + userId);            
+            return mv;
+        }
+
+        UserModel userLogin = us.loginUser(userEmail, UtilPassword.md5(userPassword));
+        if (!(userLogin.getId().equals(userId))) {
+            mv.setViewName("redirect:/settings/hotelsettings?userid=" + userLogin.getId());
             return mv;
         }
         
