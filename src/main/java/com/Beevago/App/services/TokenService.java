@@ -20,15 +20,17 @@ public class TokenService {
     private String secretKey;
 
     public String generateToken(UserModel user) {
-
+        
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
+            
             String token = JWT.create()
-                .withIssuer("auth-api")
+                .withIssuer("beevago-api")
                 .withSubject(user.getUserEmail())
+                // .withClaim("id", user.getId())
                 .withExpiresAt(getExpirationDate())
                 .sign(algorithm);
-
+                
             return token;
 
         } catch (JWTCreationException exception) {
@@ -37,12 +39,12 @@ public class TokenService {
 
     }
 
-    public String validationToken(String token) {
+    public String getSubject(String token) {
 
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
             return JWT.require(algorithm)
-            .withIssuer("auth-api")
+            .withIssuer("beevago-api")
             .build()
             .verify(token)
             .getSubject();
@@ -57,4 +59,4 @@ public class TokenService {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
-}/* */
+}

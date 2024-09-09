@@ -9,13 +9,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Beevago.App.enums.ERole;
 import com.Beevago.App.exceptions.AttributeExistsException;
 import com.Beevago.App.exceptions.CPFInvalidException;
-import com.Beevago.App.exceptions.CriptoExistException;
 import com.Beevago.App.exceptions.LengthException;
 import com.Beevago.App.exceptions.MinimumAgeException;
 import com.Beevago.App.exceptions.NewPasswordEqualsException;
@@ -37,46 +36,39 @@ public class UserService {
     @Autowired
     private UserRepository ur;
 
-    //@Autowired
-    //private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void saveUser(UserModel user) throws Exception {
         
-        try {
-
-            if (ur.findByUserCpf(user.getUserCpf()) != null) {
-                throw new AttributeExistsException("CPF já cadastrado.");
-            }
-            
-            if (ur.findByUserEmail(user.getUserEmail()) != null) {
-                throw new AttributeExistsException("Email já cadastrado.");
-            }
-
-            if ( (user.getUserPassword()).length() < USERPASSWORDMINIMUMLENGTH || (user.getUserPassword()).length() > USERPASSWORDMAXIMUMLENGTH ) {
-                throw new LengthException("Senha deve conter entre 8 a 32 caracteres.");
-            }
-            if ( !(user.getUserPassword()).equals(user.getUserConfirmedPassword()) ) {                
-                throw new PasswordConfirmationException("A Confirmação da Senha deve ser igual à Senha.");
-            }
-
-            if (user.getUserBirthday().after(minimumDate())) {
-                throw new MinimumAgeException("Deve ter pelo menos 18 anos para criar uma conta.");
-            }
-
-            if (!(isCPFValid(user.getUserCpf()))) {
-                throw new CPFInvalidException("CPF deve ser válido.");
-            }
-
-            user.setUserPassword(UtilPassword.md5(user.getUserPassword()));
-
-        } catch (NoSuchAlgorithmException e) {
-
-            throw new CriptoExistException("Erro na Criptografia da Senha.");
-        
+        if (ur.findByUserCpf(user.getUserCpf()) != null) {
+            throw new AttributeExistsException("CPF já cadastrado.");
         }
         
-        ur.save(user);
+        if (ur.findByUserEmail(user.getUserEmail()) != null) {
+            throw new AttributeExistsException("Email já cadastrado.");
+        }
 
+        if ( (user.getUserPassword()).length() < USERPASSWORDMINIMUMLENGTH || (user.getUserPassword()).length() > USERPASSWORDMAXIMUMLENGTH ) {
+            throw new LengthException("Senha deve conter entre 8 a 32 caracteres.");
+        }
+        
+        if ( !(user.getUserPassword()).equals(user.getUserConfirmedPassword()) ) {                
+            throw new PasswordConfirmationException("A Confirmação da Senha deve ser igual à Senha.");
+        }
+
+        if (user.getUserBirthday().after(minimumDate())) {
+            throw new MinimumAgeException("Deve ter pelo menos 18 anos para criar uma conta.");
+        }
+
+        if (!(isCPFValid(user.getUserCpf()))) {
+            throw new CPFInvalidException("CPF deve ser válido.");
+        }
+
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        
+        ur.save(user);
+        
     }
 
     public UserModel loginUser(String userEmail, String userPassword) throws ServicException {

@@ -1,21 +1,21 @@
 package com.Beevago.App.enums;
 
 public enum ERole {
-    ROLE_USER("user"),
+    ROLE_USER("USER"),
     // Usuário comum:
     /*
      * - Reservar quartos;
      * 
     */
     
-    ROLE_MOD("mod"),
+    ROLE_MOD("MOD"),
     // Dono do Hotel:
     /* 
      * - Hospedar hotéis;
      * 
      */
 
-    ROLE_ADMIN("admin");
+    ROLE_ADMIN("ADMIN");
     // Dono do Site:
     /*
      * - Reservar quartos;

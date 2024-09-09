@@ -5,32 +5,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.authentication.AuthenticationProvider;
-//import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-//import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-//import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-//import com.Bivago.App.service.UserService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(
-  prePostEnabled = true, 
-  securedEnabled = true, 
-  jsr250Enabled = true)
 public class WebSecurityConfiguration {
     
-    // private final UserService US;
-
     @Autowired
     SecurityFilter sf;
 
+    @SuppressWarnings("removal")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {        
         
@@ -39,14 +30,12 @@ public class WebSecurityConfiguration {
         .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(request -> {
             request.dispatcherTypeMatchers().permitAll();
-            request.requestMatchers(HttpMethod.GET, "/**", "/styles/*", "/login", "/cadastro").permitAll();
-            request.requestMatchers(HttpMethod.GET, "/settings/**").permitAll();//.hasRole("USER");
-            request.requestMatchers(HttpMethod.POST, "/**", "cadastro/cadastrando", "login/logando").permitAll();
-            //request.requestMatchers("/css/**").permitAll();
-            //request.authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-            request.anyRequest().authenticated();            
+            request.requestMatchers(HttpMethod.GET, "/", "/login", "/register").permitAll();
+            request.requestMatchers(HttpMethod.GET, "/settings/**").hasRole("USER");
+            request.requestMatchers(HttpMethod.POST, "/**", "/register", "/login").permitAll();
+            request.requestMatchers("/css/**", "/image/**").permitAll();
+            request.anyRequest().authenticated().and().addFilterBefore(sf, UsernamePasswordAuthenticationFilter.class);            
         });
-        //.httpBasic(Customizer.withDefaults());
         
         return http.build();
 
@@ -57,12 +46,9 @@ public class WebSecurityConfiguration {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    // @Bean
-    // public AuthenticationProvider authenticationProvider() {
-    //     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-    //     authProvider.setUserDetailsService(US.userDetailsService());
-    //     authProvider.setPasswordEncoder(passwordEncoder);
-    //     return authProvider;
-    // }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }

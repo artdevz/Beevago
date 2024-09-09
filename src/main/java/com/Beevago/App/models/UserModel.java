@@ -1,16 +1,15 @@
 package com.Beevago.App.models;
 
-import java.io.Serializable;
 import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.Beevago.App.enums.ERole;
-
-//import com.Bivago.App.dto.UserDTO;
-
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.authority.SimpleGrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,8 +26,8 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="user")
-//public class UserModel implements UserDetails {
-public class UserModel implements Serializable {
+public class UserModel implements UserDetails {
+//public class UserModel implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -81,9 +80,19 @@ public class UserModel implements Serializable {
         if (this.userRole == null) this.userRole = ERole.ROLE_USER; // (Temporário)               
     }
 
-    // public UserModel(UserDTO data) {
-    //     this.userRole = data.userRole();
-    // }
+    public UserModel(String name, String email, String cpf, Date birthday, String password, String confirmedpassword, ERole role) {
+        this.userName = name;
+        this.userEmail = email;
+        this.userCpf = cpf;
+        this.userBirthday = birthday;
+        this.userPassword = password;
+        this.userConfirmedPassword = confirmedpassword;
+        if (role == null) this.userRole = ERole.ROLE_USER;
+
+        Date currentDate = new Date(System.currentTimeMillis());
+        this.userCreatedDate = currentDate;
+        this.userUpdatedDate = currentDate;
+    }
     
     // GetterSetters:
 
@@ -91,7 +100,7 @@ public class UserModel implements Serializable {
         return id;
     }
 
-    public void setCode(UUID id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -165,31 +174,21 @@ public class UserModel implements Serializable {
 
     public void setUserRole(ERole userRole) {
         this.userRole = userRole;
-    }    
+    }
 
-    // public UserRole getUserRole() {
-    //     return userRole;
-    // }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
 
-    // public void setUserRole(UserRole userRole) {
-    //     this.userRole = userRole;
-    // }
- 
-    // @Override
-    // public Collection<? extends GrantedAuthority> getAuthorities() {        
-    //     if (this.userRole == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_HOTEL"), new SimpleGrantedAuthority("ROLE_USER"));
-    //     if (this.userRole == UserRole.HOTEL) return List.of(new SimpleGrantedAuthority("ROLE_HOTEL"), new SimpleGrantedAuthority("ROLE_USER"));
-    //     return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-    // }
+    @Override
+    public String getPassword() {
+        return userPassword;
+    }
 
-    // @Override
-    // public String getPassword() {        
-    //     throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
-    // }
-
-    // @Override
-    // public String getUsername() {        
-    //     throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
-    // }        
+    @Override
+    public String getUsername() {
+        return userEmail;
+    }   
 
 }

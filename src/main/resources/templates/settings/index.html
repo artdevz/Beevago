@@ -21,7 +21,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 <body>
 
     <div th:replace="shared/header :: header"></div>
-    <span th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}"></span>
+    <!-- <span th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}"></span> -->
         <div class ="container">
             <div class="main-div">
                 <div class = "header2">
@@ -34,7 +34,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <div class="form-group">
                         <form method="post" action="#" th:action="@{settings/changingusername}">
                             <label>Nome: <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'?')}"></span></label>
-                            <input type="hidden" name="userid" th:value="${user.id}">
+                            <input type="hidden" name="userid" >
                             <input type="text" name="changingusername">
                             <button class="changename-btn"><strong>Alterar Nome</strong></button>
                         </form>

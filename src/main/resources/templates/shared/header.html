@@ -15,12 +15,11 @@
                     </h1>
                 </div>                   
             </div>
-
                 
             <div class="register-btns">
 
                 <div th:if="!${#objects.nullSafe(session?.usuarioLogado?:,null)}">
-                    <form method="get" action="/cadastro">
+                    <form method="get" action="/register">
                         <button class="btn-register">Criar conta</button>
                     </form>
                 </div>
@@ -40,7 +39,7 @@
                 
                 <div th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
                     <form method="get" action="#" th:action="@{/settings}">
-                        <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
+                        <!-- <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}"> -->
                         <button type="submit" class="btn-settings">Configs</button>
                     </form>
                 </div>
