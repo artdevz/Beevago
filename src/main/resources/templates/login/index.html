@@ -40,6 +40,10 @@
                     <div class="btn-div">
                         <button type="submit" class="login-btn"><strong>Logar</strong></button>
                     </div>
+
+                    <div class="error" th:if="${errorMessage}">
+                        <strong><div th:text="${errorMessage}"></strong></div>
+                    </div>
                     
                     <div class="register">
                         <a th:href="@{register}">Não possui uma Conta? Cadastre-se Aqui.</a>

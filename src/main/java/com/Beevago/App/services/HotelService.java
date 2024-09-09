@@ -52,7 +52,11 @@ public class HotelService {
 
     public List<HotelModel> findAllHotelsWithUserId(UUID userId) {
         return hr.findAllHotelsWithUserId(userId);
-    }    
+    }
+    
+    public HotelModel findOwnerById(UUID id) {
+        return hr.findOwnerById(id);
+    }
 
     public String findHotelNameById(UUID id) {
         return hr.findHotelNameById(id);

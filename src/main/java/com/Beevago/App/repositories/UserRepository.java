@@ -34,6 +34,9 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     @Query(nativeQuery = true, value = "SELECT USERPASSWORD FROM user WHERE ID = :id")
     public String findPasswordById(UUID id);
+    
+    @Query(nativeQuery = true, value = "SELECT ID FROM user WHERE USEREMAIL = :userEmail")
+    public UUID findIdByEmail(String userEmail);
 
     @Transactional
     @Modifying

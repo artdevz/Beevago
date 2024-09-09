@@ -19,6 +19,9 @@ public interface HotelRepository extends JpaRepository<HotelModel, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE OWNERID = :userUuid")
     public List<HotelModel> findAllHotelsWithUserId(UUID userUuid);
+    
+    @Query(nativeQuery = true, value = "SELECT * FROM hotel WHERE ID = :id")
+    public HotelModel findOwnerById(UUID id);
 
     @Query(nativeQuery = true, value = "SELECT HOTELNAME FROM hotel WHERE ID = :hotelUuid")
     public String findHotelNameById(UUID hotelUuid);

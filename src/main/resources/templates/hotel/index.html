@@ -31,7 +31,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
         <div class="container">
 
             <div class="form">
-                <form method="post" action="/cadastrohotel/cadastrando" th:object="${hotel}">
+                <form method="post" action="/settings/hotelsettings/registerhotel" th:object="${hotel}">
                     
                     <h3>Informações do novo Hotel:</h3>
 
@@ -48,16 +48,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     <div class="form-group">
                         <label>Cidade do Hotel:</label> 
                         <input type="text" class="form-control" th:field="*{hotelCity}" placeholder="Cidade (Máximo 128)">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email:</label>
-                        <input type="text" class="form-control" name="useremail">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Senha:</label>
-                        <input type="password" class="form-control" name="userpassword">
                     </div>
 
                     <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">

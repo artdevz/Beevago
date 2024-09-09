@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.Beevago.App.enums.ERole;
 import com.Beevago.App.enums.ERoomType;
 import com.Beevago.App.models.HotelModel;
-import com.Beevago.App.models.UserModel;
+import com.Beevago.App.services.CookieService;
 import com.Beevago.App.services.HotelService;
 import com.Beevago.App.services.UserService;
-import com.Beevago.App.utils.UtilPassword;
+import com.Beevago.App.utils.JwtDecodeToken;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -32,11 +34,20 @@ public class HotelController {
     private UserService us;
     
     @GetMapping("settings/hotelsettings")
-    public ModelAndView getAdminHotelMainPage(@RequestParam(value="userid", required = false) UUID userId) {
+    public ModelAndView getAdminHotelMainPage(@RequestParam(value="userid", required = false) UUID userId, Model model, RedirectAttributes attributes, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
+        model.addAttribute("JWT", CookieService.getCookie(request, "JWT"));
 
         if ( !(us.findRoleById(userId).equals(ERole.ROLE_MOD) || us.findRoleById(userId).equals(ERole.ROLE_ADMIN)) ) {
-            mv.setViewName("redirect:/"); return mv;
+            attributes.addFlashAttribute("errorMessage", "ACESSO NEGADO");
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
+
+        if ( !( us.findEmailById(userId).equals(JwtDecodeToken.getEmailByJwtToken(CookieService.getCookie(request, "JWT"))) )) {
+            attributes.addFlashAttribute("errorMessage", "ACESSO NEGADO");
+            mv.setViewName("redirect:/login");
+            return mv;
         }
 
         mv.setViewName("hotel/index");
@@ -48,19 +59,20 @@ public class HotelController {
         return mv;
     }
 
-    @PostMapping("/cadastrohotel/cadastrando")
-    public ModelAndView cadastrandoHotel(HotelModel hotel, @RequestParam("userid") UUID userId, @RequestParam("useremail") String userEmail, @RequestParam("userpassword") String userPassword, BindingResult result, HttpSession session, RedirectAttributes attributes) throws Exception {
+    @PostMapping("settings/hotelsettings/registerhotel")
+    public ModelAndView registerHotel(HotelModel hotel, @RequestParam("userid") UUID userId, Model model, BindingResult result, HttpSession session, RedirectAttributes attributes, HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView();
+        model.addAttribute("JWT", CookieService.getCookie(request, "JWT"));
 
         if (result.hasErrors()) {
             attributes.addFlashAttribute("errorMessage", "ERRO! Verifique se há campos em branco.");
             mv.setViewName("redirect:/settings/hotelsettings?userid=" + userId);            
             return mv;
         }
-
-        UserModel userLogin = us.loginUser(userEmail, UtilPassword.md5(userPassword));
-        if (!(userLogin.getId().equals(userId))) {
-            mv.setViewName("redirect:/settings/hotelsettings?userid=" + userLogin.getId());
+        
+        if ( !( us.findEmailById(userId).equals(JwtDecodeToken.getEmailByJwtToken(CookieService.getCookie(request, "JWT"))) )) {
+            attributes.addFlashAttribute("errorMessage", "ACESSO NEGADO");
+            mv.setViewName("redirect:/login");
             return mv;
         }
         
@@ -72,8 +84,7 @@ public class HotelController {
             attributes.addFlashAttribute("errorMessage", e.getMessage());
             mv.setViewName("redirect:/settings/hotelsettings?userid=" + userId);
             return mv;
-        }
-        
+        }        
                 
         session.setAttribute("hotelCadastrado", hotel);
         attributes.addFlashAttribute("msg", "Hotel cadastrado com Sucesso!");        

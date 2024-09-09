@@ -161,6 +161,10 @@ public class UserService {
         return ur.findPasswordById(id);
     }
 
+    public UUID findIdByEmail(String email) {
+        return ur.findIdByEmail(email);
+    }
+
     public void deleteUserById(UUID id) {
         ur.deleteByUserId(id);
     }
