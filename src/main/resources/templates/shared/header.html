@@ -38,9 +38,9 @@
                 </div>
                 
                 <div th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
-                    <form method="get" action="#" th:action="@{/settings}">
-                        <!-- <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}"> -->
+                    <form method="get" action="#" th:action="@{/settings}">                        
                         <button type="submit" class="btn-settings">Configs</button>
+                        <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
                     </form>
                 </div>
             

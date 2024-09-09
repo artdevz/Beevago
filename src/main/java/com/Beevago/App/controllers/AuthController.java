@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,9 +18,11 @@ import com.Beevago.App.dto.LoginDTO;
 import com.Beevago.App.dto.RegisterDTO;
 import com.Beevago.App.enums.ERole;
 import com.Beevago.App.models.UserModel;
+import com.Beevago.App.services.CookieService;
 import com.Beevago.App.services.TokenService;
 import com.Beevago.App.services.UserService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -44,8 +45,8 @@ public class AuthController {
         mv.setViewName("register/index");
         return mv;
     }
-
-    @PostMapping(path="/register", consumes = "application/x-www-form-urlencoded;charset=UTF-8", produces = MediaType.APPLICATION_JSON_VALUE)
+    // consumes = "application/x-www-form-urlencoded;charset=UTF-8"
+    @PostMapping(path="/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView register(RegisterDTO register, BindingResult result, RedirectAttributes attributes, HttpSession session) throws Exception {
         ModelAndView mv = new ModelAndView();
                
@@ -72,20 +73,19 @@ public class AuthController {
         return mv;
     }
 
-    @PostMapping(path="/login", consumes = "application/x-www-form-urlencoded;charset=UTF-8", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView login(LoginDTO login, HttpSession session) {
+    @PostMapping(path="/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ModelAndView login(LoginDTO login, HttpSession session, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:/");
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login.email(), login.password());
         Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         var user = (UserModel) authenticate.getPrincipal();
-
         var jwt = ts.generateToken(user);
 
         System.out.println("JWT Token: "+jwt);
         session.setAttribute("usuarioLogado", user);
-        session.setAttribute("jwt", jwt);
+        CookieService.setCookie(response, "JWT", jwt, 86400);
 
         return mv;
     }

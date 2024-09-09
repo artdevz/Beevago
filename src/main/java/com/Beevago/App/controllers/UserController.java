@@ -5,15 +5,11 @@ import java.util.UUID;
 //import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-//import org.springframework.security.access.prepost.PostAuthorize;
-//import org.springframework.security.access.prepost.PreAuthorize;
-//import org.springframework.security.authentication.AnonymousAuthenticationToken;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,84 +21,46 @@ import com.Beevago.App.exceptions.LengthException;
 import com.Beevago.App.exceptions.NewPasswordEqualsException;
 import com.Beevago.App.exceptions.ServicException;
 import com.Beevago.App.models.UserModel;
+import com.Beevago.App.services.CookieService;
 import com.Beevago.App.services.UserService;
-import com.Beevago.App.utils.UtilPassword;
 
-//import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.ServletException;
-//import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
+import jakarta.websocket.Decoder;
 
 @Controller
 public class UserController {  
 
     @Autowired
-    private UserService us;
-
-    // Cadastro:
-   
-
-    // @PostMapping("/cadastro/cadastrando")
-    // public ModelAndView cadastrarUser(@Valid UserModel user, BindingResult result, RedirectAttributes attributes, HttpSession session) throws Exception {
-    //     ModelAndView mv = new ModelAndView();
-
-    //     if (result.hasErrors()) {
-    //         attributes.addFlashAttribute("errorMessage", "Erro! Verifique se há campos em branco.");
-    //         mv.setViewName("redirect:/cadastro");
-    //         return mv;
-    //     }
-        
-    //     try {
-    //         us.saveUser(user); 
-    //     } catch (Exception e) {            
-    //         attributes.addFlashAttribute("errorMessage", e.getMessage());
-    //         mv.setViewName("redirect:/cadastro");
-    //         return mv;
-    //     }
-        
-    //     session.setAttribute("usuarioLogado", user);
-    //     mv.setViewName("redirect:/");
-    //     return mv;
-    // }
-
-    // Login:
+    private UserService us;  
     
-
-    // @PostMapping("login/logando")
-    // public ModelAndView login(UserModel user, BindingResult result, HttpSession session, RedirectAttributes attributes) throws NoSuchAlgorithmException, ServicException {
-    //     ModelAndView mv = new ModelAndView();        
-    //     mv.addObject("user", new UserModel());
-
-    //     if (result.hasErrors()) {
-    //         attributes.addFlashAttribute("msg", "Usuário não encontrado.");
-    //         mv.setViewName("login/index");
-    //     }
-
-    //     UserModel userLogin = us.loginUser(user.getUserEmail(), UtilPassword.md5(user.getUserPassword()));
-
-    //     if (userLogin != null) {
-    //         session.setAttribute("usuarioLogado", userLogin);
-    //         attributes.addFlashAttribute("msg", "Login feito com Sucesso!");        
-    //         mv.setViewName("redirect:/");            
-    //         return mv;            
-    //     } 
-        
-    //     mv.addObject("msg", "Usuário não encontrado.");
-    //     mv.setViewName("redirect:/login");    
-
-    //     return mv;
-    // }
-    
-    @PreAuthorize("hasAnyRole('USER', 'MOD', 'ADMIN')")
     @GetMapping("/settings")
-    public ModelAndView userSettings(HttpServletRequest request) throws ServletException {
+    public ModelAndView userSettings(@RequestParam("userid") UUID userId, Model model, HttpServletRequest request) throws ServletException {
         ModelAndView mv = new ModelAndView();
+        model.addAttribute("JWT", CookieService.getCookie(request, "JWT"));
+        System.out.println("Chegou");
+        String[] chunks = CookieService.getCookie(request, "JWT").split("\\.");       
+
+        String base64EncodedBody = chunks[1];       
+        @SuppressWarnings("deprecation")
+        Base64 base64Url = new Base64(true);
+        String body = new String(base64Url.decode(base64EncodedBody));
+        System.out.println(body);
+        String[] bodyPiece = body.split(":");
+        String[] bodyPieceTwo = bodyPiece[2].split(",");        
+        System.out.println(bodyPieceTwo[0].replace("\"", ""));
+
         // if (userId == null) {
         //     mv.setViewName("redirect:/login"); return mv;
         // }
+
+        if (!(us.findEmailById(userId).equals(bodyPieceTwo[0].replace("\"", "")))) {
+            System.out.println("Não");
+            mv.setViewName("redirect:/");
+            return mv;
+        }
+        
         mv.setViewName("settings/index");
         // mv.addObject("user", us.findUserById(userId));
         mv.addObject("roles", ERole.values());       

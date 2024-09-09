@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfiguration {
     
     @Autowired
-    SecurityFilter sf;
+    JwtFilter sf;
 
     @SuppressWarnings("removal")
     @Bean
@@ -30,9 +30,9 @@ public class WebSecurityConfiguration {
         .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(request -> {
             request.dispatcherTypeMatchers().permitAll();
-            request.requestMatchers(HttpMethod.GET, "/", "/login", "/register").permitAll();
-            request.requestMatchers(HttpMethod.GET, "/settings/**").hasRole("USER");
+            request.requestMatchers(HttpMethod.GET, "/**", "/login", "/register").permitAll();
             request.requestMatchers(HttpMethod.POST, "/**", "/register", "/login").permitAll();
+            // request.requestMatchers(HttpMethod.GET, "/settings/**").hasAnyRole("USER", "MOD", "ADMIN");
             request.requestMatchers("/css/**", "/image/**").permitAll();
             request.anyRequest().authenticated().and().addFilterBefore(sf, UsernamePasswordAuthenticationFilter.class);            
         });
