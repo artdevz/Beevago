@@ -27,7 +27,6 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name="user")
 public class UserModel implements UserDetails {
-//public class UserModel implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id

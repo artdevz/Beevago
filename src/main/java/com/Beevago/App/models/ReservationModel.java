@@ -52,6 +52,15 @@ public class ReservationModel implements Serializable {
     @Column(name = "price")
     private double totalPrice;
 
+    // Construtores:
+    public ReservationModel() {}
+
+    public ReservationModel(Date checkIn, Date checkOut, int qntDePessoas) {        
+        this.checkInDate = checkIn;
+        this.checkOutDate = checkOut;
+        this.quantidadeDePessoas = qntDePessoas;
+    }
+
     // GetterSetters:
 
     public UUID getId() {

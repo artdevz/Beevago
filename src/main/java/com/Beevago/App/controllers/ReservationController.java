@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Beevago.App.dto.HotelDTO;
+import com.Beevago.App.dto.ReservationDTO;
 import com.Beevago.App.dto.RoomDTO;
 import com.Beevago.App.dto.UserDTO;
 import com.Beevago.App.enums.ERoomType;
@@ -77,6 +79,12 @@ public class ReservationController {
         mv.setViewName("home/index");        
         mv.addObject("categoriesList", ERoomType.values());
         mv.addObject("currentDate", new Date(System.currentTimeMillis()));
+        
+        if (searchCheckInDate == "" || searchCheckOutDate == "") {
+            // attributes.addFlashAttribute("errorMessage", "ERRO! Verifique se há campos em branco.");
+            mv.setViewName("redirect:/");            
+            return mv;
+        }
 
         mv.addObject("stringSearch", rs.generateSearchString(hotelCity, roomType, personCapacity, maximumPrice, searchCheckInDate, searchCheckOutDate));
 
@@ -97,24 +105,24 @@ public class ReservationController {
         mv.addObject("user", new UserDTO(userId));        
         mv.addObject("hotel", new HotelDTO(hs.findHotelNameById(hotelId), hotelId));
         mv.addObject("room", new RoomDTO(roomId));
-        mv.addObject("reserva", new ReservationModel());
+        mv.addObject("reserva", new ReservationDTO(new Date(2l), new Date(2l), 0));
         mv.setViewName("reserva/reservar");
         return mv;
     }
 
     @PostMapping("/reservarquarto")
-    public ModelAndView reservandoHotel(ReservationModel reserva, @RequestParam("userid") UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId, RedirectAttributes attributes) {
+    public ModelAndView reservandoHotel(ReservationDTO reserva, @RequestParam("userid") UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId,BindingResult result, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
 
         try {
-            
-            if (rs.dateConflicts(roomId, reserva.getCheckInDate(), reserva.getCheckOutDate())) {
+
+            if (rs.dateConflicts(roomId, reserva.checkIn(), reserva.checkOut())) {
                 attributes.addFlashAttribute("errorMessage", "Quarto indisponível durante esse período.");
                 mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
                 return mv;
             }
 
-            if (qs.findCapacityById(roomId) < reserva.getQuantidadeDePessoas()) {
+            if (qs.findCapacityById(roomId) < reserva.qntDePessoas()) {
                 attributes.addFlashAttribute("errorMessage", "Quantidade de Pessoas é maior que a Capacidade do Quarto: [" + qs.findCapacityById(roomId) + "].");
                 mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
                 return mv;
@@ -125,18 +133,15 @@ public class ReservationController {
             mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
             return mv;
         }
-
         
-
-        
-
-        reserva.setUserId(userId);        
-        reserva.setHotelId(hotelId); 
-        reserva.setRoomId(roomId);       
-        reserva.setTotalPrice( rs.daysInRoom(reserva.getCheckInDate(), reserva.getCheckOutDate()) * reserva.getQuantidadeDePessoas() * qs.findPriceById(roomId) );
+        ReservationModel reservation = new ReservationModel(reserva.checkIn(), reserva.checkOut(), reserva.qntDePessoas());
+        reservation.setUserId(userId);        
+        reservation.setHotelId(hotelId); 
+        reservation.setRoomId(roomId);       
+        reservation.setTotalPrice( rs.daysInRoom(reservation.getCheckInDate(), reservation.getCheckOutDate()) * reservation.getQuantidadeDePessoas() * qs.findPriceById(roomId) );
         
         try {
-            rs.saveReservation(reserva);
+            rs.saveReservation(reservation);
         } catch (Exception e) {
             attributes.addFlashAttribute("errorMessage", e.getMessage());
             mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
