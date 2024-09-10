@@ -26,10 +26,9 @@ import com.Beevago.App.repositories.UserRepository;
 @Service
 public class UserService {
     
+    private static final int USERNAMEMINIMUMLENGTH = 3;    
     private static final int USERPASSWORDMINIMUMLENGTH = 8;
-    private static final int USERPASSWORDMAXIMUMLENGTH = 32;
-    private static final int USERNAMEMINIMUMLENGTH = 3;
-    private static final int USERNAMEMAXIMUMLENGTH = 120;
+    private static final int MAXIMUMLENGTH = 32;
     private static final int MINIMUMAGE = 18;
 
     @Autowired
@@ -48,7 +47,7 @@ public class UserService {
             throw new AttributeExistsException("Email já cadastrado.");
         }
 
-        if ( (user.getUserPassword()).length() < USERPASSWORDMINIMUMLENGTH || (user.getUserPassword()).length() > USERPASSWORDMAXIMUMLENGTH ) {
+        if ( (user.getUserPassword()).length() < USERPASSWORDMINIMUMLENGTH || (user.getUserPassword()).length() > MAXIMUMLENGTH ) {
             throw new LengthException("Senha deve conter entre 8 a 32 caracteres.");
         }
         
@@ -77,7 +76,7 @@ public class UserService {
     
     public void changeUserName(UUID userId, String newUserName) throws LengthException {
         
-        if ( newUserName.length() < USERNAMEMINIMUMLENGTH || newUserName.length() > USERNAMEMAXIMUMLENGTH ) {
+        if ( newUserName.length() < USERNAMEMINIMUMLENGTH || newUserName.length() > MAXIMUMLENGTH ) {
             throw new LengthException("Novo nome de Usuário também deve conter entre 3 a 120 caracteres.");
         }
 
@@ -90,14 +89,9 @@ public class UserService {
 
     public void changeUserPassword(UUID userId, String newUserPassword) throws LengthException, NoSuchAlgorithmException, NewPasswordEqualsException {
         
-        if ( newUserPassword.length() < USERPASSWORDMINIMUMLENGTH || newUserPassword.length() > USERPASSWORDMAXIMUMLENGTH ) {
+        if ( newUserPassword.length() < USERPASSWORDMINIMUMLENGTH || newUserPassword.length() > MAXIMUMLENGTH ) {
             throw new LengthException("Nova Senha deve conter entre 8 a 32 caracteres.");
         }
-
-        // if ( (UtilPassword.md5(newUserPassword)).equals(findPasswordById(userId)) ) {
-        //     System.out.println("Senha Igual a Anterior");
-        //     throw new NewPasswordEqualsException("Senha igual a anterior.");
-        // }
 
         UserModel user = findUserById(userId);
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));

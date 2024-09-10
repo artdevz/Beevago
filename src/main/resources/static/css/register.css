@@ -7,8 +7,8 @@
     display: grid;
     margin-top: 20px;
     padding: 12px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: 500px;
+    margin-right: 500px;
 }
 
 .form {
@@ -27,13 +27,13 @@
     max-width: 400px;
     min-width: 200px;
     font-weight: 400;
-    text-transform: uppercase;
-    /* margin: 0 auto; */
+    text-transform: uppercase;    
     transition: .3s;
 }
 
 .btn-div {
     margin-top: 20px;
+    margin-left: 150px;
 }
 
 .register-btn {
@@ -45,4 +45,9 @@
 
 .register {
     margin-top: 20px;
+    margin-left: 70px;
+}
+
+.error {
+    margin-left: 40px;
 }

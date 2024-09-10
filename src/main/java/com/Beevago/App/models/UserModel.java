@@ -35,7 +35,7 @@ public class UserModel implements UserDetails {
     private UUID id;
 
     @NotEmpty
-    @Size(min = 3, max = 120, message = "Usuário deve conter entre 3 e 120 caracteres.")
+    @Size(min = 3, max = 32, message = "Usuário deve conter entre 3 e 120 caracteres.")
     @Column(name = "USERNAME")
     private String userName;
 
@@ -72,6 +72,7 @@ public class UserModel implements UserDetails {
     private ERole userRole;    
 
     // Construtores:
+    
     public UserModel() {
         Date currentDate = new Date(System.currentTimeMillis());
         this.userCreatedDate = currentDate;

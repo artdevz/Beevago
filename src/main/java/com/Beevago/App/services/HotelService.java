@@ -17,12 +17,8 @@ public class HotelService {
     @Autowired
     private HotelRepository hr;
 
-    private static final int HOTELNAMEMINIMUMLENGTH = 2;
-    private static final int HOTELNAMEMAXIMUMLENGTH = 48;
-    private static final int HOTELADDRESSMINIMUMLENGTH = 3;
-    private static final int HOTELADDRESSMAXIMUMLENGTH = 512;
-    private static final int HOTELCITYNAMEMINIMUMLENGTH = 3;
-    private static final int HOTELCITYNAMEMAXIMUMLENGTH = 128;
+    private static final int MINIMUMLENGTH = 3;
+    private static final int MAXIMUMLENGTH = 48;
 
     public void saveHotel(HotelModel hotel) throws Exception {        
             
@@ -30,16 +26,16 @@ public class HotelService {
             throw new AttributeExistsException("Já existe um Hotel com esse nome.");
         }
 
-        if (hotel.getHotelName().length() < HOTELNAMEMINIMUMLENGTH || hotel.getHotelName().length() > HOTELNAMEMAXIMUMLENGTH ) {
-            throw new LengthException("Nome do Hotel deve conter entre " + HOTELNAMEMINIMUMLENGTH + " a "  + HOTELNAMEMAXIMUMLENGTH + " caracteres.");
+        if (hotel.getHotelName().length() < MINIMUMLENGTH || hotel.getHotelName().length() > MAXIMUMLENGTH ) {
+            throw new LengthException("Nome do Hotel deve conter entre " + MINIMUMLENGTH + " a "  + MAXIMUMLENGTH + " caracteres.");
         }
 
-        if (hotel.getHotelAddress().length() < HOTELADDRESSMINIMUMLENGTH || hotel.getHotelAddress().length() > HOTELADDRESSMAXIMUMLENGTH) {
-            throw new LengthException("Endereço do Hotel deve conter entre " + HOTELADDRESSMINIMUMLENGTH + " a " + HOTELADDRESSMAXIMUMLENGTH + " caracteres.");
+        if (hotel.getHotelAddress().length() < MINIMUMLENGTH || hotel.getHotelAddress().length() > MAXIMUMLENGTH) {
+            throw new LengthException("Endereço do Hotel deve conter entre " + MINIMUMLENGTH + " a " + MAXIMUMLENGTH + " caracteres.");
         }
 
-        if (hotel.getHotelCity().length() < HOTELCITYNAMEMINIMUMLENGTH || hotel.getHotelCity().length() > HOTELCITYNAMEMAXIMUMLENGTH) {
-            throw new LengthException("Nome da Cidade do Hotel deve conter entre " + HOTELCITYNAMEMINIMUMLENGTH + " a " + HOTELCITYNAMEMAXIMUMLENGTH + " caracteres.");
+        if (hotel.getHotelCity().length() < MINIMUMLENGTH || hotel.getHotelCity().length() > MAXIMUMLENGTH) {
+            throw new LengthException("Nome da Cidade do Hotel deve conter entre " + MINIMUMLENGTH + " a " + MAXIMUMLENGTH + " caracteres.");
         }        
 
         hr.save(hotel);

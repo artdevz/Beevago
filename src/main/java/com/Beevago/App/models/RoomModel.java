@@ -46,6 +46,8 @@ public class RoomModel implements Serializable {
     private String roomHotelAddress;
     private String roomHotelCity;
     
+    // GetterSetters:
+
     public String getRoomHotelName() {
         return roomHotelName;
     }
@@ -71,6 +73,7 @@ public class RoomModel implements Serializable {
     }
 
     // Getters and Setters:
+
     public UUID getId() {
         return id;
     }

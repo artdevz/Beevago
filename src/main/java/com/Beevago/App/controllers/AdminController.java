@@ -81,7 +81,7 @@ public class AdminController {
 
         var jwt = ts.generateToken(user);
 
-        System.out.println("JWT Token: "+jwt);
+        // System.out.println("JWT Token: "+jwt);
         session.setAttribute("usuarioLogado", user);
         CookieService.setCookie(response, "JWT", jwt, 86400);
 

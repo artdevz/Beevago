@@ -17,9 +17,7 @@ public enum ERole {
 
     ROLE_ADMIN("ADMIN");
     // Dono do Site:
-    /*
-     * - Reservar quartos;
-     * - Hospedar hotéis;
+    /*     
      * - Acesso ao CRUD;
      * 
      */

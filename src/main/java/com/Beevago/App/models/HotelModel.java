@@ -26,17 +26,17 @@ public class HotelModel implements Serializable {
     private UUID ownerId;
 
     @NotEmpty
-    @Size(min = 2, max = 48, message = "Nome do Hotel deve conter entre 2 a 48 caracteres.")
+    @Size(min = 2, max = 32, message = "Nome do Hotel deve conter entre 2 a 32 caracteres.")
     @Column(name = "HOTELNAME", unique = true)
     private String hotelName;
 
     @NotEmpty
-    @Size(max = 512, message = "Endereço do Hotel deve conter até no máximo 512 caracteres.")
+    @Size(max = 32, message = "Endereço do Hotel deve conter entre 2 a 32 caracteres.")
     @Column(name = "HOTELADDRESS")
     private String hotelAddress;
 
     @NotEmpty
-    @Size(max = 128, message = "Nome da Cidade deve conter até no máximo 128 caracteres.")
+    @Size(max = 32, message = "Nome da Cidade deve conter entre 2 a 32 caracteres.")
     @Column(name = "HOTELCITY")
     private String hotelCity;
 

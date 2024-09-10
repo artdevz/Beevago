@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="../../static/template/home.css" th:href="@{/css/template.css}"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <script type="text/javascript" th:src = "@{/js/login.js}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">  
     <title>Beevago Login</title>
 </head>
 
@@ -37,13 +36,13 @@
                         <button type="submit" class="login-btn"><strong>Logar</strong></button>
                     </div>
 
-                    <div class="error" th:if="${errorMessage}">
-                        <strong><div th:text="${errorMessage}"></strong></div>
-                    </div>
-                    
                     <div class="register">
                         <a th:href="@{register}">Não possui uma Conta? Cadastre-se Aqui.</a>
-                    </div>                    
+                    </div>   
+
+                    <div class="error" th:if="${errorMessage}">
+                        <strong><div th:text="${errorMessage}"></strong></div>
+                    </div>         
                 
                 </form>
 

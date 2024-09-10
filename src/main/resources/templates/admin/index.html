@@ -106,7 +106,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                             <td><span th:text="${user.userUpdatedDate}"></span></td>
                             <td>
                                 <div>
-                                    <form method="post" action="#" th:action="@{/admin/general/user/delete}">
+                                    <form method="post" action="#" th:action="@{admin/general/user/delete}">
                                         <input type="hidden" name="userid" th:value="${user.id}">
                                         <td><button class="delete-btn">Deletar</button></td>
                                     </form>
@@ -146,7 +146,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${hotel.hotelCity}"></span></td>
                         <td>
                             <div>
-                                <form method="post" action="#" th:action="@{/admin/general/hotel/delete}">
+                                <form method="post" action="#" th:action="@{/admin/hotel/delete}">
                                     <input type="hidden" name="hotelid" th:value="${hotel.id}">
                                     <td><button class="delete-btn">Deletar</button></td>
                                 </form>
@@ -185,7 +185,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:text="${room.roomPrice}"></span></td>    
                         <td>
                             <div>
-                                <form method="post" action="#" th:action="@{/admin/general/room/delete}">
+                                <form method="post" action="#" th:action="@{/admin/room/delete}">
                                     <input type="hidden" name="roomid" th:value="${room.id}">
                                     <td><button class="delete-btn">Deletar</button></td>
                                 </form>
@@ -226,7 +226,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <td><span th:utext="'R$ ' +${reservation.totalPrice}"></span></td>
                         <td>
                             <div>
-                                <form method="post" action="#" th:action="@{/admin/general/reservation/delete}">
+                                <form method="post" action="#" th:action="@{/admin/reservation/delete}">
                                     <input type="hidden" name="reservationid" th:value="${reservation.id}">
                                     <td><button class="delete-btn">Deletar</button></td>
                                 </form>

@@ -26,8 +26,7 @@ public class TokenService {
             
             String token = JWT.create()
                 .withIssuer("beevago-api")
-                .withSubject(user.getUserEmail())
-                // .withClaim("id", user.getId())
+                .withSubject(user.getUserEmail())                
                 .withExpiresAt(getExpirationDate())
                 .sign(algorithm);
                 

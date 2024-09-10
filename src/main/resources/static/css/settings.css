@@ -1,3 +1,8 @@
+.mini-header {
+    margin-left: 250px;
+    margin-bottom: 20px;
+}
+
 .form{
     width: 900px;
     margin: auto;
@@ -12,18 +17,18 @@
     display: grid;
     margin-top: 20px;
     padding: 12px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: 500px;
+    margin-right: 500px;
 }
 
-.form-group {
-    /* padding: 12px; */
+.form-group {    
     margin-top: 10px;
+    margin-left: 250px;
 }
 
 .hotel-btn {
     margin-top: 20px;
-    margin-left: 280px;
+    margin-left: 390px;
 }
 
 .changename-btn {
@@ -38,6 +43,10 @@
     border-radius: 5px;
     background-color: #ecc900;
     padding: 5px;
+}
+
+.error {
+    margin-left: 250px;
 }
 
 .adminhotel-btn {

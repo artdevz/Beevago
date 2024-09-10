@@ -80,8 +80,7 @@ public class ReservationController {
         mv.addObject("categoriesList", ERoomType.values());
         mv.addObject("currentDate", new Date(System.currentTimeMillis()));
         
-        if (searchCheckInDate == "" || searchCheckOutDate == "") {
-            // attributes.addFlashAttribute("errorMessage", "ERRO! Verifique se há campos em branco.");
+        if (searchCheckInDate == "" || searchCheckOutDate == "") {            
             mv.setViewName("redirect:/");            
             return mv;
         }

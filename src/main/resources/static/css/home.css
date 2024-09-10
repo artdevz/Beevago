@@ -92,17 +92,10 @@ h2 {
     color: aliceblue;
 }
 
-.hoteltables-columns {
-    /* display: grid; */
+.hoteltables-columns {    
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    color: aliceblue;
-    /* margin-left: 10px; */
+    color: aliceblue;    
 }
-
-/* .hoteltables-columns-items {
-    display: flex;
-} */
-
 
 td button {
     border-style: none;

@@ -4,11 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
 
-// import com.Beevago.App.enums.ERoomType;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-// import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,35 +21,29 @@ public class ReservationModel implements Serializable {
     @Column(name = "ID")
     private UUID id;
 
-    //@NotEmpty
     @Column(name = "userID")
     private UUID userId;
 
-    //@NotEmpty
     @Column(name = "hotelID")
     private UUID hotelId;
 
     @Column(name = "roomID")
     private UUID roomId;
 
-    //@NotNull
     @Column(name = "checkIn")
     private Date checkInDate;
 
-    //@NotNull
     @Column(name = "checkOut")
     private Date checkOutDate;
-
-    // @Size(min = 1)
+    
     @Column(name = "pessoas")
     private int quantidadeDePessoas;
     
-    //@NotEmpty
-    // @Size(min = 0)
     @Column(name = "price")
     private double totalPrice;
 
     // Construtores:
+    
     public ReservationModel() {}
 
     public ReservationModel(Date checkIn, Date checkOut, int qntDePessoas) {        
