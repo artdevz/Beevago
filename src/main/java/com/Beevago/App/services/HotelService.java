@@ -18,7 +18,7 @@ public class HotelService {
     private HotelRepository hr;
 
     private static final int MINIMUMLENGTH = 3;
-    private static final int MAXIMUMLENGTH = 48;
+    private static final int MAXIMUMLENGTH = 32;
 
     public void saveHotel(HotelModel hotel) throws Exception {        
             
