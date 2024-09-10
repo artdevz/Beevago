@@ -1,0 +1,15 @@
+.form {
+    width: 50px;
+    height: 300px;
+}
+
+.reservations {
+    background-color: rgb(41, 41, 41);
+    width: 500px;
+    height: 250px;
+    margin: auto;
+    color: aliceblue;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 20px;
+}

@@ -37,7 +37,7 @@ public class UserController {
         ModelAndView mv = new ModelAndView();
         model.addAttribute("JWT", CookieService.getCookie(request, "JWT"));
 
-        if (userId == null) {
+        if ( (userId == null) || (CookieService.getCookie(request, "JWT") == null) ) {
             mv.setViewName("redirect:/login"); return mv;
         }
 

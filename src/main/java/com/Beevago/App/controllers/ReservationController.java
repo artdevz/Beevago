@@ -20,9 +20,14 @@ import com.Beevago.App.dto.UserDTO;
 import com.Beevago.App.enums.ERoomType;
 import com.Beevago.App.models.ReservationModel;
 import com.Beevago.App.models.RoomModel;
+import com.Beevago.App.services.CookieService;
 import com.Beevago.App.services.HotelService;
 import com.Beevago.App.services.ReservationService;
 import com.Beevago.App.services.RoomService;
+import com.Beevago.App.services.UserService;
+import com.Beevago.App.utils.JwtDecodeToken;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ReservationController {
@@ -36,10 +41,24 @@ public class ReservationController {
     @Autowired
     RoomService qs;
 
+    @Autowired
+    UserService us;
+
     @GetMapping("reservations")
-    public ModelAndView listReservations(@RequestParam("userid") UUID userId) {
+    public ModelAndView listReservations(@RequestParam("userid") UUID userId, RedirectAttributes attributes, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("reserva/index");
+
+        if ( (userId == null) || (CookieService.getCookie(request, "JWT") == null) ) {
+            mv.setViewName("redirect:/login"); return mv;
+        }
+
+        if ( !( us.findEmailById(userId).equals(JwtDecodeToken.getEmailByJwtToken(CookieService.getCookie(request, "JWT"))) )) {
+            attributes.addFlashAttribute("errorMessage", "ACESSO NEGADO");
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
+
         mv.addObject("ReservationsList", rs.findAllReservationsByUserId(userId));
         return mv;
     }
@@ -112,7 +131,7 @@ public class ReservationController {
             return mv;
         }
         
-        mv.setViewName("redirect:/");
+        mv.setViewName("redirect:/reservations?userid=" + userId);
 
         return mv;
     }

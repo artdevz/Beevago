@@ -40,7 +40,7 @@ public class AuthController {
     @GetMapping("/register")
     public ModelAndView getCadastrarPage() {
         ModelAndView mv = new ModelAndView();        
-        mv.addObject("newuser", new RegisterDTO("Arthur", "arthur@gmail.com", "087.150.553-37", new Date(2l), "null", "null", ERole.ROLE_USER));
+        mv.addObject("newuser", new RegisterDTO("", "", "", new Date(2l), "", "", ERole.ROLE_USER));
         mv.setViewName("register/index");
         return mv;
     }
@@ -60,14 +60,14 @@ public class AuthController {
         }
         
         session.setAttribute("usuarioLogado", user);
-        mv.setViewName("redirect:/");
+        mv.setViewName("redirect:/login");
         return mv;
     }
 
     @GetMapping("/login")
     public ModelAndView getLoginPage() {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("login", new LoginDTO("null", "null"));
+        mv.addObject("login", new LoginDTO("", ""));
         mv.setViewName("login/index");
         return mv;
     }
