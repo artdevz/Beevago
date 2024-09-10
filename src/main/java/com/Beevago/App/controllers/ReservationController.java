@@ -58,10 +58,8 @@ public class ReservationController {
         mv.setViewName("home/index");        
         mv.addObject("categoriesList", ERoomType.values());
         mv.addObject("currentDate", new Date(System.currentTimeMillis()));
-        
-        String sRoomType = (roomType != null)? roomType.getRoomType() : "Todas as Categorias";
-        String sHotelCity = (hotelCity != "")? hotelCity : "Todas as Cidades";
-        mv.addObject("stringSearch", "em " + sHotelCity + ", " + sRoomType + ", " + personCapacity + " Pessoa(s)" + ", Até R$"+ maximumPrice + ", De " + searchCheckInDate + " Até " + searchCheckOutDate + ":");
+
+        mv.addObject("stringSearch", rs.generateSearchString(hotelCity, roomType, personCapacity, maximumPrice, searchCheckInDate, searchCheckOutDate));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date checkIn = sdf.parse(searchCheckInDate); java.util.Date checkOut = sdf.parse(searchCheckOutDate);

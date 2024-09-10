@@ -87,6 +87,7 @@ public class UserModel implements UserDetails {
         this.userBirthday = birthday;
         this.userPassword = password;
         this.userConfirmedPassword = confirmedpassword;
+        this.userRole = role;        
         if (role == null) this.userRole = ERole.ROLE_USER;
 
         Date currentDate = new Date(System.currentTimeMillis());

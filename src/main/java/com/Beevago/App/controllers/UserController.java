@@ -48,7 +48,6 @@ public class UserController {
         }
 
         mv.setViewName("settings/index");
-        // mv.addObject("user", us.findUserById(userId));
         mv.addObject("roles", ERole.values());       
 
         return mv;

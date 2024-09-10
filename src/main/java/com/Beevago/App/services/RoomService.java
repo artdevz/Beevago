@@ -39,7 +39,7 @@ public class RoomService {
 
         List<RoomModel> rooms = rr.findAllRooms(hotelCity, roomType, personCapacity, maximumPrice);
         List<RoomModel> avaliableRooms = new ArrayList<RoomModel>();
-
+        
         for (RoomModel room : rooms) if ( !( rs.dateConflicts(room.getId(), checkInDate, checkOutDate) ) ) avaliableRooms.add(room);
 
         return avaliableRooms;

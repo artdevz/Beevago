@@ -39,13 +39,12 @@ public class AuthController {
 
     @GetMapping("/register")
     public ModelAndView getCadastrarPage() {
-        ModelAndView mv = new ModelAndView();
-        long a = 2l;
-        mv.addObject("newuser", new RegisterDTO("Arthur", "arthur@gmail.com", "087.150.553-37", new Date(a), "null", "null", ERole.ROLE_USER));
+        ModelAndView mv = new ModelAndView();        
+        mv.addObject("newuser", new RegisterDTO("Arthur", "arthur@gmail.com", "087.150.553-37", new Date(2l), "null", "null", ERole.ROLE_USER));
         mv.setViewName("register/index");
         return mv;
     }
-    // consumes = "application/x-www-form-urlencoded;charset=UTF-8"
+    
     @PostMapping(path="/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView register(RegisterDTO register, BindingResult result, RedirectAttributes attributes, HttpSession session) throws Exception {
         ModelAndView mv = new ModelAndView();
@@ -74,18 +73,24 @@ public class AuthController {
     }
 
     @PostMapping(path="/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView login(LoginDTO login, HttpSession session, HttpServletResponse response) {
+    public ModelAndView login(LoginDTO login,RedirectAttributes attributes, HttpSession session, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:/");
+        
+        try {
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login.email(), login.password());
-        Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        var user = (UserModel) authenticate.getPrincipal();
-        var jwt = ts.generateToken(user);
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login.email(), login.password());
+            Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+            var user = (UserModel) authenticate.getPrincipal();
+            var jwt = ts.generateToken(user);            
+            session.setAttribute("usuarioLogado", user);
+            CookieService.setCookie(response, "JWT", jwt, 86400);
 
-        System.out.println("JWT Token: "+jwt);
-        session.setAttribute("usuarioLogado", user);
-        CookieService.setCookie(response, "JWT", jwt, 86400);
+        } catch (Exception e) {
+            attributes.addFlashAttribute("errorMessage", "Houve um erro no processo de Login");
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
 
         return mv;
     }

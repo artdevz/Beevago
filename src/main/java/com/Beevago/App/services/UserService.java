@@ -22,7 +22,6 @@ import com.Beevago.App.exceptions.PasswordConfirmationException;
 import com.Beevago.App.exceptions.ServicException;
 import com.Beevago.App.models.UserModel;
 import com.Beevago.App.repositories.UserRepository;
-import com.Beevago.App.utils.UtilPassword;
 
 @Service
 public class UserService {
@@ -95,13 +94,13 @@ public class UserService {
             throw new LengthException("Nova Senha deve conter entre 8 a 32 caracteres.");
         }
 
-        if ( (UtilPassword.md5(newUserPassword)).equals(findPasswordById(userId)) ) {
-            System.out.println("Senha Igual a Anterior");
-            throw new NewPasswordEqualsException("Senha igual a anterior.");
-        }
+        // if ( (UtilPassword.md5(newUserPassword)).equals(findPasswordById(userId)) ) {
+        //     System.out.println("Senha Igual a Anterior");
+        //     throw new NewPasswordEqualsException("Senha igual a anterior.");
+        // }
 
         UserModel user = findUserById(userId);
-        user.setUserPassword(UtilPassword.md5(newUserPassword));
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
         user.setUserUpdatedDate(new Date(System.currentTimeMillis()));
         ur.save(user);
 

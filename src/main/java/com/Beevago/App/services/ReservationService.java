@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Beevago.App.enums.ERoomType;
 import com.Beevago.App.exceptions.InvalidDateException;
 import com.Beevago.App.models.ReservationModel;
 import com.Beevago.App.repositories.ReservationRepository;
@@ -45,6 +46,16 @@ public class ReservationService {
                 checkInDate.after(checkInDates.get(i)) && checkOutDate.before(checkOutDates.get(i)) ) return true;
         }        
         return false;
+    }
+
+    public String generateSearchString(String hotelCity, ERoomType roomType, int personCapacity, double maximumPrice, String searchCheckInDate, String searchCheckOutDate) {
+        String searchString = "em ";        
+        searchString += (hotelCity != "")? hotelCity : "Todas as Cidades";
+        searchString += ", ";        
+        searchString += (roomType != null)? roomType.getRoomType() : "Todas as Categorias";
+        searchString += ", " + personCapacity + " Pessoa(s)" + ", Até R$"+ maximumPrice + ", De " + searchCheckInDate + " Até " + searchCheckOutDate + ":";        
+
+        return searchString;
     }
 
     public List<ReservationModel> findAllReservations() {

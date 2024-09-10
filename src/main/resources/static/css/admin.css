@@ -1,0 +1,76 @@
+.user-container {
+    color:aliceblue;    
+}
+
+.user-register {
+    background-color: rgb(41, 41, 41);
+    width: 1300px;
+    height: 300px;
+    margin: auto;
+    color: aliceblue;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 20px;
+}
+
+.register-btn {
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ecc900;
+    padding: 5px;
+}
+
+.user-crd {
+    background-color: rgb(41, 41, 41);
+    width: 1300px;
+    height: 500px;
+    margin: auto;
+    color: aliceblue;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.hotel-crd {
+    background-color: rgb(41, 41, 41);
+    width: 1300px;
+    height: 500px;
+    margin: auto;
+    color: aliceblue;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.room-crd {
+    background-color: rgb(41, 41, 41);
+    width: 1300px;
+    height: 500px;
+    margin: auto;
+    color: aliceblue;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.reservation-crd {
+    background-color: rgb(41, 41, 41);
+    width: 1300px;
+    height: 500px;
+    margin: auto;
+    color: aliceblue;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.delete-btn {
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ecc900;
+    padding: 5px;
+}
