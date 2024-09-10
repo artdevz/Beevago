@@ -106,17 +106,29 @@ public class ReservationController {
     public ModelAndView reservandoHotel(ReservationModel reserva, @RequestParam("userid") UUID userId, @RequestParam("hotelid") UUID hotelId, @RequestParam("roomid") UUID roomId, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
 
-        if (rs.dateConflicts(roomId, reserva.getCheckInDate(), reserva.getCheckOutDate())) {
-            attributes.addFlashAttribute("errorMessage", "Quarto indisponível durante esse período.");
+        try {
+            
+            if (rs.dateConflicts(roomId, reserva.getCheckInDate(), reserva.getCheckOutDate())) {
+                attributes.addFlashAttribute("errorMessage", "Quarto indisponível durante esse período.");
+                mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
+                return mv;
+            }
+
+            if (qs.findCapacityById(roomId) < reserva.getQuantidadeDePessoas()) {
+                attributes.addFlashAttribute("errorMessage", "Quantidade de Pessoas é maior que a Capacidade do Quarto: [" + qs.findCapacityById(roomId) + "].");
+                mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
+                return mv;
+            }
+
+        } catch (Exception e) {
+            attributes.addFlashAttribute("errorMessage", e.getMessage());
             mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
             return mv;
         }
 
-        if (qs.findCapacityById(roomId) < reserva.getQuantidadeDePessoas()) {
-            attributes.addFlashAttribute("errorMessage", "Quantidade de Pessoas é maior que a Capacidade do Quarto: [" + qs.findCapacityById(roomId) + "].");
-            mv.setViewName("redirect:/reservar?userid=" + userId + "&hotelid=" + hotelId + "&roomid=" + roomId);
-            return mv;
-        }
+        
+
+        
 
         reserva.setUserId(userId);        
         reserva.setHotelId(hotelId); 

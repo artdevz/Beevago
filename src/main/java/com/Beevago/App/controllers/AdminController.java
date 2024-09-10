@@ -99,7 +99,7 @@ public class AdminController {
         }
 
         ERole[] role = {ERole.ROLE_USER, ERole.ROLE_MOD};
-        mv.addObject("newuser", new RegisterDTO("null", "null", "null", new Date(2l), "null", "null", null));
+        mv.addObject("newuser", new RegisterDTO("", "", "", new Date(2l), "", "", null));
         mv.addObject("roleList", role);
         mv.addObject("userList", us.findAllUsers());
 
