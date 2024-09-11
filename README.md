@@ -9,8 +9,7 @@
 2. [Passos de instalação](#Passos-de-instalação)
    - [Clonagem do repositório da aplicação](#Clonagem-do-repositório-da-aplicação)
    - [Instalação de dependências](#Instalação-de-dependências)
-3. [Execução do projeto](#Execução-do-projeto)
-   - [Credenciais para login](#Credenciais-para-login)
+3. [Execução do projeto](#Execução-do-projeto)   
    - [Regras de negócio implementadas](#Regras-de-negócio-implementadas)
 4. [Resultados](#Resultados)
 5. [Estrutura de diretório e arquivos](#Estrutura-de-diretório-e-arquivos)
@@ -46,16 +45,10 @@ Para instalar as dependências do projeto:
 
 Para rodar o servidor:
 
-```./mvnw spring-boot```
+```./mvnw spring-boot:run```
 
 Quando o servidor estiver ativo, acesse o site através de [localhost](http://localhost:8080):
 
-
-### Credenciais para login:
-- **Administrador:**
-   - Usuário: admin
-   - Senha: admin123
-- **Usuário padrão:** Após o registro, o login estará disponível com o e-mail e senha cadastrados.
 
 ---
 
