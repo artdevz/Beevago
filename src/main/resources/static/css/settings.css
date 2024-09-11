@@ -10,15 +10,17 @@
 
 .container {
     background-color: rgb(41, 41, 41);
-    border: 5px;
-    border-radius: 5px;
+    border: 2px solid #fff;;
+    border-radius: 15px;
     border-style: solid;
     color: aliceblue;
     display: grid;
     margin-top: 20px;
-    padding: 12px;
+    margin: auto;
     margin-left: 500px;
     margin-right: 500px;
+    padding: 20px;
+    background-color: rgb(41, 41, 41);
 }
 
 .form-group {    

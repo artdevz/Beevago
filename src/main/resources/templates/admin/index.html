@@ -27,17 +27,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                 <form method="post" action="/admin/general/user/create" th:object="${newuser}">
 
                     <div class="form-group">
-                        <label>Nome:</label> 
+                        <label>Nome do Usuário:</label> 
                         <input type="text" class="form-control" th:field="*{name}" placeholder="Nome Completo (3 a 120 caracteres)">
                     </div>
         
                     <div class="form-group">
-                        <label>Email:</label> 
+                        <label>Email do Usuário:</label> 
                         <input type="email" class="form-control" th:field="*{email}" placeholder="Deve ser um Email Válido.">
                     </div>
         
                     <div class="form-group">
-                        <label>CPF:</label> 
+                        <label>CPF do Usuário:</label> 
                         <input type="text" class="form-control" th:field="*{cpf}" placeholder="000.000.000-00" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})">
                     </div>
         
@@ -47,7 +47,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                     </div>
         
                     <div class="form-group">
-                        <label>Nova Senha:</label> 
+                        <label>Senha do Usuário:</label> 
                         <input type="password" class="form-control" th:field="*{password}" placeholder="Senha deve conter entre 8 e 32 caracteres.">
                     </div>
         
@@ -56,7 +56,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <input type="password" class="form-control" th:field="*{confirmedpassword}" placeholder="Confirmar Senha.">
                     </div>
         
-                    <div>
+                    <div class="form-group">
                         <label>Cargo:</label>
                         <select name="roleList">
                             <option 
@@ -66,12 +66,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                             </option>
                         </select>
                     </div>
+
+                    <button type="submit" class="register-btn"><strong>Criar User</strong></button>
         
                     <div class="error" th:if="${errorMessage}">
                         <strong><div th:text="${errorMessage}"></div></strong>
                     </div>
-                    
-                    <button type="submit" class="register-btn"><strong>Criar User</strong></button>
                 
                 </form>
             </div>

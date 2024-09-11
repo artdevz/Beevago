@@ -46,7 +46,7 @@
             
                 <div th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
                     <span th:text="${usuarioLogado}"></span>
-                    <form method="post" action="logout">
+                    <form method="post" action="/logout">
                         <button type="submit" class="btn-logout">Logout</button>
                     </form>
                 </div>

@@ -4,12 +4,15 @@
 }
 
 .reservations {
-    background-color: rgb(41, 41, 41);
-    width: 500px;
-    height: 250px;
+    background-color: rgb(41, 41, 41);    
+    border: 2px solid #fff;
+    border-radius: 15px;
     margin: auto;
+    display: grid;
+    margin-top: 20px;
     color: aliceblue;
-    border-style: solid;
-    border-radius: 2px;
+    border-style: solid;    
     padding: 20px;
+    margin-left: 730px;
+    margin-right: 730px; 
 }

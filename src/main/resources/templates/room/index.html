@@ -21,7 +21,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 
     <div th:replace="shared/header :: header"></div>
     
-    <div class="main-home" >
+    <div class="main-home" th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
 
         <div class="welcome">
             <tbody>
@@ -66,7 +66,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
                         <button type="submit" class="cadastrarquarto-btn"><strong>Adicionar Quarto</strong></button>
             
                         <div class="error" th:if="${errorMessage}">
-                            <strong><div th:text="${errorMessage}"></strong></div>
+                            <strong><div th:text="${errorMessage}"></div></strong>
                         </div>
                     </form>
                 </table>

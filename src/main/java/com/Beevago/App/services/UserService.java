@@ -77,7 +77,7 @@ public class UserService {
     public void changeUserName(UUID userId, String newUserName) throws LengthException {
         
         if ( newUserName.length() < USERNAMEMINIMUMLENGTH || newUserName.length() > MAXIMUMLENGTH ) {
-            throw new LengthException("Novo nome de Usuário também deve conter entre 3 a 120 caracteres.");
+            throw new LengthException("Novo nome de Usuário também deve conter entre 3 a 32 caracteres.");
         }
 
         UserModel user = findUserById(userId);

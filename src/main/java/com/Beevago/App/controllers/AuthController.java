@@ -95,7 +95,7 @@ public class AuthController {
         return mv;
     }
 
-    @PostMapping("logout")
+    @PostMapping("/logout")
     public ModelAndView logout(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         session.invalidate();

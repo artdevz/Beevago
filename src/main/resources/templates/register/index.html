@@ -20,20 +20,20 @@
 
     <div class="container">    
         <div class="form">
-            <form method="post" action="/register" th:object="${newuser}">
+                <form method="post" action="/register" th:object="${newuser}">
 
                 <div class="form-group">
-                    <label>Nome:</label> 
+                    <label>Nome do Usuário:</label> 
                     <input type="text" class="form-control" th:field="*{name}" placeholder="Nome Completo (3 a 120 caracteres)">
                 </div>
 
                 <div class="form-group">
-                    <label>Email:</label> 
+                    <label>Email do Usuário:</label> 
                     <input type="email" class="form-control" th:field="*{email}" placeholder="Deve ser um Email Válido.">
                 </div>
 
                 <div class="form-group">
-                    <label>CPF:</label> 
+                    <label>CPF do Usuário:</label> 
                     <input type="text" class="form-control" th:field="*{cpf}" placeholder="000.000.000-00" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})">
                 </div>
 
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Nova Senha:</label> 
+                    <label>Senha do Usuário:</label> 
                     <input type="password" class="form-control" th:field="*{password}" placeholder="Senha deve conter entre 8 e 32 caracteres.">
                 </div>
 
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="error" th:if="${errorMessage}">
-                    <strong><div th:text="${errorMessage}"></strong></div>
+                    <strong><div th:text="${errorMessage}"></div></strong>
                 </div>
             
             </form>

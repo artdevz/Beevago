@@ -79,12 +79,9 @@ form .lower-side input {
     display: grid;
     margin-top: 20px;
     padding: 12px;
-    margin-left: 100px;
-    margin-right: 100px;
 }
 
-.row {
-    margin-left: 150px;
+.row {    
     color: aliceblue;
 }
 

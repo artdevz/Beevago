@@ -3,17 +3,23 @@
 }
 
 .user-register {
-    background-color: rgb(41, 41, 41);
-    width: 1300px;
-    height: 300px;
+    background-color: rgb(41, 41, 41);    
+    border: 2px solid #fff;
+    border-radius: 15px;
     margin: auto;
+    display: grid;
+    margin-top: 20px;
     color: aliceblue;
-    border-style: solid;
-    border-radius: 2px;
+    border-style: solid;    
     padding: 20px;
 }
 
+.form-group {
+    margin-top: 8px;
+}
+
 .register-btn {
+    margin-top: 10px;
     border-style: none;
     border-radius: 5px;
     background-color: #ecc900;
@@ -21,9 +27,7 @@
 }
 
 .user-crd {
-    background-color: rgb(41, 41, 41);
-    width: 1300px;
-    height: 500px;
+    background-color: rgb(41, 41, 41);    
     margin: auto;
     color: aliceblue;
     border-style: solid;
@@ -34,8 +38,7 @@
 
 .hotel-crd {
     background-color: rgb(41, 41, 41);
-    width: 1300px;
-    height: 500px;
+    width: 1960px;    
     margin: auto;
     color: aliceblue;
     border-style: solid;
@@ -45,9 +48,7 @@
 }
 
 .room-crd {
-    background-color: rgb(41, 41, 41);
-    width: 1300px;
-    height: 500px;
+    background-color: rgb(41, 41, 41);    
     margin: auto;
     color: aliceblue;
     border-style: solid;
@@ -57,9 +58,7 @@
 }
 
 .reservation-crd {
-    background-color: rgb(41, 41, 41);
-    width: 1300px;
-    height: 500px;
+    background-color: rgb(41, 41, 41);    
     margin: auto;
     color: aliceblue;
     border-style: solid;

@@ -1,12 +1,12 @@
 .header {
-    max-width: 1720px;
+    max-width: 1920px;
     display: flex;
     position: fixed;
     margin: 0 auto;
     padding: 0 24px;
     background-color: rgb(17, 17, 17);
     border: 10px;
-    border-radius: 5px; 
+    border-radius: 8px; 
     border-color: #ecc900;
     text-shadow: 2px;
     right: 0;
