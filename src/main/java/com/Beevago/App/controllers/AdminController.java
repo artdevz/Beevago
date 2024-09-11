@@ -134,7 +134,7 @@ public class AdminController {
         return mv;
     }
 
-    @PostMapping("/admin/general/user/delete")
+    @PostMapping("/general/user/delete")
     public ModelAndView deleteUser(@RequestParam("userid") UUID userId) {
         ModelAndView mv = new ModelAndView();
         us.deleteUserById(userId);
@@ -151,7 +151,7 @@ public class AdminController {
         return mv;
     }
 
-    @PostMapping("/admin/hotel/delete")
+    @PostMapping("general/hotel/delete")
     public ModelAndView deleteHotel(@RequestParam("hotelid") UUID hotelId) {
         ModelAndView mv = new ModelAndView();
         hs.deleteHotelById(hotelId);
@@ -181,7 +181,7 @@ public class AdminController {
     public ModelAndView deleteReservation(@RequestParam("reservationid") UUID reservationId) {
         ModelAndView mv = new ModelAndView();
         rs.deleteReservationById(reservationId);
-        mv.setViewName("redirect:/admin/reservation");
+        mv.setViewName("redirect:/admin/general");
         return mv;
     }
     
