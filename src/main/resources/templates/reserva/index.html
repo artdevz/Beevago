@@ -7,64 +7,56 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/reserva.css" th:href="@{/css/reserva.css}"/>
-    <script type="text/javascript" th:src = "@{/js/reserva.js}"></script>
-    <title>Bivago Procurando Hoteis</title>
+    <link rel="stylesheet" href="../../static/css/reservations.css" th:href="@{/css/reservations.css}"/>
+    <link rel="stylesheet" href="../../static/css/header.css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" href="../../static/css/footer.css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" href="../../static/css/template.css" th:href="@{/css/template.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Beevago Reservas</title>
 </head>
 
 <body>
-    <div class="main-home">
-        <h1>B I V A G O</h1>
+    
+    <div th:replace="shared/header :: header"></div>
+
+    <div class="reservations" th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">
 
         <div class="welcome">
-            <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, você pode reservar esse hotéis:</strong>            
-        </div>        
-                
-        <!-- <div>
-            <form method="get" action="/cadastrohotel">
-                <button class="btn-registerhotel">Adicionar Hotel</button>
-            </form>
-        </div> -->
+            <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, suas Reservas:</strong>            
+        </div> 
 
         <div class="container">
-
-            <!-- <div class="row" style="padding-bottom: 30px;">
-                <div class="col">
-                    <a th:href="@"></a>
-                </div>
-            </div> -->
-
-            <div class="row">
-                <table class="table table-striped">
-                    <thead>
+            <table class="table table-striped">
+                <thead>
+                    <strong>
                         <tr>
-                            <th>Nome</th>
-                            <th>Endereço</th>
-                            <th>Cidade</th>
+                            <th>Data de CheckIn</th>
+                            <th>Date de CheckOut</th>
+                            <th>Qtd. de Pessoas</th>
+                            <th>Preço</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:if="${HotelsList.empty}">
-                            <td colspan="3">Não existem hoteis disponíveis.</td>
-                        </tr>
-                        <tr th:each="hotel : ${HotelsList}">
-                            <td><span th:text="${hotel.hotelName}"></span></td>
-                            <td><span th:text="${hotel.hotelAddress}"></span></td>
-                            <td><span th:text="${hotel.hotelCity}"></span></td>
-                            <td>
-                            <div>
-                                <form method="get" action="/reservar">
-                                    <button class="btn-reservar">Reservar</button>
-                                </form>
-                            </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    </strong>                    
+                </thead>
+                <tbody>
+                    
+                    <tr th:each="reservation : ${ReservationsList}">
+                        <td><span th:text="${reservation.checkInDate}"></span></td>
+                        <td><span th:text="${reservation.checkOutDate}"></span></td>
+                        <td><span th:text="${reservation.quantidadeDePessoas}"></span></td>
+                        <td><span th:utext="'R$ ' +${reservation.totalPrice}"></span></td>                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         </div>
                 
-    </div>    
+    </div>
+    
+    <div th:replace="shared/footer :: footer"></div>
+
 </body>
 
 </html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}"/>
+    <link rel="stylesheet" href="../../static/css/header.css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" href="../../static/css/template.css" th:href="@{/css/template.css}"/>
+    <link rel="stylesheet" href="../../static/css/template.css" th:href="@{/css/template.css}"/>
+    <title>Admin</title>
+</head>
+<body>
+
+    <div th:replace="shared/header :: header"></div>
+
+    <div class="container" th:if="${#objects.nullSafe(session?.usuarioLogado?:,null)}">        
+
+        <div class="user-container">            
+
+            <div class="user-register">
+
+                <h2>CADASTRO:</h2>
+
+                <form method="post" action="/admin/general/user/create" th:object="${newuser}">
+
+                    <div class="form-group">
+                        <label>Nome do Usuário:</label> 
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="Nome Completo (3 a 120 caracteres)">
+                    </div>
+        
+                    <div class="form-group">
+                        <label>Email do Usuário:</label> 
+                        <input type="email" class="form-control" th:field="*{email}" placeholder="Deve ser um Email Válido.">
+                    </div>
+        
+                    <div class="form-group">
+                        <label>CPF do Usuário:</label> 
+                        <input type="text" class="form-control" th:field="*{cpf}" placeholder="000.000.000-00" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})">
+                    </div>
+        
+                    <div class="form-group">
+                        <label>Data de Nascimento:</label> 
+                        <input type="date" class="form-control" th:field="*{birthday}">
+                    </div>
+        
+                    <div class="form-group">
+                        <label>Senha do Usuário:</label> 
+                        <input type="password" class="form-control" th:field="*{password}" placeholder="Senha deve conter entre 8 e 32 caracteres.">
+                    </div>
+        
+                    <div class="form-group">
+                        <label>Confirmar Senha:</label> 
+                        <input type="password" class="form-control" th:field="*{confirmedpassword}" placeholder="Confirmar Senha.">
+                    </div>
+        
+                    <div class="form-group">
+                        <label>Cargo:</label>
+                        <select name="roleList">
+                            <option 
+                                th:each="role : ${roleList}"
+                                th:text="${role.role}"
+                                th:value="${role}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="register-btn"><strong>Criar User</strong></button>
+        
+                    <div class="error" th:if="${errorMessage}">
+                        <strong><div th:text="${errorMessage}"></div></strong>
+                    </div>
+                
+                </form>
+            </div>
+            
+            <div class="user-crd">
+                
+                <h2>USUÁRIOS:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Data de Nascimento</th>
+                            <th>Cargo</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+                        <tr th:each="user : ${userList}">
+
+                            <td><span th:text="${user.id}"></span></td>
+                            <td><span th:text="${user.userName}"></span></td>
+                            <td><span th:text="${user.userEmail}"></span></td>
+                            <td><span th:text="${user.userCpf}"></span></td>
+                            <td><span th:text="${user.userBirthday}"></span></td>
+                            <td><span th:text="${user.userRole}"></span></td>
+                            <td><span th:text="${user.userCreatedDate}"></span></td>
+                            <td><span th:text="${user.userUpdatedDate}"></span></td>
+                            <td>
+                                <div>
+                                    <form method="post" action="#" th:action="@{/general/user/delete}">
+                                        <input type="hidden" name="userid" th:value="${user.id}">
+                                        <td><button class="delete-btn"><strong>Deletar</strong></button></td>
+                                    </form>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>  
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="hotel-crd">
+            <h2>HOTEIS:</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>OWNERID</th>
+                        <th>Nome</th>
+                        <th>Endereço</th>
+                        <th>Cidade</th>
+                    </tr>
+                </thead>
+            
+                <tbody>
+                    <tr th:each="hotel : ${hotelList}">
+        
+                        <td><span th:text="${hotel.id}"></span></td>
+                        <td><span th:text="${hotel.ownerId}"></span></td>
+                        <td><span th:text="${hotel.hotelName}"></span></td>
+                        <td><span th:text="${hotel.hotelAddress}"></span></td>
+                        <td><span th:text="${hotel.hotelCity}"></span></td>
+                        <td>
+                            <div>
+                                <form method="post" action="#" th:action="@{/general/hotel/delete}">
+                                    <input type="hidden" name="hotelid" th:value="${hotel.id}">
+                                    <td><button class="delete-btn"><strong>Deletar</strong></button></td>
+                                </form>
+                            </div>
+                        </td>
+        
+                    </tr>
+        
+                </tbody> 
+        
+            </table>
+        </div>
+
+        <div class="room-crd">
+            <h2>QUARTOS:</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>HOTELID</th>
+                        <th>Número</th>
+                        <th>Categoria</th>
+                        <th>Capacidade</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="room : ${roomList}">
+        
+                        <td><span th:text="${room.id}"></span></td>
+                        <td><span th:text="${room.hotelId}"></span></td>
+                        <td><span th:text="${room.roomNumber}"></span></td>
+                        <td><span th:text="${room.roomType.roomType}"></span></td>
+                        <td><span th:text="${room.roomCapacity}"></span></td>
+                        <td><span th:text="${room.roomPrice}"></span></td>    
+                        <td>
+                            <div>
+                                <form method="post" action="#" th:action="@{/admin/room/delete}">
+                                    <input type="hidden" name="roomid" th:value="${room.id}">
+                                    <td><button class="delete-btn"><strong>Deletar</strong></button></td>
+                                </form>
+                            </div>
+                        </td>
+        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="reservation-crd">
+            <h2>RESERVAS:</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>USERID</th>
+                        <th>HOTELID</th>
+                        <th>ROOMID</th>
+                        <th>CheckIn</th>
+                        <th>CheckOut</th>
+                        <th>Pessoas</th>
+                        <th>Preço</th>                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reservation : ${reservationList}">
+
+                        <td><span th:text="${reservation.id}"></span></td>
+                        <td><span th:text="${reservation.userId}"></span></td>
+                        <td><span th:text="${reservation.hotelId}"></span></td>
+                        <td><span th:text="${reservation.roomId}"></span></td>
+                        <td><span th:text="${reservation.checkInDate}"></span></td>
+                        <td><span th:text="${reservation.checkOutDate}"></span></td>
+                        <td><span th:text="${reservation.quantidadeDePessoas}"></span></td>
+                        <td><span th:utext="'R$ ' +${reservation.totalPrice}"></span></td>
+                        <td>
+                            <div>
+                                <form method="post" action="#" th:action="@{/admin/reservation/delete}">
+                                    <input type="hidden" name="reservationid" th:value="${reservation.id}">
+                                    <td><button class="delete-btn"><strong>Deletar</strong></button></td>
+                                </form>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    
+</body>
+</html>

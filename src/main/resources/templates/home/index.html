@@ -8,52 +8,104 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}"/>
-    <script type="text/javascript" th:src = "@{/js/home.js}"></script>
-    <title>Bivago Home</title>
+    <link rel="stylesheet" href="../../static/header/home.css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" href="../../static/footer/home.css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" href="../../static/template/home.css" th:href="@{/css/template.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Beevago Home</title>
 </head>
 
 <body>
     <div class="main-home">
-        <h1>B I V A G O</h1>
+        
+        <div th:replace="shared/header :: header"></div>
 
-        <div class="welcome">
-            <strong>Bem Vindo <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span></strong>            
-        </div>        
-                
-        <div>
-            <form method="get" action="/cadastro">
-                <button class="btn-register">Fazer Cadastro</button>
-            </form>
+        <div class="second-header">
+            <div class="welcome">
+                <strong>Bem Vindo, <span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span> !</strong>
+            </div> 
+
+            <div class="search">
+                <form method="post" th:action="@{/buscar}">
+                    
+                    <div class="upper-side">
+                        <input type="search" class="form-control" name="searchcity" placeholder="Para onde desejas ir?">
+                        
+                            <select name="categoryfilter">
+                                <option text="Todas as Categorias"></option>
+                                <option 
+                                    th:each="room : ${categoriesList}"
+                                    th:text="${room.roomType}"
+                                    th:value="${room}">
+                                </option>                        
+                            </select>
+                            
+                        <input type="number" min="1" class="form-control" name="searchperson" placeholder="Qtd de pessoas" required>
+                        <input type="number" min="0" value="1000" class="form-control" name="searchprice" placeholder="Até R$ 0,00" required>                    
+                    </div>
+
+                    <div class="lower-side">
+                        <div class="container-options">
+                            <label><strong>De </strong></label>
+                            <input type="date" th:value="${currentDate}" class="form-control" name="searchcheckin">
+    
+                            <label><strong>Até </strong></label>
+                            <input type="date" th:value="${currentDate}" class="form-control" name="searchcheckout">    
+                        </div>
+                        <input class="btn-find" type="submit" value="Buscar">
+                    </div>
+
+                </form>
+            </div>
         </div>
 
-        <div>
-            <form method="get" action="/login">
-                <button class="btn-login">Login</button>
-            </form>
+        <div class="container">
+
+            <h2>Quartos disponíveis               
+                <td><span th:text="${stringSearch}"></span></td>                                 
+            </h2>
+
+            <div class="row">
+                <table class="table table-striped">
+
+                <thead>
+                    <tr class="hoteltables-columns">
+                        <th>Hotel</th>
+                        <th>Endereço</th>
+                        <th>Cidade</th>
+                        <th>Categoria</th>
+                        <th>Capacidade</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="hoteltables-lines" th:each="room : ${RoomsList}">
+                        <td><span th:text="${room.roomHotelName}"></span></td>
+                        <td><span th:text="${room.roomHotelAddress}"></span></td>
+                        <td><span th:text="${room.roomHotelCity}"></span></td>
+                        <td><span th:text="${room.roomType.getRoomType}"></span></td>
+                        <td><span th:text="${room.roomCapacity}"></span></td>
+                        <td><span th:utext="'R$ ' + ${room.roomPrice}"></span></td>
+                        
+                        <td>                            
+                            <form method="get" action="#" th:action="@{/reservar}">
+                                <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,null)}">
+                                <input type="hidden" name="hotelid" th:value="${room.hotelId}">
+                                <input type="hidden" name="roomid" th:value="${room.id}">
+                                <td><button class="btn-reservar"><strong>Reservar</strong></button></td>
+                            </form>                            
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            </div>
         </div>
 
-        <div>
-            <form method="get" action="/settings">
-                <button class="btn-settings">Configs</button>
-            </form>
-        </div>
-
-        <div>
-            <form method="post" action="logout">
-                <button type="submit" class="btn-logout">Logout</button>
-            </form>
-        </div>
-
-        <!-- <div>
-            <form method="get" action="/buscar">
-                <button class="btn-find">Pesquisar</button>
-            </form>
-        </div> -->
-
-        <div class="main">
-            <input type="text" name="buscar" placeholder="Para onde desejas ir?">
-            <a th:href="@{buscar}"><img src="imagem.png"></a>
-        </div>
+        <div th:replace="shared/footer :: footer"></div>
         
     </div>    
 </body>

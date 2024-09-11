@@ -1,0 +1,108 @@
+.header {
+    max-width: 1920px;
+    display: flex;
+    position: fixed;
+    margin: 0 auto;
+    padding: 0 24px;
+    background-color: rgb(17, 17, 17);
+    border: 10px;
+    border-radius: 8px; 
+    border-color: #ecc900;
+    text-shadow: 2px;
+    right: 0;
+    left: 0;
+    top: 0;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;   
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo .bee-img .bee-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.logo .beevago {
+    padding-left: 10px;
+}
+
+.beevago .beevago-title:visited {
+    color: #ecc900;
+}
+
+.beevago-title {
+    text-decoration: none;
+}
+
+.register-btns {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.header button {
+    margin: 0 10px;
+    background-color: rgb(17, 17, 17);
+    font-weight: 500;
+    font-size: .95rem;
+    transition: color 0.15s;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.header button:hover {
+    color: #ecc900;
+}
+
+.btn-register {
+    color: aliceblue;
+    border: 10px;
+    border-radius: 5px;
+    text-shadow: 2px;
+    transition: color 0.15s;
+}
+
+.btn-register:hover {
+    color: rgb(140, 140, 140);
+}
+
+.btn-login {
+    color: aliceblue;
+    border: 10px;
+    border-radius: 5px;
+    text-shadow: 2px;
+    transition: color 0.15s;
+}
+
+.btn-login:hover { 
+    color: rgb(140, 140, 140);
+}
+
+.btn-settings {
+    color: aliceblue;
+    border: 10px;
+    border-radius: 5px;
+    text-shadow: 2px;
+}
+
+.btn-settings:hover {
+    color: rgb(140, 140, 140);
+}
+
+.btn-logout {
+    color: aliceblue;
+    border: 5px;
+    border-radius: 5px;
+    text-shadow: 2px;
+    transition: color 0.15s;
+}
+
+.btn-logout:hover {
+    color: rgb(140, 140, 140);
+}

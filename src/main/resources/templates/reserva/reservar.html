@@ -7,101 +7,62 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/reservar.css" th:href="@{/css/reservar.css}"/>
-    <script type="text/javascript" th:src = "@{/js/reservar.js}"></script>
-    <title>Bivago Reservando Hotel</title>
+    <link rel="stylesheet" href="../../static/css/reservation.css" th:href="@{/css/reservation.css}"/>
+    <link rel="stylesheet" href="../../static/header/home.css" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" href="../../static/footer/home.css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" href="../../static/template/home.css" th:href="@{/css/template.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Beevago Reservando</title>
 </head>
 
 <body>
-    <div class="main-home">
-        <h1>B I V A G O</h1> 
+
+    <div th:replace="shared/header :: header"></div>
+
+    <div class="container">
         
         <div class="welcome">
-            <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, faça sua reserva:</strong>            
+            <strong><span th:text="${#objects.nullSafe(session?.usuarioLogado?.userName,'Anônimo')}"></span>, faça sua reserva:</strong>                         
         </div>
         
-        <div>
+        <div class="form">
 
-            <form method="post" action="reservar/reservando" th:object="${reserva}">
+            <form method="post" action="#" th:action="@{/reservarquarto}" th:object="${reserva}">
 
                 <div class="form-group">
-                    <label>Data de CheckIn:</label>
-                    <input type="date" th:field="*{checkInDate}" class="form-control">
-                </div>
-
-                <div class="formp-group">
-                    <label>Data de CheckOut:</label>
-                    <input type="date" th:field="*{CheckOutDate}" class="form-control">
+                    <label>Data de Check-In:</label>
+                    <input type="date" th:field="*{checkIn}" class="form-control" required="true">
                 </div>
 
                 <div class="form-group">
-                    <label>Quantidade de Pessoas:</label>
-                    <input type="number" th:field="*{quantidadeDePessoas}" class="form-control">
-                </div>
-
-                <button type="submit" class="btn_reservar">Reservar Hotel</button>
-
-                <!--
-                <div class="form-group">
-                    <label>Email do Usuário:</label> 
-                    <input type="email" th:field="*{userEmail}" class="form-control" placeholder="">
+                    <label>Data de Check-Out:</label>
+                    <input type="date" th:field="*{checkOut}" class="form-control" required="true">
                 </div>
 
                 <div class="form-group">
-                    <label>Senha do Usuário:</label> 
-                    <input type="password" th:field="*{userPassword}" class="form-control" placeholder="">
-                </div>  
-                -->
+                    <label>Qntd. de Pessoas:</label>
+                    <input type="number" min="1" th:field="*{qntDePessoas}" class="form-control">
+                </div>
+                
+                <input type="hidden" name="userid" th:value="${#objects.nullSafe(session?.usuarioLogado?.id,'null')}">
+                <input type="hidden" name="hotelid" th:value="${hotel.hotelId}">
+                <input type="hidden" name="roomid" th:value="${room.roomId}">                
+
+                <button type="submit" class="reservar-btn"><strong>Reservar Quarto</strong></button>
+
+                <div class="error" th:if="${errorMessage}">
+                    <strong><div th:text="${errorMessage}"></div></strong>
+                </div>
 
             </form>
 
         </div>
-                
-        <!-- <div>
-            <form method="get" action="/cadastrohotel">
-                <button class="btn-registerhotel">Adicionar Hotel</button>
-            </form>
-        </div> -->
+    </div>
 
-        <!-- <div class="container"> -->
+        <div th:replace="shared/footer :: footer"></div>
 
-            <!-- <div class="row" style="padding-bottom: 30px;">
-                <div class="col">
-                    <a th:href="@"></a>
-                </div>
-            </div> -->
-
-            <!-- <div class="row">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Endereço</th>
-                            <th>Cidade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:if="${HotelsList.empty}">
-                            <td colspan="3">Não existem estudantes.</td>
-                        </tr>
-                        <tr th:each="hotel : ${HotelsList}">
-                            <td><span th:text="${hotel.hotelName}"></span></td>
-                            <td><span th:text="${hotel.hotelAddress}"></span></td>
-                            <td><span th:text="${hotel.hotelCity}"></span></td>
-                            <td>
-                            <div>
-                                <form method="get" action="/reservar">
-                                    <button class="btn-reservar">Reservar</button>
-                                </form>
-                            </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-                
-    </div>     -->
 </body>
 
 </html>

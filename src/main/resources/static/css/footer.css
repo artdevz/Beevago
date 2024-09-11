@@ -1,0 +1,19 @@
+.footer {
+    color: aliceblue;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    position: fixed;
+    background-color: rgb(17, 17, 17);
+    border-radius: 8px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.letris-icon {
+    margin-left: 20px;
+    width: 100px;
+    height: 100%;
+}

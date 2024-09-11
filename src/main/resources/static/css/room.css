@@ -1,0 +1,55 @@
+.welcome {
+    color: white; 
+    font-size: 30px;
+    transition: .3s;
+}
+
+.welcome span {
+    color: #ecc900;
+}
+
+.container {
+    background-color: rgb(41, 41, 41);   
+    height: 250px;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    margin: auto;
+    display: grid;
+    margin-top: 20px;
+    color: aliceblue;
+    border-style: solid;    
+    padding: 20px;
+    margin-left: 730px;
+    margin-right: 730px; 
+}
+
+.form-group {
+    padding: 10px;
+}
+
+.cadastrarquarto-btn {
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ecc900;
+    padding: 5px;
+    margin-top: 20px;
+    margin-left: 130px;
+}
+
+.error {
+    margin-left: 50px;
+}
+
+.row {
+    background-color: rgb(41, 41, 41);    
+    border: 2px solid #fff;
+    border-radius: 15px;
+    margin: auto;
+    display: grid;
+    margin-top: 20px;
+    color: aliceblue;
+    border-style: solid;    
+    padding: 20px;
+    margin-left: 730px;
+    margin-right: 730px; 
+}
